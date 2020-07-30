@@ -3,8 +3,6 @@ package com.jhw.swing.models.input.panels;
 import com.jhw.swing.material.components.button._MaterialButton;
 import com.jhw.swing.material.components.button._MaterialButtonIconTransparent;
 import com.jhw.swing.material.components.button.prepared._buttonAddEdit;
-import com.jhw.swing.material.components.container.panel._MaterialPanel;
-import com.jhw.swing.material.components.container.panel._PanelComponent;
 import com.jhw.swing.material.components.container.panel._PanelGradient;
 import java.awt.Color;
 import com.jhw.utils.interfaces.Update;
@@ -17,7 +15,6 @@ import com.jhw.swing.material.components.container.panel.prepared._MaterialPanel
 import com.jhw.swing.material.standards.MaterialColors;
 import com.jhw.swing.material.standards.MaterialIcons;
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 
 /**
  *
@@ -36,7 +33,6 @@ public class BaseModelInputPanel<T> extends _PanelGradient implements Update, Mo
     }
 
     private void initComponents() {
-
         panelModelCore = new _MaterialPanelComponent();
         panelButtons = new _PanelTransparent();
         buttonAddEdit = new com.jhw.swing.material.components.button.prepared._buttonAddEdit();
@@ -49,6 +45,7 @@ public class BaseModelInputPanel<T> extends _PanelGradient implements Update, Mo
         panelButtons.setLayout(new BorderLayout());
         panelButtons.add(buttonDelete, BorderLayout.WEST);
         
+        buttonCancel.setText("Cancelar");
         buttonCancel.setPreferredSize(new java.awt.Dimension(125, 50));
 
         HorizontalLayoutContainer.builder hlc = HorizontalLayoutContainer.builder((int) buttonAddEdit.getPreferredSize().getHeight());
@@ -77,8 +74,7 @@ public class BaseModelInputPanel<T> extends _PanelGradient implements Update, Mo
 
         this.setPrimaryColor(MaterialColors.WHITE);
         this.setSecundaryColor(MaterialColors.WHITE);
-        
-        buttonCancel.setText("Cancelar");
+
         buttonCancel.setBackground(PersonalizationHandler.getColor(Personalization.KEY_COLOR_BUTTON_CANCEL));
 
         this.setBackground(PersonalizationHandler.getColor(Personalization.KEY_COLOR_BACKGROUND_PANEL));

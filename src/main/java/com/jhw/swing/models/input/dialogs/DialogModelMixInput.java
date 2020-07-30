@@ -42,7 +42,7 @@ public class DialogModelMixInput<T> extends JDialog implements ModelablePanel<T>
         this.add(basePanel);
 
         int width = basePanel.getPreferredSize().width;
-        int height = basePanel.getPreferredSize().height + basePanel.getPanelGradientButtons().getPreferredSize().height;
+        int height = basePanel.getPreferredSize().height + basePanel.getPanelButtons().getPreferredSize().height;
 
         this.setSize(width, height);
         this.setLocationRelativeTo(null);
