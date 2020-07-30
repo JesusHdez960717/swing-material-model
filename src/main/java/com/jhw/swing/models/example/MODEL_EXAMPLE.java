@@ -3,6 +3,7 @@ package com.jhw.swing.models.example;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import com.jhw.swing.ui.MaterialLookAndFeel;
+import com.jhw.modules.default_config.DefaultConfigSwingModule;
 
 /**
  *
@@ -13,6 +14,7 @@ public class MODEL_EXAMPLE extends javax.swing.JFrame {
     public MODEL_EXAMPLE() {
         initComponents();
         cargoDetail1.update();
+        new DefaultConfigSwingModule().register(null);
     }
 
     /**
