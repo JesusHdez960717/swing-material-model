@@ -27,7 +27,7 @@ public abstract class ModelPanel<T> extends _PanelTransparent implements Update,
 
         labelHeader = new com.jhw.swing.material.components.labels._MaterialLabel();
         labelHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelHeader.setText("Header");
+        labelHeader.setText("");
         labelHeader.setFont(MaterialFontRoboto.BOLD.deriveFont(24f));
 
         this.add(labelHeader, BorderLayout.NORTH);

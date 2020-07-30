@@ -20,8 +20,8 @@ public class CargoInputMixView extends ModelMixPanel {
         CargoDetailView ccdv = new CargoDetailView();
         this.addExtra(ccdv);
 
-        //CargoDetailView sdv = new CargoDetailView();
-        //this.addExtra(sdv);
+        CargoDetailView sdv = new CargoDetailView();
+        this.addExtra(sdv);
     }
 
 }

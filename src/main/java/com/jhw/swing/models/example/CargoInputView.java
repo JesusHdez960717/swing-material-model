@@ -48,11 +48,6 @@ public class CargoInputView extends ModelPanel<CargoModel> {
         v.add(fileChooserPanel);
         v.add(textAreaDescripcion);
 
-        v.add(new _MaterialTextAreaDescripcion());
-        v.add(new _MaterialTextAreaDescripcion());
-        v.add(new _MaterialTextAreaDescripcion());
-        v.add(new _MaterialTextAreaDescripcion());
-        v.add(new _MaterialTextAreaDescripcion());
         this.setComponent(v.build());
     }
 
