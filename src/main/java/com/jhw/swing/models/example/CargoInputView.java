@@ -29,7 +29,7 @@ public class CargoInputView extends ModelPanel<CargoModel> {
 
         labelCargo = new com.jhw.swing.material.components.labels._MaterialLabel();
         textFieldNombre = new com.jhw.swing.material.components.textfield.validated._MaterialTextFieldStringNotEmpty();
-        textAreaDescripcion = new com.jhw.swing.material.components.textarea._MaterialTextArea();
+        textAreaDescripcion = new com.jhw.swing.material.components.textarea.prepared._MaterialTextAreaDescripcion();
         fileChooserPanel = new com.jhw.swing.material.components.filechooser._MaterialFileChooserPanel();
         cargoICBS1 = new com.jhw.swing.models.example.CargoICBS();
 
@@ -61,7 +61,7 @@ public class CargoInputView extends ModelPanel<CargoModel> {
     private com.jhw.swing.models.example.CargoICBS cargoICBS1;
     private com.jhw.swing.material.components.filechooser._MaterialFileChooserPanel fileChooserPanel;
     private com.jhw.swing.material.components.labels._MaterialLabel labelCargo;
-    private com.jhw.swing.material.components.textarea._MaterialTextArea textAreaDescripcion;
+    private com.jhw.swing.material.components.textarea.prepared._MaterialTextAreaDescripcion textAreaDescripcion;
     private com.jhw.swing.material.components.textfield.validated._MaterialTextFieldStringNotEmpty textFieldNombre;
     // End of variables declaration                   
 
