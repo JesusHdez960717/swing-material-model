@@ -2,6 +2,7 @@ package com.jhw.swing.models.input.dialogs;
 
 import com.clean.core.app.services.NotificationsGeneralType;
 import com.clean.core.app.services.Notification;
+import com.jhw.swing.material.components.scrollpane._MaterialScrollPaneCore;
 import com.jhw.swing.models.input.panels.BaseModelInputPanel;
 import com.jhw.swing.models.input.panels.ModelPanel;
 import java.awt.event.KeyEvent;
@@ -13,8 +14,12 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.text.JTextComponent;
 import com.jhw.swing.util.UpdateCascade;
+import com.jhw.swing.util.Utils;
 import com.jhw.utils.interfaces.Update;
 import com.jhw.swing.util.interfaces.ModelablePanel;
+import java.awt.BorderLayout;
+import java.awt.Rectangle;
+import javax.swing.ScrollPaneLayout;
 
 /**
  * Dialogo para la creacion de modelos.<br/>
@@ -32,6 +37,8 @@ public class DialogModelInput<T> extends JDialog implements ModelablePanel<T> {
     private final UpdateCascade aa;
     private boolean closeAfterCreate = true;
 
+    private final _MaterialScrollPaneCore scrollPane = new _MaterialScrollPaneCore();
+
     public DialogModelInput(Update act, boolean close, ModelPanel modelPanel) {
         this(new Update[]{act}, modelPanel);
         this.closeAfterCreate = close;
@@ -45,13 +52,23 @@ public class DialogModelInput<T> extends JDialog implements ModelablePanel<T> {
         super();
         this.aa = new UpdateCascade(act);
         basePanel = new BaseModelInputPanel<>(modelPanel);
-        this.setLayout(new GridLayout(1, 1));
-        this.add(basePanel);
+        this.setLayout(new BorderLayout());
 
+        //add el scroll
+        this.add(scrollPane, BorderLayout.CENTER);
+
+        //add el task pane al scroll
+        scrollPane.setLayout(new ScrollPaneLayout());
+        scrollPane.setViewportView(basePanel);
+
+        Rectangle screen = Utils.getScreenSize();
+
+        int maxWidth = (int) (screen.getWidth() - 75);
+        int maxHeight = (int) (screen.getHeight() - 75);
         int width = basePanel.getPreferredSize().width + 15;
         int height = basePanel.getPreferredSize().height + (isUndecorated() ? 0 : 40);
 
-        this.setSize(width, height);
+        this.setSize(Math.min(maxWidth, width) + 25, Math.min(maxHeight, height) + 25);
         this.setLocationRelativeTo(null);
         this.setUndecorated(false);
         this.setResizable(false);
@@ -62,29 +79,25 @@ public class DialogModelInput<T> extends JDialog implements ModelablePanel<T> {
     }
 
     private void addListeners() {
-        basePanel.getMaterialButtonCancel().addActionListener(new java.awt.event.ActionListener() {
-            @Override
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                onCancelAction();
-            }
+        basePanel.getMaterialButtonCancel().addActionListener((java.awt.event.ActionEvent evt) -> {
+            onCancelAction();
         });
-        basePanel.getMaterialButtonOK().addActionListener(new java.awt.event.ActionListener() {
-            @Override
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                onCreateAction();
-            }
+
+        basePanel.getMaterialButtonOK().addActionListener((java.awt.event.ActionEvent evt) -> {
+            onCreateAction();
         });
-        basePanel.getMaterialButtonDelete().addActionListener(new java.awt.event.ActionListener() {
-            @Override
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                onDeleteAction();
-            }
+
+        basePanel.getMaterialButtonDelete().addActionListener((java.awt.event.ActionEvent evt) -> {
+            onDeleteAction();
         });
+
         this.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 actualizarActualizables();
             }
         });
+
         globalsKeyListeners(basePanel);
     }
 
@@ -98,6 +111,9 @@ public class DialogModelInput<T> extends JDialog implements ModelablePanel<T> {
     }
 
     private void addGlobalKeyListeners(Component c) {
+        if (c == null) {
+            return;
+        }
         //si es text area no hago nada
         if (c instanceof JTextArea) {
             return;

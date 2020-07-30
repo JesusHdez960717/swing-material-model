@@ -5,6 +5,8 @@ import com.clean.core.app.services.Notification;
 import com.jhw.swing.models.input.panels.BaseModelInputPanel;
 import com.jhw.swing.models.input.panels.ModelPanel;
 import com.jhw.swing.material.components.combobox.icbs.InputComboBoxSelection;
+import com.jhw.swing.material.components.scrollpane._MaterialScrollPaneCore;
+import com.jhw.swing.util.Utils;
 import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
@@ -13,7 +15,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.text.JTextComponent;
 import com.jhw.swing.util.interfaces.ModelablePanel;
+import java.awt.BorderLayout;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
+import javax.swing.ScrollPaneLayout;
 
 /**
  * Dialogo para la creacion de modelos en los combo boxes.<br/>
@@ -30,17 +35,29 @@ public class DialogInputCBS<T> extends JDialog implements ModelablePanel<T> {
     private final BaseModelInputPanel<T> basePanel;
     private final InputComboBoxSelection icbs;
 
+    private final _MaterialScrollPaneCore scrollPane = new _MaterialScrollPaneCore();
+
     public DialogInputCBS(InputComboBoxSelection icbs, ModelPanel modelPanel) {
         super();
         this.icbs = icbs;
         basePanel = new BaseModelInputPanel<>(modelPanel);
-        this.setLayout(new GridLayout(1, 1));
-        this.add(basePanel);
+        this.setLayout(new BorderLayout());
 
+        //add el scroll
+        this.add(scrollPane, BorderLayout.CENTER);
+
+        //add el task pane al scroll
+        scrollPane.setLayout(new ScrollPaneLayout());
+        scrollPane.setViewportView(basePanel);
+
+        Rectangle screen = Utils.getScreenSize();
+
+        int maxWidth = (int) (screen.getWidth() - 75);
+        int maxHeight = (int) (screen.getHeight() - 75);
         int width = basePanel.getPreferredSize().width + 15;
         int height = basePanel.getPreferredSize().height + (isUndecorated() ? 0 : 40);
 
-        this.setSize(width, height);
+        this.setSize(Math.min(maxWidth, width) + 25, Math.min(maxHeight, height) + 25);
         this.setLocationRelativeTo(null);
         this.setUndecorated(false);
         this.setResizable(false);
@@ -51,18 +68,14 @@ public class DialogInputCBS<T> extends JDialog implements ModelablePanel<T> {
     }
 
     private void addListeners() {
-        basePanel.getMaterialButtonCancel().addActionListener(new java.awt.event.ActionListener() {
-            @Override
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                onCancelAction();
-            }
+        basePanel.getMaterialButtonCancel().addActionListener((java.awt.event.ActionEvent evt) -> {
+            onCancelAction();
         });
-        basePanel.getMaterialButtonOK().addActionListener(new java.awt.event.ActionListener() {
-            @Override
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                onCreateAction();
-            }
+        
+        basePanel.getMaterialButtonOK().addActionListener((java.awt.event.ActionEvent evt) -> {
+            onCreateAction();
         });
+        
         globalsKeyListeners(basePanel);
     }
 
@@ -76,6 +89,9 @@ public class DialogInputCBS<T> extends JDialog implements ModelablePanel<T> {
     }
 
     private void addGlobalKeyListeners(Component c) {
+        if (c == null) {
+            return;
+        }
         //si es text area no hago nada
         if (c instanceof JTextArea) {
             return;
