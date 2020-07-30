@@ -1,0 +1,26 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.jhw.personalization'
+
+//mainClassName = 'com.jhw.personalization.Main'
+
+repositories {
+    jcenter()
+    mavenCentral()
+}
+
+
+dependencies {
+    testCompile 'junit:junit:4.13'
+    
+    implementation project(':utils')
+    implementation project(':clean-core')
+    implementation project(':clean-swing')
+    implementation project(':material-swing')
+    implementation project(':module-default-config')
+
+    compile group: 'com.google.inject', name: 'guice', version: '4.2.3'
+    compile group: 'javax.inject', name: 'javax.inject', version: '1'
+}

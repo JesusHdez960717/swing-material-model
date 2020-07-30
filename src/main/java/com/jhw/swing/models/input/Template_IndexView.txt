@@ -1,0 +1,42 @@
+<#if package?? && package != "">
+package ${package};
+</#if>
+
+import bundles.models.detail.DialogDetail;
+import bundles.models.index._MaterialPanelIndex;
+import bundles.models.input.dialogs.DialogModelInput;
+
+/**
+ *
+ * @author ${user}
+ */
+public class ${name}IndexView extends _MaterialPanelIndex {
+
+    public ${name}IndexView() {
+        this.setMainText("${name}");
+
+        this.addDetailedText("Administra los ${name}");
+        this.addDetailedText("Ejemplo: Ejemplo1, Ejemplo2");
+
+        this.addButtonAddListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                onButtonAddActionPerformed();
+            }
+        });
+
+        this.addButtonViewListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                onButtonViewActionPerformed();
+            }
+        });
+    }
+
+    private void onButtonAddActionPerformed() {
+        new DialogModelInput(this, new ${name}InputView());
+    }
+
+    private void onButtonViewActionPerformed() {
+        new DialogDetail(this, "${name}", new ${name}DetailView());
+    }
+
+}
