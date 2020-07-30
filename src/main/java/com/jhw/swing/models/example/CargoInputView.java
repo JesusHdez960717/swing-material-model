@@ -5,6 +5,7 @@ import com.clean.core.app.services.NotificationsGeneralType;
 import com.jhw.swing.material.components.container.layout.HorizontalLayoutComponent;
 import com.jhw.swing.material.components.container.layout.HorizontalLayoutContainer;
 import com.jhw.swing.material.components.container.layout.VerticalLayoutContainer;
+import com.jhw.swing.material.components.textarea.prepared._MaterialTextAreaDescripcion;
 import com.jhw.swing.material.standards.MaterialFontRoboto;
 import com.jhw.swing.models.input.panels.ModelPanel;
 import java.awt.Desktop;
@@ -47,6 +48,11 @@ public class CargoInputView extends ModelPanel<CargoModel> {
         v.add(fileChooserPanel);
         v.add(textAreaDescripcion);
 
+        v.add(new _MaterialTextAreaDescripcion());
+        v.add(new _MaterialTextAreaDescripcion());
+        v.add(new _MaterialTextAreaDescripcion());
+        v.add(new _MaterialTextAreaDescripcion());
+        v.add(new _MaterialTextAreaDescripcion());
         this.setComponent(v.build());
     }
 
