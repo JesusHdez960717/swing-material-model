@@ -6,6 +6,7 @@ import com.jhw.swing.models.input.dialogs.DialogModelInput;
 import javax.swing.ImageIcon;
 import com.jhw.swing.material.standards.MaterialIcons;
 import com.jhw.swing.material.standards.MaterialImages;
+import com.jhw.swing.models.input.dialogs.DialogModelMixInput;
 
 /**
  *
@@ -33,7 +34,7 @@ public class CargoIndexView extends _MaterialPanelIndex {
     }
 
     private void onButtonAddActionPerformed() {
-        new DialogModelInput(this, new CargoInputView(null));
+        new DialogModelMixInput<CargoModel>(this, new CargoInputMixView());
     }
 
     private void onButtonViewActionPerformed() {
