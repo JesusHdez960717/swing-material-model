@@ -26,23 +26,16 @@ public class CargoInputView extends ModelPanel<CargoModel> {
 
     @SuppressWarnings("unchecked")
     private void initComponents() {
-
-        labelCargo = new com.jhw.swing.material.components.labels._MaterialLabel();
+        setHeader("Cargo");
         textFieldNombre = new com.jhw.swing.material.components.textfield.validated._MaterialTextFieldStringNotEmpty();
         textAreaDescripcion = new com.jhw.swing.material.components.textarea.prepared._MaterialTextAreaDescripcion();
         fileChooserPanel = new com.jhw.swing.material.components.filechooser._MaterialFileChooserPanel();
         cargoICBS1 = new com.jhw.swing.models.example.CargoICBS();
 
-        labelCargo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelCargo.setText("Cargo");
-        labelCargo.setFont(MaterialFontRoboto.BOLD.deriveFont(24f)); // NOI18N
-
         textFieldNombre.setHint("Nombre del cargo");
         textFieldNombre.setLabel("Cargo");
 
         VerticalLayoutContainer.builder v = VerticalLayoutContainer.builder();
-
-        v.add(labelCargo);
 
         //HorizontalLayoutContainer.builder hlc = HorizontalLayoutContainer.builder((int) cargoICBS1.getPreferredSize().getHeight());
         //hlc.add(HorizontalLayoutComponent.builder(textFieldNombre).build());
@@ -60,7 +53,6 @@ public class CargoInputView extends ModelPanel<CargoModel> {
     // Variables declaration - do not modify
     private com.jhw.swing.models.example.CargoICBS cargoICBS1;
     private com.jhw.swing.material.components.filechooser._MaterialFileChooserPanel fileChooserPanel;
-    private com.jhw.swing.material.components.labels._MaterialLabel labelCargo;
     private com.jhw.swing.material.components.textarea.prepared._MaterialTextAreaDescripcion textAreaDescripcion;
     private com.jhw.swing.material.components.textfield.validated._MaterialTextFieldStringNotEmpty textFieldNombre;
     // End of variables declaration                   
@@ -74,9 +66,9 @@ public class CargoInputView extends ModelPanel<CargoModel> {
 
     private void personalize() {
         if (model == null) {
-            labelCargo.setText("Nuevo Cargo");
+            setHeader("Nuevo Cargo");
         } else {
-            labelCargo.setText("Editar Cargo");
+            setHeader("Editar Cargo");
 
             textFieldNombre.setString(getOldModel().getNombreCargo());
             textAreaDescripcion.setText(getOldModel().getDescripcion());
