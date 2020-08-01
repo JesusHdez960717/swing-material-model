@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 import com.jhw.utils.interfaces.Update;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import javax.swing.border.EmptyBorder;
 
 /**
@@ -93,6 +94,7 @@ public abstract class ModelMixPanel<T> extends _PanelTransparent {
     }
 
     public void addExtra(Component extra) {
+        extra.setPreferredSize(new Dimension(Math.max((int) extra.getPreferredSize().getWidth(), 600), extra.getPreferredSize().height));
         this.extras.add(extra);
         personalize();
     }

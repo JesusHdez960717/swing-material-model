@@ -58,7 +58,7 @@ public class DialogModelMixInput<T> extends JDialog implements ModelablePanel<T>
 
         int maxWidth = (int) (screen.getWidth() - 75);
         int maxHeight = (int) (screen.getHeight() - 75);
-        int width = basePanel.getPreferredSize().width;
+        int width = basePanel.getPreferredSize().width + 25;
         int height = basePanel.getPreferredSize().height + 25;
 
         this.setSize(Math.min(maxWidth, width) + 25, Math.min(maxHeight, height) + 25);
