@@ -189,6 +189,9 @@ public class DialogModelInput<T> extends JDialog implements ModelablePanel<T> {
         try {
             if (Notification.showConfirmDialog(NotificationsGeneralType.CONFIRM_DELETE)) {
                 obj = basePanel.onDeleteAction();
+                if (obj != null) {
+                    Notification.showNotification(NotificationsGeneralType.NOTIFICATION_DELETE, obj);
+                }
             }
         } catch (Exception e) {
         }
@@ -204,9 +207,7 @@ public class DialogModelInput<T> extends JDialog implements ModelablePanel<T> {
                 if (Notification.showConfirmDialog(NotificationsGeneralType.CONFIRM_CREATE)) {
                     obj = basePanel.onCreateAction();
                     if (obj != null) {
-                        if (create) {
-                            Notification.showNotification(NotificationsGeneralType.NOTIFICATION_CREATE, obj);
-                        }
+                        Notification.showNotification(NotificationsGeneralType.NOTIFICATION_CREATE, obj);
                     }
                 }
             } else {
@@ -239,11 +240,11 @@ public class DialogModelInput<T> extends JDialog implements ModelablePanel<T> {
 
     @Override
     public T onPostCreateAction(T obj) {
+        try {
+            obj = basePanel.onPostCreateAction(obj);
+        } catch (Exception e) {
+        }
         if (obj != null) {
-            try {
-                basePanel.onPostCreateAction(obj);
-            } catch (Exception e) {
-            }
             actualizarActualizables();
             basePanel.setOldModel(obj);
             basePanel.update();
@@ -256,13 +257,12 @@ public class DialogModelInput<T> extends JDialog implements ModelablePanel<T> {
 
     @Override
     public T onPostDeleteAction(T obj) {
+        try {
+            obj = basePanel.onPostDeleteAction(obj);
+        } catch (Exception e) {
+        }
         if (obj != null) {
-            try {
-                basePanel.onPostDeleteAction(obj);
-            } catch (Exception e) {
-            }
             actualizarActualizables();
-            Notification.showNotification(NotificationsGeneralType.NOTIFICATION_DELETE, obj);
             dispose();
         }
         return obj;

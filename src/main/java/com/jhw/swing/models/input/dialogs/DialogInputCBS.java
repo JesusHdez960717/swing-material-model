@@ -71,11 +71,11 @@ public class DialogInputCBS<T> extends JDialog implements ModelablePanel<T> {
         basePanel.getMaterialButtonCancel().addActionListener((java.awt.event.ActionEvent evt) -> {
             onCancelAction();
         });
-        
+
         basePanel.getMaterialButtonOK().addActionListener((java.awt.event.ActionEvent evt) -> {
             onCreateAction();
         });
-        
+
         globalsKeyListeners(basePanel);
     }
 
@@ -172,6 +172,9 @@ public class DialogInputCBS<T> extends JDialog implements ModelablePanel<T> {
         try {
             if (Notification.showConfirmDialog(NotificationsGeneralType.CONFIRM_CREATE)) {
                 obj = basePanel.onCreateAction();
+                if (obj != null) {
+                    Notification.showConfirmDialog(NotificationsGeneralType.NOTIFICATION_CREATE, obj);
+                }
             }
         } catch (Exception e) {
         }
@@ -195,13 +198,12 @@ public class DialogInputCBS<T> extends JDialog implements ModelablePanel<T> {
     @Override
     public T onPostCreateAction(T obj) {
         try {
-            basePanel.onPostCreateAction(obj);
+            obj = basePanel.onPostCreateAction(obj);
         } catch (Exception e) {
         }
         if (obj != null) {
-            icbs.actualizarComboBox();
+            icbs.update();
             icbs.setSelectedItem(obj);
-            Notification.showConfirmDialog(NotificationsGeneralType.NOTIFICATION_CREATE, obj);
             dispose();
         }
         return obj;

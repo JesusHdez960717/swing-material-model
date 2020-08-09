@@ -173,6 +173,9 @@ public class DialogModelMixInput<T> extends JDialog implements ModelablePanel<T>
         try {
             if (Notification.showConfirmDialog(NotificationsGeneralType.CONFIRM_DELETE)) {
                 obj = basePanel.onDeleteAction();
+                if (obj != null) {
+                    Notification.showNotification(NotificationsGeneralType.NOTIFICATION_DELETE, obj);
+                }
             }
         } catch (Exception e) {
         }
@@ -187,12 +190,16 @@ public class DialogModelMixInput<T> extends JDialog implements ModelablePanel<T>
             if (create) {
                 if (Notification.showConfirmDialog(NotificationsGeneralType.CONFIRM_CREATE)) {
                     obj = basePanel.onCreateAction();
-                    Notification.showNotification(NotificationsGeneralType.NOTIFICATION_CREATE, obj);
+                    if (obj != null) {
+                        Notification.showNotification(NotificationsGeneralType.NOTIFICATION_CREATE, obj);
+                    }
                 }
             } else {
                 if (Notification.showConfirmDialog(NotificationsGeneralType.CONFIRM_EDIT)) {
                     obj = basePanel.onCreateAction();
-                    Notification.showNotification(NotificationsGeneralType.NOTIFICATION_EDIT, obj);
+                    if (obj != null) {
+                        Notification.showNotification(NotificationsGeneralType.NOTIFICATION_EDIT, obj);
+                    }
                 }
             }
         } catch (Exception e) {
@@ -217,11 +224,11 @@ public class DialogModelMixInput<T> extends JDialog implements ModelablePanel<T>
 
     @Override
     public T onPostCreateAction(T obj) {
+        try {
+            basePanel.onPostCreateAction(obj);
+        } catch (Exception e) {
+        }
         if (obj != null) {
-            try {
-                basePanel.onPostCreateAction(obj);
-            } catch (Exception e) {
-            }
             actualizarActualizables();
             basePanel.setOldModel(obj);
             basePanel.update();
@@ -231,16 +238,13 @@ public class DialogModelMixInput<T> extends JDialog implements ModelablePanel<T>
 
     @Override
     public T onPostDeleteAction(T obj) {
+        try {
+            obj = (T) basePanel.onPostDeleteAction(obj);
+        } catch (Exception e) {
+        }
         if (obj != null) {
-            try {
-                obj = (T) basePanel.onPostDeleteAction(obj);
-            } catch (Exception e) {
-            }
-            if (obj != null) {
-                actualizarActualizables();
-                Notification.showNotification(NotificationsGeneralType.NOTIFICATION_DELETE, obj);
-                dispose();
-            }
+            actualizarActualizables();
+            dispose();
         }
         return obj;
     }
