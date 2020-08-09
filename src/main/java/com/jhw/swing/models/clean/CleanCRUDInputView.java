@@ -16,6 +16,7 @@ import java.lang.reflect.Field;
 import java.util.Map;
 import com.jhw.swing.util.interfaces.BindableComponent;
 import com.jhw.utils.interfaces.Update;
+import java.util.HashMap;
 
 /**
  *
@@ -159,6 +160,11 @@ public abstract class CleanCRUDInputView<T> extends ModelPanel<T> {
                 }
             }
         }
+    }
+
+    @Override
+    public Map<String, Object> bindFields() {
+        return new HashMap<>();
     }
 
 }
