@@ -14,7 +14,6 @@ import com.jhw.swing.material.components.container.panel._PanelTransparent;
 import com.jhw.swing.material.components.container.panel.prepared._MaterialPanelComponent;
 import com.jhw.swing.material.standards.MaterialColors;
 import com.jhw.swing.material.standards.MaterialIcons;
-import com.jhw.swing.util.interfaces.Wrong;
 import java.awt.BorderLayout;
 import java.util.Map;
 
@@ -88,7 +87,7 @@ public class BaseModelInputPanel<T> extends _PanelGradient implements Update, Mo
     }
 
     @Override
-    public T getNewModel() {
+    public T getNewModel() throws Exception {
         return (T) modelPanel.getNewModel();
     }
 

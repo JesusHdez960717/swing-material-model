@@ -136,7 +136,7 @@ public class DialogInputCBS<T> extends JDialog implements ModelablePanel<T> {
     }
 
     @Override
-    public T getNewModel() {
+    public T getNewModel() throws Exception {
         return (T) basePanel.getNewModel();
     }
 

@@ -82,7 +82,7 @@ public class BaseModelInputMixPanel<T> extends _PanelGradient implements Update,
     }
 
     @Override
-    public T getNewModel() {
+    public T getNewModel() throws Exception {
         return (T) modelPanel.getModelPanel().getNewModel();
     }
 

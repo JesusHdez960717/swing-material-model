@@ -1,6 +1,5 @@
 package com.jhw.swing.models.input;
 
-import com.jhw.swing.util.interfaces.Wrong;
 import java.util.Map;
 
 /**
@@ -12,7 +11,7 @@ import java.util.Map;
  */
 public interface ModelablePanel<T> {
 
-    public T getNewModel();
+    public T getNewModel() throws Exception;
 
     public T getOldModel();
 
