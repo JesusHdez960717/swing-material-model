@@ -26,3 +26,4 @@ hs_err_pid*
 .gradle
 *.DS_Store
 build/
+/src/main/java/com/jhw/swing/models/TEST/
