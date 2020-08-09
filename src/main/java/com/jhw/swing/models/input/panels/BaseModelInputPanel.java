@@ -6,7 +6,7 @@ import com.jhw.swing.material.components.button.prepared._buttonAddEdit;
 import com.jhw.swing.material.components.container.panel._PanelGradient;
 import java.awt.Color;
 import com.jhw.utils.interfaces.Update;
-import com.jhw.swing.util.interfaces.ModelablePanel;
+import com.jhw.swing.models.input.ModelablePanel;
 import com.jhw.personalization.core.domain.Personalization;
 import com.jhw.personalization.services.PersonalizationHandler;
 import com.jhw.swing.material.components.container.layout.HorizontalLayoutContainer;

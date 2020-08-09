@@ -9,7 +9,7 @@ import com.jhw.personalization.core.domain.Personalization;
 import com.jhw.personalization.services.PersonalizationHandler;
 import com.jhw.swing.material.components.container.panel._PanelTransparent;
 import com.jhw.utils.interfaces.Update;
-import com.jhw.swing.util.interfaces.ModelablePanel;
+import com.jhw.swing.models.input.ModelablePanel;
 import com.jhw.swing.material.standards.MaterialColors;
 import com.jhw.swing.material.standards.MaterialIcons;
 import java.awt.BorderLayout;

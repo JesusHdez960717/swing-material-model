@@ -14,7 +14,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.text.JTextComponent;
-import com.jhw.swing.util.interfaces.ModelablePanel;
+import com.jhw.swing.models.input.ModelablePanel;
 import java.awt.BorderLayout;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;

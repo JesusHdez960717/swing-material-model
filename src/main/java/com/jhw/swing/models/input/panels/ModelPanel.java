@@ -1,6 +1,6 @@
 package com.jhw.swing.models.input.panels;
 
-import com.jhw.swing.util.interfaces.ModelablePanel;
+import com.jhw.swing.models.input.ModelablePanel;
 import com.jhw.swing.material.components.container.panel._PanelTransparent;
 import com.jhw.swing.material.components.labels._MaterialLabel;
 import com.jhw.swing.material.standards.MaterialFontRoboto;

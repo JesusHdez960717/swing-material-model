@@ -16,7 +16,7 @@ import javax.swing.text.JTextComponent;
 import com.jhw.swing.util.UpdateCascade;
 import com.jhw.swing.util.Utils;
 import com.jhw.utils.interfaces.Update;
-import com.jhw.swing.util.interfaces.ModelablePanel;
+import com.jhw.swing.models.input.ModelablePanel;
 import java.awt.BorderLayout;
 import java.awt.Rectangle;
 import javax.swing.ScrollPaneLayout;
