@@ -28,5 +28,5 @@ public interface ModelablePanel<T> {
 
     public T onPostDeleteAction(T obj);
 
-    public Map<String, Wrong> bindComponentsModel();
+    public Map<String, Object> bindFields();
 }

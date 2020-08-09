@@ -73,7 +73,7 @@ public abstract class ModelPanel<T> extends _PanelTransparent implements Update,
     }
 
     @Override
-    public Map<String, Wrong> bindComponentsModel() {
+    public Map<String, Object> bindFields() {
         return new HashMap<>();
     }
 

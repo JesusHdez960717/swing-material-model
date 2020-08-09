@@ -122,8 +122,8 @@ public class BaseModelInputMixPanel<T> extends _PanelGradient implements Update,
     }
 
     @Override
-    public Map<String, Wrong> bindComponentsModel() {
-        return modelPanel.getModelPanel().bindComponentsModel();
+    public Map<String, Object> bindFields() {
+        return modelPanel.getModelPanel().bindFields();
     }
 
     public void setCancelColor(Color cancelColor) {

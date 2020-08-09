@@ -128,8 +128,8 @@ public class BaseModelInputPanel<T> extends _PanelGradient implements Update, Mo
     }
 
     @Override
-    public Map<String, Wrong> bindComponentsModel() {
-        return modelPanel.bindComponentsModel();
+    public Map<String, Object> bindFields() {
+        return modelPanel.bindFields();
     }
 
     public void setOkColor(Color okColor) {

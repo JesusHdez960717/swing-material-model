@@ -174,8 +174,8 @@ public class DialogModelInput<T> extends JDialog implements ModelablePanel<T> {
     }
 
     @Override
-    public Map<String, Wrong> bindComponentsModel() {
-        return basePanel.bindComponentsModel();
+    public Map<String, Object> bindFields() {
+        return basePanel.bindFields();
     }
 
     public BaseModelInputPanel<T> getBasePanel() {
