@@ -12,7 +12,9 @@ import com.jhw.utils.interfaces.Update;
 import com.jhw.swing.models.input.ModelablePanel;
 import com.jhw.swing.material.standards.MaterialColors;
 import com.jhw.swing.material.standards.MaterialIcons;
+import com.jhw.swing.util.interfaces.Wrong;
 import java.awt.BorderLayout;
+import java.util.Map;
 
 /**
  *
@@ -117,6 +119,11 @@ public class BaseModelInputMixPanel<T> extends _PanelGradient implements Update,
     @Override
     public boolean onCancelAction() {
         return modelPanel.getModelPanel().onCancelAction();
+    }
+
+    @Override
+    public Map<String, Wrong> bindComponentsModel() {
+        return modelPanel.getModelPanel().bindComponentsModel();
     }
 
     public void setCancelColor(Color cancelColor) {

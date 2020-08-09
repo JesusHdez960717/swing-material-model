@@ -17,8 +17,10 @@ import com.jhw.swing.util.UpdateCascade;
 import com.jhw.swing.util.Utils;
 import com.jhw.utils.interfaces.Update;
 import com.jhw.swing.models.input.ModelablePanel;
+import com.jhw.swing.util.interfaces.Wrong;
 import java.awt.BorderLayout;
 import java.awt.Rectangle;
+import java.util.Map;
 import javax.swing.ScrollPaneLayout;
 
 /**
@@ -169,6 +171,11 @@ public class DialogModelInput<T> extends JDialog implements ModelablePanel<T> {
     @Override
     public void setOldModel(T model) {
         basePanel.setOldModel(model);
+    }
+
+    @Override
+    public Map<String, Wrong> bindComponentsModel() {
+        return basePanel.bindComponentsModel();
     }
 
     public BaseModelInputPanel<T> getBasePanel() {

@@ -20,6 +20,8 @@ import java.awt.BorderLayout;
 import java.awt.Rectangle;
 import javax.swing.ScrollPaneLayout;
 import com.jhw.swing.util.Utils;
+import com.jhw.swing.util.interfaces.Wrong;
+import java.util.Map;
 
 /**
  * Dialogo para la creacion de modelos mixtos.<br/>
@@ -152,6 +154,11 @@ public class DialogModelMixInput<T> extends JDialog implements ModelablePanel<T>
     @Override
     public T getOldModel() {
         return (T) basePanel.getOldModel();
+    }
+
+    @Override
+    public Map<String, Wrong> bindComponentsModel() {
+        return basePanel.bindComponentsModel();
     }
 
     @Override

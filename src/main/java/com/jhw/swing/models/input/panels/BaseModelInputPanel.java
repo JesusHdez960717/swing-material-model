@@ -14,7 +14,9 @@ import com.jhw.swing.material.components.container.panel._PanelTransparent;
 import com.jhw.swing.material.components.container.panel.prepared._MaterialPanelComponent;
 import com.jhw.swing.material.standards.MaterialColors;
 import com.jhw.swing.material.standards.MaterialIcons;
+import com.jhw.swing.util.interfaces.Wrong;
 import java.awt.BorderLayout;
+import java.util.Map;
 
 /**
  *
@@ -44,7 +46,7 @@ public class BaseModelInputPanel<T> extends _PanelGradient implements Update, Mo
 
         panelButtons.setLayout(new BorderLayout());
         panelButtons.add(buttonDelete, BorderLayout.WEST);
-        
+
         buttonCancel.setText("Cancelar");
         buttonCancel.setPreferredSize(new java.awt.Dimension(125, 50));
 
@@ -123,6 +125,11 @@ public class BaseModelInputPanel<T> extends _PanelGradient implements Update, Mo
     @Override
     public boolean onCancelAction() {
         return modelPanel.onCancelAction();
+    }
+
+    @Override
+    public Map<String, Wrong> bindComponentsModel() {
+        return modelPanel.bindComponentsModel();
     }
 
     public void setOkColor(Color okColor) {

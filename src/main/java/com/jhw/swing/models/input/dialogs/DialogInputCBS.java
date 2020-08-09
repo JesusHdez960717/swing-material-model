@@ -8,16 +8,17 @@ import com.jhw.swing.material.components.combobox.icbs.InputComboBoxSelection;
 import com.jhw.swing.material.components.scrollpane._MaterialScrollPaneCore;
 import com.jhw.swing.util.Utils;
 import java.awt.Component;
-import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.text.JTextComponent;
 import com.jhw.swing.models.input.ModelablePanel;
+import com.jhw.swing.util.interfaces.Wrong;
 import java.awt.BorderLayout;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
+import java.util.Map;
 import javax.swing.ScrollPaneLayout;
 
 /**
@@ -147,6 +148,11 @@ public class DialogInputCBS<T> extends JDialog implements ModelablePanel<T> {
     @Override
     public void setOldModel(T model) {
         basePanel.setOldModel(model);
+    }
+
+    @Override
+    public Map<String, Wrong> bindComponentsModel() {
+        return basePanel.bindComponentsModel();
     }
 
     public BaseModelInputPanel<T> getBasePanel() {
