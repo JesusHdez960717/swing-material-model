@@ -7,7 +7,13 @@ package com.jhw.swing.models.clean;
 
 import com.clean.core.app.services.ExceptionHandler;
 import com.clean.core.app.usecase.CRUDUseCase;
+import com.clean.core.exceptions.ValidationException;
+import com.clean.core.utils.validation.ValidationMessage;
+import com.clean.core.utils.validation.ValidationResult;
 import com.jhw.swing.models.input.panels.ModelPanel;
+import com.jhw.swing.util.interfaces.Wrong;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -44,6 +50,9 @@ public abstract class CleanCRUDInputView<T> extends ModelPanel<T> {
             } else {
                 return uc.edit(object);
             }
+        } catch (ValidationException valExc) {
+            bindErrors(valExc);
+            ExceptionHandler.handleException(valExc);
         } catch (Exception e) {
             ExceptionHandler.handleException(e);
         }
@@ -53,6 +62,15 @@ public abstract class CleanCRUDInputView<T> extends ModelPanel<T> {
     @Override
     public boolean onCancelAction() {
         return true;
+    }
+
+    private void bindErrors(ValidationException valExc) {
+        Map<String, Wrong> bindMap = bindComponentsModel();
+        for (ValidationMessage error : valExc.getValidationErrors().getMessages()) {
+            if (bindMap.containsKey(error.getSource())) {
+                bindMap.get(error.getSource()).wrong(error.getMessage());
+            }
+        }
     }
 
 }
