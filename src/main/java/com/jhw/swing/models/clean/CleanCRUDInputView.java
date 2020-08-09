@@ -11,7 +11,10 @@ import com.clean.core.exceptions.ValidationException;
 import com.clean.core.utils.validation.ValidationMessage;
 import com.jhw.swing.models.input.panels.ModelPanel;
 import com.jhw.swing.util.interfaces.Wrong;
+import com.jhw.utils.jackson.JACKSON;
+import java.lang.reflect.Field;
 import java.util.Map;
+import com.jhw.swing.util.interfaces.BindableComponent;
 
 /**
  *
@@ -20,10 +23,48 @@ import java.util.Map;
 public abstract class CleanCRUDInputView<T> extends ModelPanel<T> {
 
     private final CRUDUseCase<T> uc;
+    private final Class<? extends T> clazz;
 
     public CleanCRUDInputView(T model, CRUDUseCase<T> uc) {
+        this(model, uc, null);
+    }
+
+    public CleanCRUDInputView(T model, CRUDUseCase<T> uc, Class<? extends T> clazz) {
         super(model);
+        this.clazz = clazz;
         this.uc = uc;
+    }
+
+    @Override
+    public T getNewModel() throws Exception {
+        if (clazz == null) {
+            throw new NullPointerException("No se puede crear automáticamente un nuevo objeto sin clase asignada");
+        }
+        T newObject;
+        if (getOldModel() == null) {//create
+            newObject = clazz.newInstance();
+        } else {//edit
+            newObject = getOldModel();
+        }
+
+        Map<String, Object> bindMap = bindFields();
+        for (String fieldName : bindMap.keySet()) {
+            Field f = clazz.getDeclaredField(fieldName);
+            f.setAccessible(true);
+            f.set(newObject, getValue(f.getType(), bindMap.get(fieldName)));
+        }
+        return newObject;
+    }
+
+    private <T> T getValue(Class<T> fieldType, Object componentBinded) throws Exception {
+        try {
+            return JACKSON.convert(((BindableComponent) componentBinded).getObject(), fieldType);
+        } catch (Exception e) {
+            if (componentBinded instanceof Wrong) {
+                ((Wrong) componentBinded).wrong("Valor incorrecto para este campo");
+            }
+            throw e;
+        }
     }
 
     @Override
@@ -66,7 +107,7 @@ public abstract class CleanCRUDInputView<T> extends ModelPanel<T> {
         Map<String, Object> bindMap = bindFields();
         for (ValidationMessage error : valExc.getValidationErrors().getMessages()) {
             if (bindMap.containsKey(error.getSource()) && bindMap.get(error.getSource()) instanceof Wrong) {
-                ((Wrong)bindMap.get(error.getSource())).wrong(error.getMessage());
+                ((Wrong) bindMap.get(error.getSource())).wrong(error.getMessage());
             }
         }
     }
