@@ -23,6 +23,7 @@ public class CargoInputView extends ModelPanel<CargoModel> {
         super(model);
         initComponents();
         addListeners();
+        personalize();
         update();
     }
 
@@ -61,9 +62,7 @@ public class CargoInputView extends ModelPanel<CargoModel> {
 
     @Override
     public void update() {
-        personalize();
-
-        cargoICBS1.actualizarComboBox();
+        cargoICBS1.update();
     }
 
     private void personalize() {
