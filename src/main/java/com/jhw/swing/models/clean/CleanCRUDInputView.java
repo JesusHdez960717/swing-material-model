@@ -15,12 +15,16 @@ import com.jhw.utils.jackson.JACKSON;
 import java.lang.reflect.Field;
 import java.util.Map;
 import com.jhw.swing.util.interfaces.BindableComponent;
+import com.jhw.utils.interfaces.Update;
 
 /**
  *
  * @author Jesus Hernandez Barrios (jhernandezb96@gmail.com)
  */
 public abstract class CleanCRUDInputView<T> extends ModelPanel<T> {
+
+    private String headerNew;
+    private String headerEdit;
 
     private final CRUDUseCase<T> uc;
     private final Class<? extends T> clazz;
@@ -38,7 +42,7 @@ public abstract class CleanCRUDInputView<T> extends ModelPanel<T> {
     @Override
     public T getNewModel() throws Exception {
         if (clazz == null) {
-            throw new NullPointerException("No se puede crear automáticamente un nuevo objeto sin clase asignada");
+            throw new Exception("No se puede crear automáticamente un nuevo objeto sin clase asignada");
         }
         T newObject;
         if (getOldModel() == null) {//create
@@ -108,6 +112,51 @@ public abstract class CleanCRUDInputView<T> extends ModelPanel<T> {
         for (ValidationMessage error : valExc.getValidationErrors().getMessages()) {
             if (bindMap.containsKey(error.getSource()) && bindMap.get(error.getSource()) instanceof Wrong) {
                 ((Wrong) bindMap.get(error.getSource())).wrong(error.getMessage());
+            }
+        }
+    }
+
+    protected void setHeader(String headerNew, String headerEdit) {
+        this.headerNew = headerNew;
+        this.headerEdit = headerEdit;
+    }
+
+    public String getHeaderNew() {
+        return headerNew;
+    }
+
+    public String getHeaderEdit() {
+        return headerEdit;
+    }
+
+    @Override
+    public void update() {
+        Map<String, Object> bindMap = bindFields();
+
+        //update all fields
+        for (String fieldName : bindMap.keySet()) {
+            Object component = bindMap.get(fieldName);
+            if (component instanceof Update) {//update primero y luego pongo el valor
+                ((Update) component).update();
+            }
+        }
+
+        if (getOldModel() == null) {
+            setHeader(getHeaderNew());
+        } else {
+            setHeader(getHeaderEdit());
+
+            for (String fieldName : bindMap.keySet()) {
+                try {
+                    Object component = bindMap.get(fieldName);
+                    if (component instanceof BindableComponent) {
+                        Field f = clazz.getDeclaredField(fieldName);
+                        f.setAccessible(true);
+                        ((BindableComponent) component).setObject(f.get(getOldModel()));
+                    }
+                } catch (Exception e) {
+                    ExceptionHandler.handleException(e);
+                }
             }
         }
     }

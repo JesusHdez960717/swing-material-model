@@ -4,7 +4,6 @@ import com.jhw.swing.models.input.ModelablePanel;
 import com.jhw.swing.material.components.container.panel._PanelTransparent;
 import com.jhw.swing.material.components.labels._MaterialLabel;
 import com.jhw.swing.material.standards.MaterialFontRoboto;
-import com.jhw.swing.util.interfaces.Wrong;
 import com.jhw.utils.interfaces.Update;
 import java.awt.BorderLayout;
 import java.awt.Component;
