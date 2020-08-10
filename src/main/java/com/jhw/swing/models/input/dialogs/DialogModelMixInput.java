@@ -15,11 +15,13 @@ import javax.swing.JTextArea;
 import javax.swing.text.JTextComponent;
 import com.jhw.swing.util.UpdateCascade;
 import com.jhw.utils.interfaces.Update;
-import com.jhw.swing.util.interfaces.ModelablePanel;
+import com.jhw.swing.models.input.ModelablePanel;
 import java.awt.BorderLayout;
 import java.awt.Rectangle;
 import javax.swing.ScrollPaneLayout;
 import com.jhw.swing.util.Utils;
+import com.jhw.swing.util.interfaces.Wrong;
+import java.util.Map;
 
 /**
  * Dialogo para la creacion de modelos mixtos.<br/>
@@ -145,13 +147,18 @@ public class DialogModelMixInput<T> extends JDialog implements ModelablePanel<T>
     }
 
     @Override
-    public T getNewModel() {
+    public T getNewModel() throws Exception {
         return (T) basePanel.getNewModel();
     }
 
     @Override
     public T getOldModel() {
         return (T) basePanel.getOldModel();
+    }
+
+    @Override
+    public Map<String, Object> bindFields() {
+        return basePanel.bindFields();
     }
 
     @Override

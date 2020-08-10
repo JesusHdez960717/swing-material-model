@@ -6,7 +6,7 @@ import com.jhw.swing.material.components.button.prepared._buttonAddEdit;
 import com.jhw.swing.material.components.container.panel._PanelGradient;
 import java.awt.Color;
 import com.jhw.utils.interfaces.Update;
-import com.jhw.swing.util.interfaces.ModelablePanel;
+import com.jhw.swing.models.input.ModelablePanel;
 import com.jhw.personalization.core.domain.Personalization;
 import com.jhw.personalization.services.PersonalizationHandler;
 import com.jhw.swing.material.components.container.layout.HorizontalLayoutContainer;
@@ -15,6 +15,7 @@ import com.jhw.swing.material.components.container.panel.prepared._MaterialPanel
 import com.jhw.swing.material.standards.MaterialColors;
 import com.jhw.swing.material.standards.MaterialIcons;
 import java.awt.BorderLayout;
+import java.util.Map;
 
 /**
  *
@@ -44,7 +45,7 @@ public class BaseModelInputPanel<T> extends _PanelGradient implements Update, Mo
 
         panelButtons.setLayout(new BorderLayout());
         panelButtons.add(buttonDelete, BorderLayout.WEST);
-        
+
         buttonCancel.setText("Cancelar");
         buttonCancel.setPreferredSize(new java.awt.Dimension(125, 50));
 
@@ -86,7 +87,7 @@ public class BaseModelInputPanel<T> extends _PanelGradient implements Update, Mo
     }
 
     @Override
-    public T getNewModel() {
+    public T getNewModel() throws Exception {
         return (T) modelPanel.getNewModel();
     }
 
@@ -123,6 +124,11 @@ public class BaseModelInputPanel<T> extends _PanelGradient implements Update, Mo
     @Override
     public boolean onCancelAction() {
         return modelPanel.onCancelAction();
+    }
+
+    @Override
+    public Map<String, Object> bindFields() {
+        return modelPanel.bindFields();
     }
 
     public void setOkColor(Color okColor) {

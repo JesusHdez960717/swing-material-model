@@ -9,10 +9,12 @@ import com.jhw.personalization.core.domain.Personalization;
 import com.jhw.personalization.services.PersonalizationHandler;
 import com.jhw.swing.material.components.container.panel._PanelTransparent;
 import com.jhw.utils.interfaces.Update;
-import com.jhw.swing.util.interfaces.ModelablePanel;
+import com.jhw.swing.models.input.ModelablePanel;
 import com.jhw.swing.material.standards.MaterialColors;
 import com.jhw.swing.material.standards.MaterialIcons;
+import com.jhw.swing.util.interfaces.Wrong;
 import java.awt.BorderLayout;
+import java.util.Map;
 
 /**
  *
@@ -80,7 +82,7 @@ public class BaseModelInputMixPanel<T> extends _PanelGradient implements Update,
     }
 
     @Override
-    public T getNewModel() {
+    public T getNewModel() throws Exception {
         return (T) modelPanel.getModelPanel().getNewModel();
     }
 
@@ -117,6 +119,11 @@ public class BaseModelInputMixPanel<T> extends _PanelGradient implements Update,
     @Override
     public boolean onCancelAction() {
         return modelPanel.getModelPanel().onCancelAction();
+    }
+
+    @Override
+    public Map<String, Object> bindFields() {
+        return modelPanel.getModelPanel().bindFields();
     }
 
     public void setCancelColor(Color cancelColor) {
