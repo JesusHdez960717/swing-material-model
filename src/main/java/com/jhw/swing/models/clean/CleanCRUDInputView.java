@@ -22,7 +22,7 @@ import java.util.HashMap;
  *
  * @author Jesus Hernandez Barrios (jhernandezb96@gmail.com)
  */
-public abstract class CleanCRUDInputView<T> extends ModelPanel<T> {
+public abstract class CleanCRUDInputView<T> extends ModelPanel<T> implements BindableComponent<T> {
 
     private String headerNew;
     private String headerEdit;
@@ -165,6 +165,22 @@ public abstract class CleanCRUDInputView<T> extends ModelPanel<T> {
     @Override
     public Map<String, Object> bindFields() {
         return new HashMap<>();
+    }
+
+    @Override
+    public T getObject() {
+        try {
+            return getNewModel();
+        } catch (Exception e) {
+            ExceptionHandler.handleException(e);
+        }
+        return null;
+    }
+
+    @Override
+    public void setObject(T t) {
+        setOldModel(t);
+        update();
     }
 
 }
