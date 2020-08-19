@@ -30,7 +30,6 @@ import javax.swing.table.DefaultTableModel;
 import com.jhw.utils.security.SHA;
 import com.jhw.utils.interfaces.Update;
 import com.jhw.swing.material.standards.MaterialColors;
-import com.jhw.swing.material.standards.MaterialFontRoboto;
 import com.jhw.swing.material.standards.MaterialShadow;
 import java.awt.BorderLayout;
 import javax.swing.border.EmptyBorder;
@@ -60,67 +59,32 @@ public abstract class _MaterialPanelDetail<T> extends _MaterialPanel implements 
     }
 
     private void initComponents() {
-
-        labelHeader = new com.jhw.swing.material.components.labels._MaterialLabel();
-        searchField = new com.jhw.swing.material.components.searchfield._MaterialSearchField();
-        buttonAdd = new com.jhw.swing.material.components.button.prepared._buttonAddEdit();
-        panelOptionsExtra = new com.jhw.swing.material.components.container.panel._PanelTransparent();
-        table = new com.jhw.swing.material.components.table._MaterialTableByPage();
-
-        panelOptionsExtra.setLayout(new java.awt.GridLayout(1, 0));
-
-        this.setLayout(new BorderLayout());
-
         this.setBorder(new EmptyBorder(
                 MaterialShadow.OFFSET_TOP + 10,
                 MaterialShadow.OFFSET_LEFT + 10,
                 MaterialShadow.OFFSET_BOTTOM + 10,
                 MaterialShadow.OFFSET_RIGHT + 10));
 
-        //search field
-        searchField = new _MaterialSearchField();
+        this.setLayout(new BorderLayout());
 
-        //actions
-        _PanelTransparent header = new _PanelTransparent();
-        header.setBorder(new EmptyBorder(0, 5, 0, 0));
-        header.setLayout(new BorderLayout());
-        labelHeader = new _MaterialLabel();
-        labelHeader.setFont(MaterialFontRoboto.BOLD.deriveFont(24f));
-        header.add(labelHeader, BorderLayout.WEST);
+        header = new HeaderDetailPanel();
+        table = new com.jhw.swing.material.components.table._MaterialTableByPage();
 
-        buttonAdd.isCreated(true);
-
-        _PanelTransparent buttonActions = new _PanelTransparent();
-        buttonActions.setLayout(new BorderLayout());
-        buttonActions.add(buttonAdd, BorderLayout.EAST);
-        buttonActions.add(panelOptionsExtra, BorderLayout.WEST);
-
-        header.add(buttonActions, BorderLayout.EAST);
-
-        //header + search
-        _PanelTransparent header2 = new _PanelTransparent();
-        header2.setLayout(new BorderLayout());
-        header2.add(header, BorderLayout.NORTH);
-        header2.add(searchField);
-
-        this.add(header2, BorderLayout.NORTH);
+        this.add(header, BorderLayout.NORTH);
         this.add(table);
     }
 
     // Variables declaration - do not modify
-    private com.jhw.swing.material.components.button.prepared._buttonAddEdit buttonAdd;
-    private com.jhw.swing.material.components.labels._MaterialLabel labelHeader;
-    private com.jhw.swing.material.components.container.panel._PanelTransparent panelOptionsExtra;
-    private com.jhw.swing.material.components.searchfield._MaterialSearchField searchField;
+    private HeaderDetailPanel header;
     private com.jhw.swing.material.components.table._MaterialTableByPage table;
     // End of variables declaration                   
 
     public void setHeaderText(String text) {
-        this.labelHeader.setText(text);
+        header.setHeaderText(text);
     }
 
     public void addButtonNuevoActionListener(ActionListener action) {
-        buttonAdd.addActionListener(action);
+        header.addButtonNuevoActionListener(action);
     }
 
     public void addTableDoubleClickAction(MouseAdapter action) {
@@ -128,7 +92,7 @@ public abstract class _MaterialPanelDetail<T> extends _MaterialPanel implements 
     }
 
     private void addListeners() {
-        buttonAdd.addActionListener(new java.awt.event.ActionListener() {
+        header.getButtonAdd().addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonNuevoActionListener();
             }
@@ -140,7 +104,7 @@ public abstract class _MaterialPanelDetail<T> extends _MaterialPanel implements 
             }
         });
 
-        searchField.setSearchActionListener(new java.awt.event.ActionListener() {
+        header.getSearchField().setSearchActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 setCollection(new ArrayList<>(list));
             }
@@ -154,11 +118,11 @@ public abstract class _MaterialPanelDetail<T> extends _MaterialPanel implements 
     }
 
     private void onTableKeyTyped(KeyEvent evt) {
-        searchField.clear(evt);
+        header.getSearchField().clear(evt);
     }
 
     public void setSearchFieldVisibile(boolean vis) {
-        searchField.setVisible(vis);
+        header.setSearchFieldVisibile(vis);
     }
 
     protected abstract void buttonNuevoActionListener();
@@ -250,8 +214,8 @@ public abstract class _MaterialPanelDetail<T> extends _MaterialPanel implements 
     @Override
     public void setBackground(Color bg) {
         super.setBackground(bg);
-        if (labelHeader != null) {//este if tiene que estar porque se llama al background en el super sin inicializar los componentes y la primera vel el label es null y lanza NullPointerException
-            this.labelHeader.setForeground(getForeground());
+        if (header != null) {
+            header.setBackground(bg);
         }
     }
 
@@ -283,7 +247,7 @@ public abstract class _MaterialPanelDetail<T> extends _MaterialPanel implements 
     }
 
     private void addRow(T object) {
-        if (contain(getObjectString(object), searchField.getText())) {
+        if (contain(getObjectString(object), header.getSearchField().getText())) {
             table.addRow(getObjectRow(object));
         }
     }
@@ -329,8 +293,7 @@ public abstract class _MaterialPanelDetail<T> extends _MaterialPanel implements 
     public int hashCode() {
         int hash = 5;
         hash = 47 * hash + Objects.hashCode(this.modelColumnName);
-        hash = 47 * hash + Objects.hashCode(this.buttonAdd);
-        hash = 47 * hash + Objects.hashCode(this.labelHeader);
+        hash = 47 * hash + Objects.hashCode(this.header);
         hash = 47 * hash + Objects.hashCode(this.table);
         return hash;
     }
@@ -345,12 +308,6 @@ public abstract class _MaterialPanelDetail<T> extends _MaterialPanel implements 
         }
         final _MaterialPanelDetail<?> other = (_MaterialPanelDetail<?>) obj;
         if (!Objects.equals(this.modelColumnName, other.modelColumnName)) {
-            return false;
-        }
-        if (!Objects.equals(this.buttonAdd, other.buttonAdd)) {
-            return false;
-        }
-        if (!Objects.equals(this.labelHeader, other.labelHeader)) {
             return false;
         }
         /*if (!Objects.equals(this.scrollPane, other.scrollPane)) {
@@ -421,23 +378,18 @@ public abstract class _MaterialPanelDetail<T> extends _MaterialPanel implements 
     }
 
     public void addOptionElement(Component element) {
-        addOptionElement(element, panelOptionsExtra.getComponentCount());
+        header.addOptionElement(element);
     }
 
     public void addOptionElement(Component element, int index) {
-        int heigth = (int) panelOptionsExtra.getSize().getHeight();
-        int width = heigth * panelOptionsExtra.getComponentCount() + 1;
-        panelOptionsExtra.setSize(width, heigth);
-        panelOptionsExtra.add(element);
+        header.addOptionElement(element, index);
     }
 
     public void setOptionPanelVisibility(boolean visible) {
-        buttonAdd.setVisible(visible);
-        panelOptionsExtra.setVisible(visible);
+        header.setOptionPanelVisibility(visible);
     }
 
     private void personalizationInner() {
-        this.labelHeader.setBackground(this.getBackground());
         table.getScrollPane().getViewport().setOpaque(false);
         table.getScrollPane().getViewport().setBackground(MaterialColors.TRANSPARENT);
     }
@@ -445,13 +397,8 @@ public abstract class _MaterialPanelDetail<T> extends _MaterialPanel implements 
     @Override
     public void setEnabled(boolean enabled) {
         super.setEnabled(enabled);
-        buttonAdd.setEnabled(enabled);
-        for (Component component : panelOptionsExtra.getComponents()) {
-            component.setEnabled(enabled);
-        }
-        searchField.setEnabled(enabled);
+        header.setEnabled(enabled);
         table.setEnabled(enabled);
-        this.labelHeader.setEnabled(enabled);
     }
 
     public void addActionExtra(_MaterialButtonIconTransparent c) {
@@ -468,15 +415,7 @@ public abstract class _MaterialPanelDetail<T> extends _MaterialPanel implements 
     }
 
     public _MaterialLabel getLabelHeader() {
-        return labelHeader;
-    }
-
-    public _PanelTransparent getPanelOptionsExtra() {
-        return panelOptionsExtra;
-    }
-
-    public _MaterialSearchField getSearchField() {
-        return searchField;
+        return header.getLabelHeader();
     }
 
     public _MaterialTableByPage getTable() {
