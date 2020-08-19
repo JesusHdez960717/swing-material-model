@@ -4,9 +4,7 @@ import com.clean.core.app.services.Notification;
 import com.clean.core.app.services.NotificationsGeneralType;
 import com.jhw.swing.material.components.button._MaterialButtonIconTransparent;
 import com.jhw.swing.material.components.container.panel._MaterialPanel;
-import com.jhw.swing.material.components.container.panel._PanelTransparent;
 import com.jhw.swing.material.components.labels._MaterialLabel;
-import com.jhw.swing.material.components.searchfield._MaterialSearchField;
 import com.jhw.swing.material.components.table.Column;
 import com.jhw.swing.material.components.table._MaterialPanelActions;
 import com.jhw.swing.material.components.table._MaterialTableByPage;
@@ -69,6 +67,7 @@ public abstract class _MaterialPanelDetail<T> extends _MaterialPanel implements 
 
         header = new HeaderDetailPanel();
         table = new com.jhw.swing.material.components.table._MaterialTableByPage();
+        table.setBorder(new EmptyBorder(0, 5, 0, 5));
 
         this.add(header, BorderLayout.NORTH);
         this.add(table);
@@ -247,7 +246,7 @@ public abstract class _MaterialPanelDetail<T> extends _MaterialPanel implements 
     }
 
     private void addRow(T object) {
-        if (contain(getObjectString(object), header.getSearchField().getText())) {
+        if (contain(getObjectString(object), header.getSearchText())) {
             table.addRow(getObjectRow(object));
         }
     }

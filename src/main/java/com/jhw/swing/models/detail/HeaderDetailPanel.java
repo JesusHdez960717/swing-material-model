@@ -72,6 +72,14 @@ public class HeaderDetailPanel extends _PanelTransparent {
     private com.jhw.swing.material.components.container.panel._PanelTransparent panelOptionsExtra;
     private com.jhw.swing.material.components.searchfield._MaterialSearchField searchField;
 
+    public String getSearchText() {
+        return searchField.getSearchField().getText();
+    }
+
+    public void setSearchActionListener(ActionListener searchAction) {
+        searchField.setSearchActionListener(searchAction);
+    }
+
     public void setHeaderText(String text) {
         this.labelHeader.setText(text);
     }

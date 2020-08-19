@@ -14,7 +14,7 @@ public class MODEL_EXAMPLE extends javax.swing.JFrame {
     public MODEL_EXAMPLE() {
         initComponents();
         cargoDetail1.update();
-        new DefaultConfigSwingModule().register(null);
+        DefaultConfigSwingModule.init().register(null);
     }
 
     /**
