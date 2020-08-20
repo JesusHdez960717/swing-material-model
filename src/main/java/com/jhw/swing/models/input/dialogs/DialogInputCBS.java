@@ -5,15 +5,21 @@ import com.clean.core.app.services.Notification;
 import com.jhw.swing.models.input.panels.BaseModelInputPanel;
 import com.jhw.swing.models.input.panels.ModelPanel;
 import com.jhw.swing.material.components.combobox.icbs.InputComboBoxSelection;
+import com.jhw.swing.material.components.scrollpane._MaterialScrollPaneCore;
+import com.jhw.swing.util.Utils;
 import java.awt.Component;
-import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.text.JTextComponent;
-import com.jhw.swing.util.interfaces.ModelablePanel;
+import com.jhw.swing.models.input.ModelablePanel;
+import com.jhw.swing.util.interfaces.Wrong;
+import java.awt.BorderLayout;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
+import java.util.Map;
+import javax.swing.ScrollPaneLayout;
 
 /**
  * Dialogo para la creacion de modelos en los combo boxes.<br/>
@@ -30,17 +36,29 @@ public class DialogInputCBS<T> extends JDialog implements ModelablePanel<T> {
     private final BaseModelInputPanel<T> basePanel;
     private final InputComboBoxSelection icbs;
 
+    private final _MaterialScrollPaneCore scrollPane = new _MaterialScrollPaneCore();
+
     public DialogInputCBS(InputComboBoxSelection icbs, ModelPanel modelPanel) {
         super();
         this.icbs = icbs;
         basePanel = new BaseModelInputPanel<>(modelPanel);
-        this.setLayout(new GridLayout(1, 1));
-        this.add(basePanel);
+        this.setLayout(new BorderLayout());
 
+        //add el scroll
+        this.add(scrollPane, BorderLayout.CENTER);
+
+        //add el task pane al scroll
+        scrollPane.setLayout(new ScrollPaneLayout());
+        scrollPane.setViewportView(basePanel);
+
+        Rectangle screen = Utils.getScreenSize();
+
+        int maxWidth = (int) (screen.getWidth() - 75);
+        int maxHeight = (int) (screen.getHeight() - 75);
         int width = basePanel.getPreferredSize().width + 15;
         int height = basePanel.getPreferredSize().height + (isUndecorated() ? 0 : 40);
 
-        this.setSize(width, height);
+        this.setSize(Math.min(maxWidth, width) + 25, Math.min(maxHeight, height) + 25);
         this.setLocationRelativeTo(null);
         this.setUndecorated(false);
         this.setResizable(false);
@@ -51,18 +69,14 @@ public class DialogInputCBS<T> extends JDialog implements ModelablePanel<T> {
     }
 
     private void addListeners() {
-        basePanel.getMaterialButtonCancel().addActionListener(new java.awt.event.ActionListener() {
-            @Override
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                onCancelAction();
-            }
+        basePanel.getMaterialButtonCancel().addActionListener((java.awt.event.ActionEvent evt) -> {
+            onCancelAction();
         });
-        basePanel.getMaterialButtonOK().addActionListener(new java.awt.event.ActionListener() {
-            @Override
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                onCreateAction();
-            }
+
+        basePanel.getMaterialButtonOK().addActionListener((java.awt.event.ActionEvent evt) -> {
+            onCreateAction();
         });
+
         globalsKeyListeners(basePanel);
     }
 
@@ -76,6 +90,9 @@ public class DialogInputCBS<T> extends JDialog implements ModelablePanel<T> {
     }
 
     private void addGlobalKeyListeners(Component c) {
+        if (c == null) {
+            return;
+        }
         //si es text area no hago nada
         if (c instanceof JTextArea) {
             return;
@@ -119,7 +136,7 @@ public class DialogInputCBS<T> extends JDialog implements ModelablePanel<T> {
     }
 
     @Override
-    public T getNewModel() {
+    public T getNewModel() throws Exception {
         return (T) basePanel.getNewModel();
     }
 
@@ -131,6 +148,11 @@ public class DialogInputCBS<T> extends JDialog implements ModelablePanel<T> {
     @Override
     public void setOldModel(T model) {
         basePanel.setOldModel(model);
+    }
+
+    @Override
+    public Map<String, Object> bindFields() {
+        return basePanel.bindFields();
     }
 
     public BaseModelInputPanel<T> getBasePanel() {
@@ -156,6 +178,9 @@ public class DialogInputCBS<T> extends JDialog implements ModelablePanel<T> {
         try {
             if (Notification.showConfirmDialog(NotificationsGeneralType.CONFIRM_CREATE)) {
                 obj = basePanel.onCreateAction();
+                if (obj != null) {
+                    Notification.showConfirmDialog(NotificationsGeneralType.NOTIFICATION_CREATE, obj);
+                }
             }
         } catch (Exception e) {
         }
@@ -179,13 +204,12 @@ public class DialogInputCBS<T> extends JDialog implements ModelablePanel<T> {
     @Override
     public T onPostCreateAction(T obj) {
         try {
-            basePanel.onPostCreateAction(obj);
+            obj = basePanel.onPostCreateAction(obj);
         } catch (Exception e) {
         }
         if (obj != null) {
-            icbs.actualizarComboBox();
+            icbs.update();
             icbs.setSelectedItem(obj);
-            Notification.showConfirmDialog(NotificationsGeneralType.NOTIFICATION_CREATE, obj);
             dispose();
         }
         return obj;

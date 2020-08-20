@@ -37,7 +37,7 @@ public class CargoDetailView extends _MaterialPanelDetail<CargoModel> {
 
         this.getTable().setPageVisibility(true);
 
-        this.update();
+        //this.update();
         //addOptionsElements();
         //this.setOptionPanelVisibility(false);
     }

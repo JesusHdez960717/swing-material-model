@@ -2,10 +2,8 @@ package com.jhw.swing.models.example;
 
 import com.clean.core.app.services.Notification;
 import com.clean.core.app.services.NotificationsGeneralType;
-import com.jhw.swing.material.components.container.layout.HorizontalLayoutComponent;
-import com.jhw.swing.material.components.container.layout.HorizontalLayoutContainer;
+import com.jhw.swing.material.components.container.layout.VerticalLayoutComponent;
 import com.jhw.swing.material.components.container.layout.VerticalLayoutContainer;
-import com.jhw.swing.material.standards.MaterialFontRoboto;
 import com.jhw.swing.models.input.panels.ModelPanel;
 import java.awt.Desktop;
 import java.io.File;
@@ -21,28 +19,22 @@ public class CargoInputView extends ModelPanel<CargoModel> {
         super(model);
         initComponents();
         addListeners();
+        personalize();
         update();
     }
 
     @SuppressWarnings("unchecked")
     private void initComponents() {
-
-        labelCargo = new com.jhw.swing.material.components.labels._MaterialLabel();
+        setHeader("Cargo");
         textFieldNombre = new com.jhw.swing.material.components.textfield.validated._MaterialTextFieldStringNotEmpty();
         textAreaDescripcion = new com.jhw.swing.material.components.textarea.prepared._MaterialTextAreaDescripcion();
         fileChooserPanel = new com.jhw.swing.material.components.filechooser._MaterialFileChooserPanel();
         cargoICBS1 = new com.jhw.swing.models.example.CargoICBS();
 
-        labelCargo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelCargo.setText("Cargo");
-        labelCargo.setFont(MaterialFontRoboto.BOLD.deriveFont(24f)); // NOI18N
-
         textFieldNombre.setHint("Nombre del cargo");
         textFieldNombre.setLabel("Cargo");
 
         VerticalLayoutContainer.builder v = VerticalLayoutContainer.builder();
-
-        v.add(labelCargo);
 
         //HorizontalLayoutContainer.builder hlc = HorizontalLayoutContainer.builder((int) cargoICBS1.getPreferredSize().getHeight());
         //hlc.add(HorizontalLayoutComponent.builder(textFieldNombre).build());
@@ -52,7 +44,7 @@ public class CargoInputView extends ModelPanel<CargoModel> {
         v.add(cargoICBS1);
 
         v.add(fileChooserPanel);
-        v.add(textAreaDescripcion);
+        v.add(VerticalLayoutComponent.builder(textAreaDescripcion).resize(true).build());
 
         this.setComponent(v.build());
     }
@@ -60,23 +52,20 @@ public class CargoInputView extends ModelPanel<CargoModel> {
     // Variables declaration - do not modify
     private com.jhw.swing.models.example.CargoICBS cargoICBS1;
     private com.jhw.swing.material.components.filechooser._MaterialFileChooserPanel fileChooserPanel;
-    private com.jhw.swing.material.components.labels._MaterialLabel labelCargo;
     private com.jhw.swing.material.components.textarea.prepared._MaterialTextAreaDescripcion textAreaDescripcion;
     private com.jhw.swing.material.components.textfield.validated._MaterialTextFieldStringNotEmpty textFieldNombre;
     // End of variables declaration                   
 
     @Override
     public void update() {
-        personalize();
-
-        cargoICBS1.actualizarComboBox();
+        cargoICBS1.update();
     }
 
     private void personalize() {
         if (model == null) {
-            labelCargo.setText("Nuevo Cargo");
+            setHeader("Nuevo Cargo");
         } else {
-            labelCargo.setText("Editar Cargo");
+            setHeader("Editar Cargo");
 
             textFieldNombre.setString(getOldModel().getNombreCargo());
             textAreaDescripcion.setText(getOldModel().getDescripcion());

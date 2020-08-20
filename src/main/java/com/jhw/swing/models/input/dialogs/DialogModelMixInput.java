@@ -2,8 +2,8 @@ package com.jhw.swing.models.input.dialogs;
 
 import com.clean.core.app.services.Notification;
 import com.clean.core.app.services.NotificationsGeneralType;
+import com.jhw.swing.material.components.scrollpane._MaterialScrollPaneCore;
 import com.jhw.swing.models.input.panels.BaseModelInputMixPanel;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JDialog;
@@ -15,7 +15,13 @@ import javax.swing.JTextArea;
 import javax.swing.text.JTextComponent;
 import com.jhw.swing.util.UpdateCascade;
 import com.jhw.utils.interfaces.Update;
-import com.jhw.swing.util.interfaces.ModelablePanel;
+import com.jhw.swing.models.input.ModelablePanel;
+import java.awt.BorderLayout;
+import java.awt.Rectangle;
+import javax.swing.ScrollPaneLayout;
+import com.jhw.swing.util.Utils;
+import com.jhw.swing.util.interfaces.Wrong;
+import java.util.Map;
 
 /**
  * Dialogo para la creacion de modelos mixtos.<br/>
@@ -30,6 +36,8 @@ public class DialogModelMixInput<T> extends JDialog implements ModelablePanel<T>
     private final BaseModelInputMixPanel<T> basePanel;
     private final UpdateCascade aa;
 
+    private final _MaterialScrollPaneCore scrollPane = new _MaterialScrollPaneCore();
+
     public DialogModelMixInput(Update act, ModelMixPanel modelPanel) {
         this(new Update[]{act}, modelPanel);
     }
@@ -38,13 +46,24 @@ public class DialogModelMixInput<T> extends JDialog implements ModelablePanel<T>
         super();
         this.aa = new UpdateCascade(act);
         this.basePanel = new BaseModelInputMixPanel(modelPanel);
-        this.setLayout(new GridLayout(1, 1));
-        this.add(basePanel);
 
-        int width = basePanel.getPreferredSize().width;
-        int height = basePanel.getPreferredSize().height + basePanel.getPanelGradientButtons().getPreferredSize().height;
+        this.setLayout(new BorderLayout());
 
-        this.setSize(width, height);
+        //add el scroll
+        this.add(scrollPane, BorderLayout.CENTER);
+
+        //add el task pane al scroll
+        scrollPane.setLayout(new ScrollPaneLayout());
+        scrollPane.setViewportView(basePanel);
+
+        Rectangle screen = Utils.getScreenSize();
+
+        int maxWidth = (int) (screen.getWidth() - 75);
+        int maxHeight = (int) (screen.getHeight() - 75);
+        int width = basePanel.getPreferredSize().width + 25;
+        int height = basePanel.getPreferredSize().height + 25;
+
+        this.setSize(Math.min(maxWidth, width) + 25, Math.min(maxHeight, height) + 25);
         this.setLocationRelativeTo(null);
         this.setUndecorated(false);
         this.setResizable(false);
@@ -56,17 +75,11 @@ public class DialogModelMixInput<T> extends JDialog implements ModelablePanel<T>
     }
 
     private void addListeners() {
-        basePanel.getMixPanel().getButtonAddEdit().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                onCreateAction();
-            }
+        basePanel.getMixPanel().getButtonAddEdit().addActionListener((ActionEvent e) -> {
+            onCreateAction();
         });
-        basePanel.getMaterialButtonCancel().addActionListener(new java.awt.event.ActionListener() {
-            @Override
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                onCancelAction();
-            }
+        basePanel.getMaterialButtonCancel().addActionListener((java.awt.event.ActionEvent evt) -> {
+            onCancelAction();
         });
         basePanel.getMaterialButtonDelete().addActionListener(new java.awt.event.ActionListener() {
             @Override
@@ -92,6 +105,9 @@ public class DialogModelMixInput<T> extends JDialog implements ModelablePanel<T>
     }
 
     private void addGlobalKeyListeners(Component c) {
+        if (c == null) {
+            return;
+        }
         //si es text area no hago nada
         if (c instanceof JTextArea) {
             return;
@@ -131,13 +147,18 @@ public class DialogModelMixInput<T> extends JDialog implements ModelablePanel<T>
     }
 
     @Override
-    public T getNewModel() {
+    public T getNewModel() throws Exception {
         return (T) basePanel.getNewModel();
     }
 
     @Override
     public T getOldModel() {
         return (T) basePanel.getOldModel();
+    }
+
+    @Override
+    public Map<String, Object> bindFields() {
+        return basePanel.bindFields();
     }
 
     @Override
@@ -159,6 +180,9 @@ public class DialogModelMixInput<T> extends JDialog implements ModelablePanel<T>
         try {
             if (Notification.showConfirmDialog(NotificationsGeneralType.CONFIRM_DELETE)) {
                 obj = basePanel.onDeleteAction();
+                if (obj != null) {
+                    Notification.showNotification(NotificationsGeneralType.NOTIFICATION_DELETE, obj);
+                }
             }
         } catch (Exception e) {
         }
@@ -173,12 +197,16 @@ public class DialogModelMixInput<T> extends JDialog implements ModelablePanel<T>
             if (create) {
                 if (Notification.showConfirmDialog(NotificationsGeneralType.CONFIRM_CREATE)) {
                     obj = basePanel.onCreateAction();
-                    Notification.showNotification(NotificationsGeneralType.NOTIFICATION_CREATE, obj);
+                    if (obj != null) {
+                        Notification.showNotification(NotificationsGeneralType.NOTIFICATION_CREATE, obj);
+                    }
                 }
             } else {
                 if (Notification.showConfirmDialog(NotificationsGeneralType.CONFIRM_EDIT)) {
                     obj = basePanel.onCreateAction();
-                    Notification.showNotification(NotificationsGeneralType.NOTIFICATION_EDIT, obj);
+                    if (obj != null) {
+                        Notification.showNotification(NotificationsGeneralType.NOTIFICATION_EDIT, obj);
+                    }
                 }
             }
         } catch (Exception e) {
@@ -203,11 +231,11 @@ public class DialogModelMixInput<T> extends JDialog implements ModelablePanel<T>
 
     @Override
     public T onPostCreateAction(T obj) {
+        try {
+            basePanel.onPostCreateAction(obj);
+        } catch (Exception e) {
+        }
         if (obj != null) {
-            try {
-                basePanel.onPostCreateAction(obj);
-            } catch (Exception e) {
-            }
             actualizarActualizables();
             basePanel.setOldModel(obj);
             basePanel.update();
@@ -217,16 +245,13 @@ public class DialogModelMixInput<T> extends JDialog implements ModelablePanel<T>
 
     @Override
     public T onPostDeleteAction(T obj) {
+        try {
+            obj = (T) basePanel.onPostDeleteAction(obj);
+        } catch (Exception e) {
+        }
         if (obj != null) {
-            try {
-                obj = (T) basePanel.onPostDeleteAction(obj);
-            } catch (Exception e) {
-            }
-            if (obj != null) {
-                actualizarActualizables();
-                Notification.showNotification(NotificationsGeneralType.NOTIFICATION_DELETE, obj);
-                dispose();
-            }
+            actualizarActualizables();
+            dispose();
         }
         return obj;
     }

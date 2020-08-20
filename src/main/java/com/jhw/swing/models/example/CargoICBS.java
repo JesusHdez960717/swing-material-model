@@ -15,7 +15,7 @@ public class CargoICBS extends ICBSNotEmptySeleccionable<CargoModel> {
     }
 
     @Override
-    public void actualizarComboBox() {
+    public void updateComboBox() {
         setModel(CargoModel.getCargos());
         //getComboBox().decorate();
     }

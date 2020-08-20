@@ -21,4 +21,7 @@ dependencies {
     implementation project(':material-standards')
     implementation project(':material-personalization')
     implementation project(':material-swing')
+    
+    implementation project(':module-default-config')
+    implementation project(':material-notification')
 }
