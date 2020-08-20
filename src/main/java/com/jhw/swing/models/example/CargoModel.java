@@ -24,7 +24,7 @@ public class CargoModel implements Serializable {
 
     public static final void crearList() {
         list.clear();
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 5; i++) {
             list.add(new CargoModel(i, "nombre " + i, "Descripcion"));
         }
     }

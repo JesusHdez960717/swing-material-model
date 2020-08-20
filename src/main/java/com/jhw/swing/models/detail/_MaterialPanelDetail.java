@@ -29,6 +29,7 @@ import com.jhw.utils.security.SHA;
 import com.jhw.utils.interfaces.Update;
 import com.jhw.swing.material.standards.MaterialColors;
 import com.jhw.swing.material.standards.MaterialShadow;
+import com.jhw.utils.others.FiltrableRefraction;
 import java.awt.BorderLayout;
 import javax.swing.border.EmptyBorder;
 
@@ -141,14 +142,17 @@ public abstract class _MaterialPanelDetail<T> extends _MaterialPanel implements 
     private void deleteActionInternal() {
         try {
             T before = getSelectedElement();
+            int oldRow = table.getSelectedRow();
             if (Notification.showConfirmDialog(NotificationsGeneralType.CONFIRM_DELETE, before)) {
                 T after = deleteAction(before);
                 if (after != null) {
                     Notification.showNotification(NotificationsGeneralType.NOTIFICATION_DELETE, after);
                     update();
+                    table.getJTable().setRowSelectionInterval(oldRow, oldRow);
                 }
             }
         } catch (Exception e) {
+            Notification.showNotification(NotificationsGeneralType.NOTIFICATION_ERROR, "Error inesperado eliminando elemento.");
         }
     }
 
@@ -199,7 +203,7 @@ public abstract class _MaterialPanelDetail<T> extends _MaterialPanel implements 
     public T getSelectedElement() {
         int row = table.getSelectedRow();
         if (row < 0) {
-            return null;
+            throw new NullPointerException("Nada Seleccionado.");
         }
         return (T) table.getValueAt(row, 0);
     }
@@ -246,7 +250,7 @@ public abstract class _MaterialPanelDetail<T> extends _MaterialPanel implements 
     }
 
     private void addRow(T object) {
-        if (contain(getObjectString(object), header.getSearchText())) {
+        if (contain(FiltrableRefraction.toFullString(object), header.getSearchText())) {
             table.addRow(getObjectRow(object));
         }
     }
@@ -260,20 +264,7 @@ public abstract class _MaterialPanelDetail<T> extends _MaterialPanel implements 
         return row;
     }
 
-    private String getObjectString(T object) {
-        Object[] row = getObjectRow(object);
-        String resp = "";
-        /*for (int i = 0; i < row.length - 1; i++) {
-         resp += " " + String.valueOf(row[i]);
-         }*/
-        for (Object obj : row) {
-            resp += " " + String.valueOf(obj);
-        }
-        return resp;
-    }
-
     private boolean contain(String text, String key) {
-        //return text.toLowerCase().contains(key.toLowerCase());
         if (key.isEmpty()) {
             return true;
         }
