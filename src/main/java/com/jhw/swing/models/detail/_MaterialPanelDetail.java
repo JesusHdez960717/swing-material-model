@@ -142,10 +142,11 @@ public abstract class _MaterialPanelDetail<T> extends _MaterialPanel implements 
     private void deleteActionInternal() {
         try {
             T before = getSelectedElement();
-            int oldRow = table.getSelectedRow();
+            int oldRow = Math.max(0, Math.min(table.getSelectedRow(), table.getRowCount() - 2));//-1 para ajustar al 0 y -1 por eliminar el ultimo
             if (Notification.showConfirmDialog(NotificationsGeneralType.CONFIRM_DELETE, before)) {
                 T after = deleteAction(before);
                 if (after != null) {
+                    table.getJTable().getCellEditor().stopCellEditing();
                     Notification.showNotification(NotificationsGeneralType.NOTIFICATION_DELETE, after);
                     update();
                     table.getJTable().setRowSelectionInterval(oldRow, oldRow);
@@ -300,9 +301,6 @@ public abstract class _MaterialPanelDetail<T> extends _MaterialPanel implements 
         if (!Objects.equals(this.modelColumnName, other.modelColumnName)) {
             return false;
         }
-        /*if (!Objects.equals(this.scrollPane, other.scrollPane)) {
-         return false;
-         }*/
         if (!Objects.equals(this.table, other.table)) {
             return false;
         }
@@ -319,40 +317,19 @@ public abstract class _MaterialPanelDetail<T> extends _MaterialPanel implements 
     }
 
     private void createBuilder() {
-        builder.deleteListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                deleteActionInternal();
-            }
+        builder.deleteListener((ActionEvent e) -> {
+            deleteActionInternal();
         });
-        builder.editListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                editAction(getSelectedElement());
-            }
+
+        builder.editListener((ActionEvent e) -> {
+            editAction(getSelectedElement());
         });
-        builder.viewListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                viewAction(getSelectedElement());
-            }
+
+        builder.viewListener((ActionEvent e) -> {
+            viewAction(getSelectedElement());
         });
-        //builder.buttonsVisibility(true, true, true);//por defecto vienen true
     }
 
-    /*private boolean contain(String key, String text) {
-     if (key.trim().isEmpty()) {
-     return true;
-     }
-     StringTokenizer st = new StringTokenizer(key, " ");
-     while (st.hasMoreTokens()) {
-     String tok = st.nextToken();
-     if (text.toLowerCase().contains(tok.toLowerCase())) {
-     return true;
-     }
-     }
-     return false;
-     }*/
     public void setActionColumnVisivility(boolean b) {
         int size = b ? table.getRowHeight() : 0;
         int width = builder.getComponents() * size;
@@ -363,7 +340,6 @@ public abstract class _MaterialPanelDetail<T> extends _MaterialPanel implements 
 
     public void setActionColumnButtonsVisivility(boolean delete, boolean edit, boolean view) {
         builder.buttonsVisibility(delete, edit, view);
-        update();
         setActionColumnVisivility(true);
     }
 
