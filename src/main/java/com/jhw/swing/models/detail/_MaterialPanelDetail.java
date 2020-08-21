@@ -146,14 +146,17 @@ public abstract class _MaterialPanelDetail<T> extends _MaterialPanel implements 
             if (Notification.showConfirmDialog(NotificationsGeneralType.CONFIRM_DELETE, before)) {
                 T after = deleteAction(before);
                 if (after != null) {
+                    //si se elimina el ultimo deje de editar xq si no lanza excepcion x editar un index que no existe
                     table.getJTable().getCellEditor().stopCellEditing();
+                    
                     Notification.showNotification(NotificationsGeneralType.NOTIFICATION_DELETE, after);
                     update();
+                    
+                    //para que se mantenga el ultimo seleccionado
                     table.getJTable().setRowSelectionInterval(oldRow, oldRow);
                 }
             }
         } catch (Exception e) {
-            Notification.showNotification(NotificationsGeneralType.NOTIFICATION_ERROR, "Error inesperado eliminando elemento.");
         }
     }
 
