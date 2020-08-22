@@ -2,7 +2,6 @@ package com.jhw.swing.models.detail;
 
 import com.clean.core.app.services.Notification;
 import com.clean.core.app.services.NotificationsGeneralType;
-import com.jhw.swing.material.components.button._MaterialButtonIconTransparent;
 import com.jhw.swing.material.components.container.panel._MaterialPanel;
 import com.jhw.swing.material.components.labels._MaterialLabel;
 import com.jhw.swing.material.components.table.Column;
@@ -28,7 +27,7 @@ import com.jhw.utils.security.SHA;
 import com.jhw.utils.interfaces.Update;
 import com.jhw.swing.material.standards.MaterialColors;
 import com.jhw.swing.material.standards.MaterialShadow;
-import com.jhw.utils.others.FiltrableRefraction;
+import com.jhw.utils.refraction.FiltrableRefraction;
 import java.awt.BorderLayout;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
