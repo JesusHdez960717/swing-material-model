@@ -6,7 +6,6 @@ import com.jhw.swing.material.components.button._MaterialButtonIconTransparent;
 import com.jhw.swing.material.components.container.panel._MaterialPanel;
 import com.jhw.swing.material.components.labels._MaterialLabel;
 import com.jhw.swing.material.components.table.Column;
-import com.jhw.swing.material.components.table._MaterialPanelActions;
 import com.jhw.swing.material.components.table._MaterialTableByPage;
 import com.jhw.swing.material.components.table.editors_renders.component.ComponentCellEditor;
 import com.jhw.swing.material.components.table.editors_renders.component.ComponentCellRender;
@@ -31,6 +30,8 @@ import com.jhw.swing.material.standards.MaterialColors;
 import com.jhw.swing.material.standards.MaterialShadow;
 import com.jhw.utils.others.FiltrableRefraction;
 import java.awt.BorderLayout;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.border.EmptyBorder;
 
 /**
@@ -147,16 +148,19 @@ public abstract class _MaterialPanelDetail<T> extends _MaterialPanel implements 
                 T after = deleteAction(before);
                 if (after != null) {
                     //si se elimina el ultimo deje de editar xq si no lanza excepcion x editar un index que no existe
-                    table.getJTable().getCellEditor().stopCellEditing();
-                    
+                    if (table.getJTable().getCellEditor() != null) {//es null si se elimina con el click derecho
+                        table.getJTable().getCellEditor().stopCellEditing();
+                    }
+
                     Notification.showNotification(NotificationsGeneralType.NOTIFICATION_DELETE, after);
                     update();
-                    
+
                     //para que se mantenga el ultimo seleccionado
                     table.getJTable().setRowSelectionInterval(oldRow, oldRow);
                 }
             }
         } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -320,16 +324,25 @@ public abstract class _MaterialPanelDetail<T> extends _MaterialPanel implements 
     }
 
     private void createBuilder() {
-        builder.deleteListener((ActionEvent e) -> {
-            deleteActionInternal();
+        builder.deleteAction(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                deleteActionInternal();
+            }
         });
 
-        builder.editListener((ActionEvent e) -> {
-            editAction(getSelectedElement());
+        builder.editAction(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                editAction(getSelectedElement());
+            }
         });
 
-        builder.viewListener((ActionEvent e) -> {
-            viewAction(getSelectedElement());
+        builder.viewAction(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                viewAction(getSelectedElement());
+            }
         });
     }
 
@@ -339,6 +352,13 @@ public abstract class _MaterialPanelDetail<T> extends _MaterialPanel implements 
         table.getColumn(actionsColumnName).setMinWidth(width);
         table.getColumn(actionsColumnName).setPreferredWidth(width);
         table.getColumn(actionsColumnName).setMaxWidth(width);
+
+        //set up popup
+        if (b) {
+            table.getJTable().setComponentPopupMenu(builder.builPopup());
+        } else {
+            table.getJTable().setComponentPopupMenu(null);
+        }
     }
 
     public void setActionColumnButtonsVisivility(boolean delete, boolean edit, boolean view) {
@@ -370,7 +390,7 @@ public abstract class _MaterialPanelDetail<T> extends _MaterialPanel implements 
         table.setEnabled(enabled);
     }
 
-    public void addActionExtra(_MaterialButtonIconTransparent c) {
+    public void addActionExtra(Action c) {
         builder.extra(c);
         setActionColumnVisivility(true);
     }
