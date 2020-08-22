@@ -14,6 +14,8 @@ import javax.swing.JPanel;
 import com.jhw.swing.material.standards.MaterialIcons;
 import java.awt.Color;
 import java.util.Random;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 
 /**
  *
@@ -115,19 +117,16 @@ public class CargoDetailView extends _MaterialPanelDetail<CargoModel> {
     }
 
     private void addActionsExtra() {
-        _MaterialButtonIconTransparent btn1 = new _MaterialButtonIconTransparent();
-        btn1.setIcon(MaterialIcons.ADD);
-        btn1.addActionListener(new ActionListener() {
+        Action btn1 = new AbstractAction("NOTIFY", MaterialIcons.ADD) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Notification.showNotification(NotificationsGeneralType.NOTIFICATION_INFO, "hihihi");
             }
-        });
+        };
         this.addActionExtra(btn1);
         this.addActionExtra(btn1);
         this.addActionExtra(btn1);
         this.addActionExtra(btn1);
-
     }
 
 }
