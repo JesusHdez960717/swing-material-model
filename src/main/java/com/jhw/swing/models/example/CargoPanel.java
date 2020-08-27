@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
 import com.jhw.swing.material.standards.MaterialIcons;
+import java.math.BigDecimal;
 
 /**
  *
@@ -51,7 +52,7 @@ public class CargoPanel extends _MaterialPanelDetailMini<CargoModel> {
     @Override
     public Object[] getRowObject(CargoModel object) {
         return new Object[]{object.getNombreCargo(),
-            new MoneyTableComponent(new Random().nextInt(1000000), "MN"),
+            new MoneyTableComponent(BigDecimal.valueOf(new Random().nextDouble()), "MN"),
             object.getDescripcion()};
     }
 

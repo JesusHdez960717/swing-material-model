@@ -23,6 +23,7 @@ import javax.swing.Action;
  */
 public class CargoDetailView extends _MaterialPanelDetail<CargoModel> {
 
+
     public CargoDetailView() {
         setColumns(new Column[]{
             Column.builder().name("Color").build(),
