@@ -32,6 +32,7 @@ import java.awt.BorderLayout;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.border.EmptyBorder;
+import com.jhw.swing.material.components.table.TableColumnAdjuster;
 
 /**
  *
@@ -45,6 +46,10 @@ public abstract class _MaterialPanelDetail<T> extends _MaterialPanel implements 
 
     private final _MaterialPanelActions.builder builder = new _MaterialPanelActions.builder();
     private final List<T> list = new ArrayList<>();
+
+    private TableColumnAdjuster adjuster;
+
+    private boolean adjustColumns = false;
 
     public _MaterialPanelDetail() {
         this(new Column[]{});
@@ -78,6 +83,14 @@ public abstract class _MaterialPanelDetail<T> extends _MaterialPanel implements 
     private HeaderDetailPanel header;
     private com.jhw.swing.material.components.table._MaterialTableByPage table;
     // End of variables declaration                   
+
+    public boolean isAdjustColumns() {
+        return adjustColumns;
+    }
+
+    public void setAdjustColumns(boolean adjustColumns) {
+        this.adjustColumns = adjustColumns;
+    }
 
     public void setHeaderText(String text) {
         header.setHeaderText(text);
@@ -245,6 +258,7 @@ public abstract class _MaterialPanelDetail<T> extends _MaterialPanel implements 
         for (int i = 0; i < this.list.size(); i++) {
             addRow(this.list.get(i));
         }
+        adjustColumns();
     }
 
     public void addObject(T object) {
@@ -320,6 +334,8 @@ public abstract class _MaterialPanelDetail<T> extends _MaterialPanel implements 
 
         table.getTable().getColumn(actionsColumnName).setHeaderRenderer(new HeaderCellRender());
         createBuilder();
+
+        adjuster = new TableColumnAdjuster(getJTable());
     }
 
     private void createBuilder() {
@@ -333,14 +349,20 @@ public abstract class _MaterialPanelDetail<T> extends _MaterialPanel implements 
         builder.editAction(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                editAction(getSelectedElement());
+                try {
+                    editAction(getSelectedElement());
+                } catch (Exception ex) {
+                }
             }
         });
 
         builder.viewAction(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                viewAction(getSelectedElement());
+                try {
+                    viewAction(getSelectedElement());
+                } catch (Exception ex) {
+                }
             }
         });
     }
@@ -408,5 +430,13 @@ public abstract class _MaterialPanelDetail<T> extends _MaterialPanel implements 
 
     public _MaterialTableByPage getTable() {
         return table;
+    }
+
+    private void adjustColumns() {
+        if (adjustColumns) {
+            for (int i = getJTable().getColumnCount() - 2; i > 0; i--) {
+                adjuster.adjustColumn(i);
+            }
+        }
     }
 }
