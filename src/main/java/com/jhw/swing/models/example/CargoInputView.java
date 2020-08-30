@@ -4,6 +4,7 @@ import com.clean.core.app.services.Notification;
 import com.clean.core.app.services.NotificationsGeneralType;
 import com.jhw.swing.material.components.container.layout.VerticalLayoutComponent;
 import com.jhw.swing.material.components.container.layout.VerticalLayoutContainer;
+import com.jhw.swing.material.standards.MaterialIcons;
 import com.jhw.swing.models.input.panels.ModelPanel;
 import java.awt.Desktop;
 import java.io.File;
@@ -26,13 +27,14 @@ public class CargoInputView extends ModelPanel<CargoModel> {
     @SuppressWarnings("unchecked")
     private void initComponents() {
         setHeader("Cargo");
-        textFieldNombre = new com.jhw.swing.material.components.textfield._MaterialTextField();
+        textFieldNombre = new com.jhw.swing.material.components.textfield._MaterialTextFieldIcon<>();
         textAreaDescripcion = new com.jhw.swing.material.components.textarea.prepared._MaterialTextAreaDescripcion();
         fileChooserPanel = new com.jhw.swing.material.components.filechooser._MaterialFileChooserPanel();
         cargoICBS1 = new com.jhw.swing.models.example.CargoICBS();
 
         textFieldNombre.setHint("Nombre del cargo");
         textFieldNombre.setLabel("Cargo");
+        textFieldNombre.setIcon(MaterialIcons.PEOPLE);
 
         VerticalLayoutContainer.builder v = VerticalLayoutContainer.builder();
 
@@ -53,7 +55,7 @@ public class CargoInputView extends ModelPanel<CargoModel> {
     private com.jhw.swing.models.example.CargoICBS cargoICBS1;
     private com.jhw.swing.material.components.filechooser._MaterialFileChooserPanel fileChooserPanel;
     private com.jhw.swing.material.components.textarea.prepared._MaterialTextAreaDescripcion textAreaDescripcion;
-    private com.jhw.swing.material.components.textfield._MaterialTextField textFieldNombre;
+    private com.jhw.swing.material.components.textfield._MaterialTextFieldIcon textFieldNombre;
     // End of variables declaration                   
 
     @Override

@@ -1,5 +1,6 @@
 package com.jhw.swing.models.example;
 
+import com.jhw.swing.material.standards.MaterialIcons;
 import com.jhw.swing.models.input.dialogs.DialogInputCBS;
 import com.jhw.swing.models.input.icbs.InputComboBoxSelection;
 import java.awt.event.ActionListener;
@@ -12,6 +13,7 @@ public class CargoICBS extends InputComboBoxSelection<CargoModel> {
 
     public CargoICBS() {
         super("Cargo");
+        setIcon(MaterialIcons.EDIT);
     }
 
     @Override

@@ -1,14 +1,15 @@
 package com.jhw.swing.models.input.icbs;
 
 import com.clean.core.app.services.ExceptionHandler;
-import com.clean.core.exceptions.ValidationException;
 import com.jhw.swing.material.components.button._MaterialButtonIconTransparent;
 import com.jhw.swing.material.components.combobox.combobox_editable._MaterialComboBoxFiltrable;
-import com.jhw.swing.material.components.container.panel._PanelComponent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import com.jhw.personalization.core.domain.Personalization;
 import com.jhw.personalization.services.PersonalizationHandler;
+import com.jhw.swing.material.components.container.panel._PanelTransparent;
+import com.jhw.swing.material.components.textfield._MaterialTextFieldIcon;
+import com.jhw.swing.material.standards.MaterialColors;
 import com.jhw.swing.util.interfaces.BindableComponent;
 import com.jhw.utils.interfaces.Update;
 import java.awt.BorderLayout;
@@ -16,12 +17,18 @@ import java.awt.Color;
 import java.util.List;
 import com.jhw.swing.util.interfaces.Wrong;
 import com.jhw.swing.utils.icons.DerivableIcon;
+import java.awt.Dimension;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import javax.swing.ImageIcon;
 
 /**
  *
  * @author Jesus Hernandez Barrios (jhernandzb96@gmail.com)
  */
-public abstract class InputComboBoxSelection<T> extends _PanelComponent implements BindableComponent<T>, Update, Wrong {
+public abstract class InputComboBoxSelection<T> extends _PanelTransparent implements BindableComponent<T>, Update, Wrong {
+
+    private Color originalIconColor = MaterialColors.BLACK;
 
     public InputComboBoxSelection(String str) {
         this(str, str);
@@ -29,18 +36,11 @@ public abstract class InputComboBoxSelection<T> extends _PanelComponent implemen
 
     public InputComboBoxSelection(String label, String hint) {
         initComponents(label, hint);
-        personalize();
+        addListeners();
 
-        this.getComboBox().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                clearWrong();
-            }
-        });
         clearWrong();
     }
 
-    @SuppressWarnings("unchecked")
     private void initComponents(String label, String hint) {
         comboBox = new _MaterialComboBoxFiltrable();
         comboBox.setLabel(label);
@@ -52,9 +52,11 @@ public abstract class InputComboBoxSelection<T> extends _PanelComponent implemen
         buttonNuevo.setForeground(PersonalizationHandler.getColor(Personalization.KEY_COLOR_BUTTON_ADD));
         buttonNuevo.setRippleColor(Color.black);
         buttonNuevo.setIcon(
-                PersonalizationHandler.getObject(Personalization.KEY_ICON_BUTTON_ADD, DerivableIcon.class)
+                PersonalizationHandler.getDerivableIcon(Personalization.KEY_ICON_BUTTON_ADD)
                         .deriveIcon(PersonalizationHandler.getColor(Personalization.KEY_COLOR_BUTTON_ADD))
                         .deriveIcon(h * .6f));
+
+        buttonIcon = new _MaterialButtonIconTransparent();
 
         this.setLayout(new BorderLayout());
         this.add(comboBox, BorderLayout.CENTER);
@@ -64,7 +66,21 @@ public abstract class InputComboBoxSelection<T> extends _PanelComponent implemen
     // Variables declaration - do not modify
     private _MaterialButtonIconTransparent buttonNuevo;
     private _MaterialComboBoxFiltrable<T> comboBox;
+    private _MaterialButtonIconTransparent buttonIcon;
     // End of variables declaration
+
+    public void setIcon(ImageIcon icon) {
+        int h = (int) this.comboBox.getPreferredSize().getHeight();
+        if (icon instanceof DerivableIcon) {
+            buttonIcon.setIcon(((DerivableIcon) icon).deriveIcon(h * _MaterialTextFieldIcon.ICON_SIZE_REDUCTION));
+            originalIconColor = ((DerivableIcon) icon).getColor();
+        } else {
+            buttonIcon.setIcon(icon);
+        }
+        int w = (int) (h * _MaterialTextFieldIcon.ICON_WIDTH_REDUCTION);
+        buttonIcon.setPreferredSize(new Dimension(w, h));
+        this.add(buttonIcon, BorderLayout.WEST);
+    }
 
     @Override
     public void update() {
@@ -75,8 +91,29 @@ public abstract class InputComboBoxSelection<T> extends _PanelComponent implemen
         }
     }
 
-    private void personalize() {
-        setAddButtonListener();
+    private void addListeners() {
+        buttonNuevo.addActionListener(buttonAddAction());
+
+        this.getComboBox().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                clearWrong();
+            }
+        });
+
+        buttonIcon.addActionListener(buttonIconAction());
+        
+        comboBox.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                buttonIcon.setForeground(comboBox.getAccent());
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                buttonIcon.setForeground(originalIconColor);
+            }
+        });
     }
 
     public T getSelectedItem() {
@@ -107,8 +144,9 @@ public abstract class InputComboBoxSelection<T> extends _PanelComponent implemen
 
     public abstract ActionListener buttonAddAction();
 
-    protected void setAddButtonListener() {
-        buttonNuevo.addActionListener(buttonAddAction());
+    public ActionListener buttonIconAction() {
+        return (ActionEvent e) -> {
+        };
     }
 
     public void setSelectedItem(T item) {
