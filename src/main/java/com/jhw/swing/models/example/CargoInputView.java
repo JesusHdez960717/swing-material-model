@@ -4,6 +4,8 @@ import com.clean.core.app.services.Notification;
 import com.clean.core.app.services.NotificationsGeneralType;
 import com.jhw.swing.material.components.container.layout.VerticalLayoutComponent;
 import com.jhw.swing.material.components.container.layout.VerticalLayoutContainer;
+import com.jhw.swing.material.components.textfield.validated._MaterialTextFieldMoneyIcon;
+import com.jhw.swing.material.standards.MaterialIcons;
 import com.jhw.swing.models.input.panels.ModelPanel;
 import java.awt.Desktop;
 import java.io.File;
@@ -26,22 +28,28 @@ public class CargoInputView extends ModelPanel<CargoModel> {
     @SuppressWarnings("unchecked")
     private void initComponents() {
         setHeader("Cargo");
-        textFieldNombre = new com.jhw.swing.material.components.textfield._MaterialTextField();
+        textFieldNombre = new com.jhw.swing.material.components.textfield._MaterialTextFieldIcon<>();
         textAreaDescripcion = new com.jhw.swing.material.components.textarea.prepared._MaterialTextAreaDescripcion();
         fileChooserPanel = new com.jhw.swing.material.components.filechooser._MaterialFileChooserPanel();
         cargoICBS1 = new com.jhw.swing.models.example.CargoICBS();
 
         textFieldNombre.setHint("Nombre del cargo");
         textFieldNombre.setLabel("Cargo");
+        textFieldNombre.setIcon(MaterialIcons.MONETIZATION_ON);
 
+        money = new _MaterialTextFieldMoneyIcon();
+        money.setLabel("money");
+        money.setHint("extra hint");
+        
         VerticalLayoutContainer.builder v = VerticalLayoutContainer.builder();
 
         //HorizontalLayoutContainer.builder hlc = HorizontalLayoutContainer.builder((int) cargoICBS1.getPreferredSize().getHeight());
         //hlc.add(HorizontalLayoutComponent.builder(textFieldNombre).build());
         //hlc.add(HorizontalLayoutComponent.builder(cargoICBS1).gapLeft(10).build());
         //v.add(hlc.build());
-        v.add(textFieldNombre);
+        v.add(money);
         v.add(cargoICBS1);
+        v.add(textFieldNombre);
 
         v.add(fileChooserPanel);
         v.add(VerticalLayoutComponent.builder(textAreaDescripcion).resize(true).build());
@@ -51,9 +59,10 @@ public class CargoInputView extends ModelPanel<CargoModel> {
 
     // Variables declaration - do not modify
     private com.jhw.swing.models.example.CargoICBS cargoICBS1;
+    private _MaterialTextFieldMoneyIcon money;
     private com.jhw.swing.material.components.filechooser._MaterialFileChooserPanel fileChooserPanel;
     private com.jhw.swing.material.components.textarea.prepared._MaterialTextAreaDescripcion textAreaDescripcion;
-    private com.jhw.swing.material.components.textfield._MaterialTextField textFieldNombre;
+    private com.jhw.swing.material.components.textfield._MaterialTextFieldIcon textFieldNombre;
     // End of variables declaration                   
 
     @Override
