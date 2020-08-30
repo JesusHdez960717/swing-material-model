@@ -14,7 +14,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.text.JTextComponent;
 import com.jhw.swing.models.input.ModelablePanel;
-import com.jhw.swing.util.interfaces.Wrong;
 import java.awt.BorderLayout;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
@@ -61,7 +60,7 @@ public class DialogInputCBS<T> extends JDialog implements ModelablePanel<T> {
         this.setSize(Math.min(maxWidth, width) + 25, Math.min(maxHeight, height) + 25);
         this.setLocationRelativeTo(null);
         this.setUndecorated(false);
-        this.setResizable(false);
+        this.setResizable(true);
 
         addListeners();
         personalize();

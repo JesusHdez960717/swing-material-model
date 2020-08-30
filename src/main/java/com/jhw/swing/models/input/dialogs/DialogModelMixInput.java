@@ -20,7 +20,6 @@ import java.awt.BorderLayout;
 import java.awt.Rectangle;
 import javax.swing.ScrollPaneLayout;
 import com.jhw.swing.util.Utils;
-import com.jhw.swing.util.interfaces.Wrong;
 import java.util.Map;
 
 /**
@@ -66,7 +65,7 @@ public class DialogModelMixInput<T> extends JDialog implements ModelablePanel<T>
         this.setSize(Math.min(maxWidth, width) + 25, Math.min(maxHeight, height) + 25);
         this.setLocationRelativeTo(null);
         this.setUndecorated(false);
-        this.setResizable(false);
+        this.setResizable(true);
 
         addListeners();
         personalize();

@@ -26,7 +26,7 @@ public class CargoInputView extends ModelPanel<CargoModel> {
     @SuppressWarnings("unchecked")
     private void initComponents() {
         setHeader("Cargo");
-        textFieldNombre = new com.jhw.swing.material.components.textfield.validated._MaterialTextFieldStringNotEmpty();
+        textFieldNombre = new com.jhw.swing.material.components.textfield._MaterialTextField();
         textAreaDescripcion = new com.jhw.swing.material.components.textarea.prepared._MaterialTextAreaDescripcion();
         fileChooserPanel = new com.jhw.swing.material.components.filechooser._MaterialFileChooserPanel();
         cargoICBS1 = new com.jhw.swing.models.example.CargoICBS();
@@ -53,7 +53,7 @@ public class CargoInputView extends ModelPanel<CargoModel> {
     private com.jhw.swing.models.example.CargoICBS cargoICBS1;
     private com.jhw.swing.material.components.filechooser._MaterialFileChooserPanel fileChooserPanel;
     private com.jhw.swing.material.components.textarea.prepared._MaterialTextAreaDescripcion textAreaDescripcion;
-    private com.jhw.swing.material.components.textfield.validated._MaterialTextFieldStringNotEmpty textFieldNombre;
+    private com.jhw.swing.material.components.textfield._MaterialTextField textFieldNombre;
     // End of variables declaration                   
 
     @Override
@@ -67,14 +67,14 @@ public class CargoInputView extends ModelPanel<CargoModel> {
         } else {
             setHeader("Editar Cargo");
 
-            textFieldNombre.setString(getOldModel().getNombreCargo());
+            textFieldNombre.setText(getOldModel().getNombreCargo());
             textAreaDescripcion.setText(getOldModel().getDescripcion());
         }
     }
 
     @Override
     public CargoModel getNewModel() {
-        String nombre = textFieldNombre.getString();
+        String nombre = textFieldNombre.getText();
         String desc = textAreaDescripcion.getText();
         CargoModel cargoICBS = cargoICBS1.getSelectedItem();
 

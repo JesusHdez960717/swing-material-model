@@ -7,7 +7,6 @@ import com.jhw.swing.models.input.panels.BaseModelInputPanel;
 import com.jhw.swing.models.input.panels.ModelPanel;
 import java.awt.event.KeyEvent;
 import java.awt.Component;
-import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -17,7 +16,6 @@ import com.jhw.swing.util.UpdateCascade;
 import com.jhw.swing.util.Utils;
 import com.jhw.utils.interfaces.Update;
 import com.jhw.swing.models.input.ModelablePanel;
-import com.jhw.swing.util.interfaces.Wrong;
 import java.awt.BorderLayout;
 import java.awt.Rectangle;
 import java.util.Map;
@@ -73,7 +71,7 @@ public class DialogModelInput<T> extends JDialog implements ModelablePanel<T> {
         this.setSize(Math.min(maxWidth, width) + 25, Math.min(maxHeight, height) + 25);
         this.setLocationRelativeTo(null);
         this.setUndecorated(false);
-        this.setResizable(false);
+        this.setResizable(true);
 
         addListeners();
         personalize();
