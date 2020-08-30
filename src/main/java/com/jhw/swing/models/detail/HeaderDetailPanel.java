@@ -11,11 +11,13 @@ import com.jhw.swing.material.components.labels._MaterialLabel;
 import com.jhw.swing.material.components.searchfield._MaterialSearchField;
 import com.jhw.swing.material.standards.MaterialFontRoboto;
 import com.jhw.swing.material.standards.MaterialShadow;
+import com.jhw.swing.utils.icons.DerivableIcon;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import javax.swing.ImageIcon;
 import javax.swing.border.EmptyBorder;
 
 /**
@@ -46,6 +48,7 @@ public class HeaderDetailPanel extends _PanelTransparent {
         header.setBorder(new EmptyBorder(0, 5, 0, 0));
         header.setLayout(new BorderLayout());
         labelHeader = new _MaterialLabel();
+        labelHeader.setIconTextGap(10);
         labelHeader.setFont(MaterialFontRoboto.BOLD.deriveFont(24f));
         header.add(labelHeader, BorderLayout.WEST);
 
@@ -81,7 +84,7 @@ public class HeaderDetailPanel extends _PanelTransparent {
     }
 
     public void setHeaderText(String text) {
-        this.labelHeader.setText(text);
+        this.labelHeader.setText(text.toUpperCase());
     }
 
     public void addButtonNuevoActionListener(ActionListener action) {
@@ -157,6 +160,14 @@ public class HeaderDetailPanel extends _PanelTransparent {
 
     public void setSearchField(_MaterialSearchField searchField) {
         this.searchField = searchField;
+    }
+
+    public void setIcon(ImageIcon icon) {
+        if (icon instanceof DerivableIcon) {
+            labelHeader.setIcon(((DerivableIcon) icon).deriveIcon(1.25f * labelHeader.getFont().getSize2D()));
+        } else {
+            labelHeader.setIcon(icon);
+        }
     }
 
 }
