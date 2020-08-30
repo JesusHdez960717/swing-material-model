@@ -10,6 +10,8 @@ import com.jhw.personalization.services.PersonalizationHandler;
 import com.jhw.swing.material.components.container.panel._PanelTransparent;
 import com.jhw.swing.material.components.textfield._MaterialTextFieldIcon;
 import com.jhw.swing.material.standards.MaterialColors;
+import com.jhw.swing.models.utils.PersonalizationModel;
+import com.jhw.swing.util.PersonalizationMaterial;
 import com.jhw.swing.util.interfaces.BindableComponent;
 import com.jhw.utils.interfaces.Update;
 import java.awt.BorderLayout;
@@ -70,6 +72,10 @@ public abstract class InputComboBoxSelection<T> extends _PanelTransparent implem
     // End of variables declaration
 
     public void setIcon(ImageIcon icon) {
+        if (!PersonalizationHandler.getBoolean(PersonalizationMaterial.KEY_SHOW_ICON_INPUT)) {
+            return;
+        }
+        
         int h = (int) this.comboBox.getPreferredSize().getHeight();
         if (icon instanceof DerivableIcon) {
             buttonIcon.setIcon(((DerivableIcon) icon).deriveIcon(h * _MaterialTextFieldIcon.ICON_SIZE_REDUCTION));
@@ -102,7 +108,7 @@ public abstract class InputComboBoxSelection<T> extends _PanelTransparent implem
         });
 
         buttonIcon.addActionListener(buttonIconAction());
-        
+
         comboBox.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {

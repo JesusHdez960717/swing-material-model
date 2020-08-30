@@ -5,11 +5,13 @@
  */
 package com.jhw.swing.models.detail;
 
+import com.jhw.personalization.services.PersonalizationHandler;
 import com.jhw.swing.material.components.button.prepared._buttonAddEdit;
 import com.jhw.swing.material.components.container.panel._PanelTransparent;
 import com.jhw.swing.material.components.labels._MaterialLabel;
 import com.jhw.swing.material.components.searchfield._MaterialSearchField;
 import com.jhw.swing.material.standards.MaterialFontRoboto;
+import com.jhw.swing.models.utils.PersonalizationModel;
 import com.jhw.swing.utils.icons.DerivableIcon;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -161,6 +163,9 @@ public class HeaderDetailPanel extends _PanelTransparent {
     }
 
     public void setIcon(ImageIcon icon) {
+        if (!PersonalizationHandler.getBoolean(PersonalizationModel.KEY_SHOW_ICON_DETAIL)) {
+            return;
+        }
         if (icon instanceof DerivableIcon) {
             labelHeader.setIcon(((DerivableIcon) icon).deriveIcon(1.25f * labelHeader.getFont().getSize2D()));
         } else {
