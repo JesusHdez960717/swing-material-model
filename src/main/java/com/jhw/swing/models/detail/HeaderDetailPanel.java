@@ -10,13 +10,11 @@ import com.jhw.swing.material.components.container.panel._PanelTransparent;
 import com.jhw.swing.material.components.labels._MaterialLabel;
 import com.jhw.swing.material.components.searchfield._MaterialSearchField;
 import com.jhw.swing.material.standards.MaterialFontRoboto;
-import com.jhw.swing.material.standards.MaterialShadow;
 import com.jhw.swing.utils.icons.DerivableIcon;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.border.EmptyBorder;
 
@@ -84,7 +82,7 @@ public class HeaderDetailPanel extends _PanelTransparent {
     }
 
     public void setHeaderText(String text) {
-        this.labelHeader.setText(text.toUpperCase());
+        this.labelHeader.setText(text);
     }
 
     public void addButtonNuevoActionListener(ActionListener action) {

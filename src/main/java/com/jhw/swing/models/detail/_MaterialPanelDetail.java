@@ -179,8 +179,8 @@ public abstract class _MaterialPanelDetail<T> extends _MaterialPanel implements 
                     table.getJTable().setRowSelectionInterval(oldRow, oldRow);
                 }
             }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        } catch (Exception ex) {
+            System.out.println("Excepcion en el deleteAction " + ex.getMessage());
         }
     }
 
@@ -231,7 +231,7 @@ public abstract class _MaterialPanelDetail<T> extends _MaterialPanel implements 
     public T getSelectedElement() {
         int row = table.getSelectedRow();
         if (row < 0) {
-            throw new NullPointerException("Nada Seleccionado.");
+            return null;
         }
         return (T) table.getValueAt(row, 0);
     }
@@ -360,7 +360,7 @@ public abstract class _MaterialPanelDetail<T> extends _MaterialPanel implements 
                 try {
                     editAction(getSelectedElement());
                 } catch (Exception ex) {
-                    ExceptionHandler.handleException(ex);
+                    System.out.println("Excepcion en el editAction " + ex.getMessage());
                 }
             }
         });
@@ -371,7 +371,7 @@ public abstract class _MaterialPanelDetail<T> extends _MaterialPanel implements 
                 try {
                     viewAction(getSelectedElement());
                 } catch (Exception ex) {
-                    ExceptionHandler.handleException(ex);
+                    System.out.println("Excepcion en el viewAction " + ex.getMessage());
                 }
             }
         });
