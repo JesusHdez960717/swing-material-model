@@ -20,7 +20,6 @@ public class CargoInputView extends ModelPanel<CargoModel> {
     public CargoInputView(CargoModel model) {
         super(model);
         initComponents();
-        addListeners();
         personalize();
         update();
     }
@@ -30,7 +29,7 @@ public class CargoInputView extends ModelPanel<CargoModel> {
         setHeader("Cargo");
         textFieldNombre = new com.jhw.swing.material.components.textfield._MaterialTextFieldIcon<>();
         textAreaDescripcion = new com.jhw.swing.material.components.textarea.prepared._MaterialTextAreaDescripcion();
-        fileChooserPanel = new com.jhw.swing.material.components.filechooser._MaterialFileChooserPanel();
+        fileChooserPanel = new com.jhw.swing.material.components.filechooser._MaterialFileChooserIcon();
         cargoICBS1 = new com.jhw.swing.models.example.CargoICBS();
 
         textFieldNombre.setHint("Nombre del cargo");
@@ -60,7 +59,7 @@ public class CargoInputView extends ModelPanel<CargoModel> {
     // Variables declaration - do not modify
     private com.jhw.swing.models.example.CargoICBS cargoICBS1;
     private _MaterialTextFieldMoneyIcon money;
-    private com.jhw.swing.material.components.filechooser._MaterialFileChooserPanel fileChooserPanel;
+    private com.jhw.swing.material.components.filechooser._MaterialFileChooserIcon fileChooserPanel;
     private com.jhw.swing.material.components.textarea.prepared._MaterialTextAreaDescripcion textAreaDescripcion;
     private com.jhw.swing.material.components.textfield._MaterialTextFieldIcon textFieldNombre;
     // End of variables declaration                   
@@ -96,7 +95,6 @@ public class CargoInputView extends ModelPanel<CargoModel> {
             cargo = new CargoModel(nombre, desc);
         }
         cargo.setIdCargo(new Random().nextInt(10000) + 100);
-        cargo.setFiles(fileChooserPanel.getSelectedFiles());
         return cargo;
     }
 
@@ -146,15 +144,6 @@ public class CargoInputView extends ModelPanel<CargoModel> {
     @Override
     public boolean onCancelAction() {
         return true;
-    }
-
-    private void addListeners() {
-        fileChooserPanel.addButtonOpenFolderAction(new java.awt.event.ActionListener() {
-            @Override
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                onButtonOpenFolderActionPerformed();
-            }
-        });
     }
 
     private void onButtonOpenFolderActionPerformed() {
