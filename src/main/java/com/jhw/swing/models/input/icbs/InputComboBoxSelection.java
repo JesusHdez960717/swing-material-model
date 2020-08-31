@@ -44,6 +44,9 @@ public abstract class InputComboBoxSelection<T> extends _PanelTransparent implem
     }
 
     private void initComponents(String label, String hint) {
+        buttonIcon = new _MaterialButtonIconTransparent();
+        buttonIcon.setRippleColor(MaterialColors.TRANSPARENT);
+        
         comboBox = new _MaterialComboBoxFiltrable();
         comboBox.setLabel(label);
         comboBox.setHint(hint);
@@ -58,7 +61,6 @@ public abstract class InputComboBoxSelection<T> extends _PanelTransparent implem
                         .deriveIcon(PersonalizationHandler.getColor(Personalization.KEY_COLOR_BUTTON_ADD))
                         .deriveIcon(h * .6f));
 
-        buttonIcon = new _MaterialButtonIconTransparent();
 
         this.setLayout(new BorderLayout());
         this.add(comboBox, BorderLayout.CENTER);
