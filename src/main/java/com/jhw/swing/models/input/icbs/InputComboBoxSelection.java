@@ -10,6 +10,7 @@ import com.jhw.personalization.services.PersonalizationHandler;
 import com.jhw.swing.material.components.container.panel._PanelTransparent;
 import com.jhw.swing.material.components.textfield._MaterialTextFieldIcon;
 import com.jhw.swing.material.standards.MaterialColors;
+import com.jhw.swing.material.standards.MaterialShadow;
 import com.jhw.swing.models.utils.PersonalizationModel;
 import com.jhw.swing.util.PersonalizationMaterial;
 import com.jhw.swing.util.interfaces.BindableComponent;
@@ -51,16 +52,13 @@ public abstract class InputComboBoxSelection<T> extends _PanelTransparent implem
         comboBox.setLabel(label);
         comboBox.setHint(hint);
 
-        int h = (int) this.comboBox.getPreferredSize().getHeight();
-
         buttonNuevo = new _MaterialButtonIconTransparent();
         buttonNuevo.setForeground(PersonalizationHandler.getColor(Personalization.KEY_COLOR_BUTTON_ADD));
         buttonNuevo.setRippleColor(Color.black);
         buttonNuevo.setIcon(
                 PersonalizationHandler.getDerivableIcon(Personalization.KEY_ICON_BUTTON_ADD)
                         .deriveIcon(PersonalizationHandler.getColor(Personalization.KEY_COLOR_BUTTON_ADD))
-                        .deriveIcon(h * .6f));
-
+                        .deriveIcon(38f));
 
         this.setLayout(new BorderLayout());
         this.add(comboBox, BorderLayout.CENTER);
