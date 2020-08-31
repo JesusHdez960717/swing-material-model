@@ -154,30 +154,50 @@ public abstract class _MaterialPanelDetail<T> extends _MaterialPanel implements 
 
     public abstract Object[] getRowObject(T obj);
 
+    /**
+     * Siempre recive un T obj != null
+     *
+     * @param obj
+     * @return
+     */
     protected abstract T deleteAction(T obj);
 
+    /**
+     * Siempre recive un T obj != null
+     *
+     * @param obj
+     */
     protected abstract void editAction(T obj);
 
+    /**
+     * Siempre recive un T obj != null
+     *
+     * @param obj
+     */
     protected abstract void viewAction(T obj);
 
     private void deleteActionInternal() {
         try {
             T before = getSelectedElement();
-            int oldRow = Math.max(0, Math.min(table.getSelectedRow(), table.getRowCount() - 2));//-1 para ajustar al 0 y -1 por eliminar el ultimo
-            if (Notification.showConfirmDialog(NotificationsGeneralType.CONFIRM_DELETE, before)) {
-                T after = deleteAction(before);
-                if (after != null) {
-                    //si se elimina el ultimo deje de editar xq si no lanza excepcion x editar un index que no existe
-                    if (table.getJTable().getCellEditor() != null) {//es null si se elimina con el click derecho
-                        table.getJTable().getCellEditor().stopCellEditing();
+            if (before != null) {
+                int oldRow = Math.max(0, Math.min(table.getSelectedRow(), table.getRowCount() - 2));//-1 para ajustar al 0 y -1 por eliminar el ultimo
+
+                if (Notification.showConfirmDialog(NotificationsGeneralType.CONFIRM_DELETE, before)) {
+                    T after = deleteAction(before);
+                    if (after != null) {
+                        //si se elimina el ultimo deje de editar xq si no lanza excepcion x editar un index que no existe
+                        if (table.getJTable().getCellEditor() != null) {//es null si se elimina con el click derecho
+                            table.getJTable().getCellEditor().stopCellEditing();
+                        }
+
+                        Notification.showNotification(NotificationsGeneralType.NOTIFICATION_DELETE, after);
+                        update();
+
+                        //para que se mantenga el ultimo seleccionado
+                        table.getJTable().setRowSelectionInterval(oldRow, oldRow);
                     }
-
-                    Notification.showNotification(NotificationsGeneralType.NOTIFICATION_DELETE, after);
-                    update();
-
-                    //para que se mantenga el ultimo seleccionado
-                    table.getJTable().setRowSelectionInterval(oldRow, oldRow);
                 }
+
             }
         } catch (Exception ex) {
             System.out.println("Excepcion en el deleteAction " + ex.getMessage());
@@ -358,7 +378,10 @@ public abstract class _MaterialPanelDetail<T> extends _MaterialPanel implements 
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    editAction(getSelectedElement());
+                    T element = getSelectedElement();
+                    if (element != null) {
+                        editAction(element);
+                    }
                 } catch (Exception ex) {
                     System.out.println("Excepcion en el editAction " + ex.getMessage());
                 }
@@ -369,7 +392,10 @@ public abstract class _MaterialPanelDetail<T> extends _MaterialPanel implements 
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    viewAction(getSelectedElement());
+                    T element = getSelectedElement();
+                    if (element != null) {
+                        viewAction(element);
+                    }
                 } catch (Exception ex) {
                     System.out.println("Excepcion en el viewAction " + ex.getMessage());
                 }
