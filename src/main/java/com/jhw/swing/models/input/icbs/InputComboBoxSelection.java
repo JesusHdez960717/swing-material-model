@@ -144,6 +144,7 @@ public abstract class InputComboBoxSelection<T> extends _PanelTransparent implem
     public void setEnabled(boolean enabled) {
         comboBox.setEnabled(enabled);
         buttonNuevo.setEnabled(enabled);
+        buttonIcon.setEnabled(enabled);
     }
 
     protected abstract void updateComboBox() throws Exception;
