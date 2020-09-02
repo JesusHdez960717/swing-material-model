@@ -87,6 +87,10 @@ public class HeaderDetailPanel extends _PanelTransparent {
         this.labelHeader.setText(text);
     }
 
+    public String getHeaderText() {
+        return this.labelHeader.getText();
+    }
+
     public void addButtonNuevoActionListener(ActionListener action) {
         buttonAdd.addActionListener(action);
     }
