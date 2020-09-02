@@ -5,6 +5,7 @@
  */
 package com.jhw.swing.models.example;
 
+import com.clean.core.domain.DomainObject;
 import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ import java.util.List;
  *
  * @author Yo
  */
-public class CargoModel implements Serializable {
+public class CargoModel extends DomainObject {
 
     private static final List<CargoModel> list = new ArrayList<>();
 
