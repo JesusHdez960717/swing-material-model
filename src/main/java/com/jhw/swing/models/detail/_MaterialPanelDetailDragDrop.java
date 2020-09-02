@@ -8,6 +8,7 @@ package com.jhw.swing.models.detail;
 import com.clean.core.app.services.ExceptionHandler;
 import com.clean.core.domain.DomainObject;
 import com.jhw.excel.utils.DomainListFileReader;
+import com.jhw.swing.material.components.filechooser.FileDropHandler;
 import com.jhw.swing.material.components.table.Column;
 import com.jhw.swing.material.standards.MaterialIcons;
 import java.awt.event.ActionEvent;
@@ -37,13 +38,13 @@ public abstract class _MaterialPanelDetailDragDrop<T extends DomainObject> exten
     }
 
     public void setButtonAddTransferConsumer(DomainListFileReader<T> reader) {
-        header.getButtonAdd().setButtonAddTransferConsumer((List<File> t) -> {
+        header.getButtonAdd().setTransferHandler(new FileDropHandler((List<File> t) -> {
             try {
                 insertAll(reader.read(t));
             } catch (Exception e) {
                 ExceptionHandler.handleException(e);
             }
-        });
+        }));
     }
 
     public void insertAll(List<T> newDomains) {
