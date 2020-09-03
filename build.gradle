@@ -26,5 +26,5 @@ dependencies {
     implementation project(':material-notification')
     implementation project(':material-personalization')
     
-    implementation project(':module-excel')
+    implementation project(':module-export')
 }
