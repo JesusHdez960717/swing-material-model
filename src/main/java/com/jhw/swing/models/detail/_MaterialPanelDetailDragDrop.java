@@ -8,15 +8,17 @@ package com.jhw.swing.models.detail;
 import com.clean.core.app.services.ExceptionHandler;
 import com.clean.core.domain.DomainObject;
 import com.jhw.excel.utils.DomainListFileReader;
+import com.jhw.excel.utils.ExcelListWriter;
 import com.jhw.swing.material.components.filechooser.FileDropHandler;
 import com.jhw.swing.material.components.table.Column;
 import com.jhw.swing.material.standards.MaterialIcons;
+import static com.jhw.utils.others.SDF.SDF_ALL;
+import com.jhw.utils.services.ConverterService;
 import java.awt.event.ActionEvent;
 import java.io.File;
-import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import javax.swing.AbstractAction;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -61,7 +63,7 @@ public abstract class _MaterialPanelDetailDragDrop<T extends DomainObject> exten
     }
 
     private void personalize() {
-        this.addOptionElement(new AbstractAction("Exportar a Excel", MaterialIcons.EXTENSION) {
+        this.addOptionElement(new AbstractAction("Exportar a Excel", MaterialIcons.EXCEL.deriveIcon(24f)) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 onExportToExcelAction();
@@ -71,11 +73,18 @@ public abstract class _MaterialPanelDetailDragDrop<T extends DomainObject> exten
         setButtonAddTransferConsumer(reader);
     }
 
-    private void onExportToExcelAction() {
-        JOptionPane.showMessageDialog(null, Arrays.asList(getColumnNamesExport()));
-        for (T t : list) {
-            JOptionPane.showMessageDialog(null, t);
-        }
+    public ExcelListWriter.builder exportBuilder() {
+        return ExcelListWriter.builder();
+    }
 
+    private void onExportToExcelAction() {
+        try {
+            exportBuilder().fileName(header.getHeaderText() + " " + SDF_ALL.format(new Date()))
+                    .setColumns(this::getColumnNamesExport)
+                    .values(ConverterService.convert(list, this::getRowObjectExport))
+                    .write().open();
+        } catch (Exception e) {
+            ExceptionHandler.handleException(e);
+        }
     }
 }
