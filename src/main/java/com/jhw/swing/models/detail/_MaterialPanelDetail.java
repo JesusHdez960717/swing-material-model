@@ -100,6 +100,10 @@ public abstract class _MaterialPanelDetail<T extends DomainObject> extends _Mate
         this.adjustColumns = adjustColumns;
     }
 
+    public String getHeaderText() {
+        return header.getHeaderText();
+    }
+
     public void setHeaderText(String text) {
         header.setHeaderText(text);
     }
@@ -300,6 +304,10 @@ public abstract class _MaterialPanelDetail<T extends DomainObject> extends _Mate
     public void addObject(T object) {
         this.list.add(object);
         addRow(object);
+    }
+
+    public List<T> getList() {
+        return list;
     }
 
     public void removeRow(int row) {
