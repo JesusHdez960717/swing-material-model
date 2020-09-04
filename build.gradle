@@ -27,4 +27,5 @@ dependencies {
     implementation project(':material-personalization')
     
     implementation project(':module-export')
+    implementation project(':module-files')
 }
