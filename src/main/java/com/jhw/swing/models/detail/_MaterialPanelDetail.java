@@ -1,10 +1,8 @@
 package com.jhw.swing.models.detail;
 
-import com.clean.core.app.services.ExceptionHandler;
 import com.clean.core.app.services.Notification;
 import com.clean.core.app.services.NotificationsGeneralType;
 import com.clean.core.domain.DomainObject;
-import com.jhw.excel.utils.DomainListFileReader;
 import com.jhw.swing.material.components.button._MaterialButtonIconTransparent;
 import com.jhw.swing.material.components.container.panel._MaterialPanel;
 import com.jhw.swing.material.components.labels._MaterialLabel;
@@ -37,9 +35,6 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.border.EmptyBorder;
 import com.jhw.swing.material.components.table.TableColumnAdjuster;
-import com.jhw.swing.material.standards.MaterialIcons;
-import java.io.File;
-import java.util.function.Consumer;
 import javax.swing.ImageIcon;
 import javax.swing.JPopupMenu;
 
@@ -443,10 +438,6 @@ public abstract class _MaterialPanelDetail<T extends DomainObject> extends _Mate
     public void addOptionElement(Action action) {
         _MaterialButtonIconTransparent btn = new _MaterialButtonIconTransparent();
         btn.setAction(action);
-        btn.setText("");//le quito el texto no vaya a ser muy grnade
-        btn.setToolTipText(action.getValue(Action.NAME).toString());//se lo pongo como tooltip
-        
-        btn.setComponentPopupMenu((JPopupMenu) action.getValue("popup"));
         addOptionElement(btn);
     }
 

@@ -15,22 +15,16 @@ import com.jhw.swing.material.components.button._MaterialButtonIconTransparent;
 import com.jhw.swing.material.components.filechooser.FileDropHandler;
 import com.jhw.swing.material.components.table.Column;
 import com.jhw.swing.material.standards.MaterialIcons;
-import com.jhw.swing.material.standards.MaterialImages;
-import com.jhw.swing.models.utils.PersonalizationModel;
 import com.jhw.swing.util.AbstractActionUtils;
-import static com.jhw.utils.others.SDF.SDF_ALL;
 import com.jhw.utils.services.ConverterService;
 import java.awt.event.ActionEvent;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
-import javax.swing.JTable;
 
 /**
  *
@@ -85,7 +79,7 @@ public abstract class _MaterialPanelDetailDragDrop<T extends DomainObject> exten
                 onExportToExcelAction();
             }
         };
-        excelAction.putValue("popup", getPopupAllExportSupported());
+        excelAction.putValue(_MaterialButtonIconTransparent.KEY_ACTION_POPUP, getPopupAllExportSupported());
         addOptionElement(excelAction);
         if (reader != null) {
             setButtonAddTransferConsumer(reader);
