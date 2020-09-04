@@ -14,6 +14,7 @@ import com.jhw.personalization.services.PersonalizationHandler;
 public class PersonalizationModel {
 
     private static final String INIT = init();
+
     public static final String KEY_SHOW_ICON_DETAIL = INIT + "boolean.show_icon_detail";
     public static final Object VALUE_SHOW_ICON_DETAIL = true;
 

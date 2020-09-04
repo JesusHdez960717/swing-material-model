@@ -17,3 +17,7 @@ project(':material-notification').projectDir = "E:\\Trabajos\\Projects\\GIT Proj
 
 include 'material-personalization'
 project(':material-personalization').projectDir = "E:\\Trabajos\\Projects\\GIT Projects Gradle\\Modulos Utils\\Personalization" as File
+
+include 'module-export', 'module-files'
+project(':module-export').projectDir = "E:\\Trabajos\\Projects\\GIT Projects Gradle\\Modulos Utils\\Export" as File
+project(':module-files').projectDir = "E:\\Trabajos\\Projects\\GIT Projects Gradle\\Modulos Utils\\Files" as File

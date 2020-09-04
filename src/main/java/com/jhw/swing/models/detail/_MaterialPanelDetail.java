@@ -1,8 +1,8 @@
 package com.jhw.swing.models.detail;
 
-import com.clean.core.app.services.ExceptionHandler;
 import com.clean.core.app.services.Notification;
 import com.clean.core.app.services.NotificationsGeneralType;
+import com.clean.core.domain.DomainObject;
 import com.jhw.swing.material.components.button._MaterialButtonIconTransparent;
 import com.jhw.swing.material.components.container.panel._MaterialPanel;
 import com.jhw.swing.material.components.labels._MaterialLabel;
@@ -35,21 +35,21 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.border.EmptyBorder;
 import com.jhw.swing.material.components.table.TableColumnAdjuster;
-import com.jhw.swing.material.standards.MaterialIcons;
 import javax.swing.ImageIcon;
+import javax.swing.JPopupMenu;
 
 /**
  *
  * @author Jesus Hernandez Barrios (jhernandezb96@gmail.com)
  * @param <T> Tipo de modelo de la clase
  */
-public abstract class _MaterialPanelDetail<T> extends _MaterialPanel implements Update {
+public abstract class _MaterialPanelDetail<T extends DomainObject> extends _MaterialPanel implements Update {
 
     private final String modelColumnName = "_" + SHA.hash256(String.valueOf(new SecureRandom().nextLong())) + "_";
     private final String actionsColumnName = "_" + SHA.hash256(String.valueOf(new SecureRandom().nextLong())) + "_";
 
     private final _MaterialPanelActions.builder builder = new _MaterialPanelActions.builder();
-    private final List<T> list = new ArrayList<>();
+    protected final List<T> list = new ArrayList<>();
 
     private TableColumnAdjuster adjuster;
 
@@ -84,8 +84,8 @@ public abstract class _MaterialPanelDetail<T> extends _MaterialPanel implements 
     }
 
     // Variables declaration - do not modify
-    private HeaderDetailPanel header;
-    private com.jhw.swing.material.components.table._MaterialTableByPage table;
+    protected HeaderDetailPanel header;
+    protected com.jhw.swing.material.components.table._MaterialTableByPage table;
     // End of variables declaration                   
 
     public void setIcon(ImageIcon icon) {
@@ -262,6 +262,14 @@ public abstract class _MaterialPanelDetail<T> extends _MaterialPanel implements 
         }
     }
 
+    public List<T> getSelectedList() {
+        List<T> answ = new ArrayList<>();
+        for (int selectedRow : getJTable().getSelectedRows()) {
+            answ.add((T) getTable().getValueAt(selectedRow, 0));
+        }
+        return answ;
+    }
+
     @Override
     public void setBackground(Color bg) {
         super.setBackground(bg);
@@ -430,7 +438,6 @@ public abstract class _MaterialPanelDetail<T> extends _MaterialPanel implements 
     public void addOptionElement(Action action) {
         _MaterialButtonIconTransparent btn = new _MaterialButtonIconTransparent();
         btn.setAction(action);
-        btn.setToolTipText(action.getValue(Action.NAME).toString());
         addOptionElement(btn);
     }
 
@@ -481,5 +488,13 @@ public abstract class _MaterialPanelDetail<T> extends _MaterialPanel implements 
                 adjuster.adjustColumn(i);
             }
         }
+    }
+
+    public String[] getColumnNames() {
+        String[] cols = new String[table.getJTable().getColumnCount() - 2];
+        for (int i = 0; i < cols.length; i++) {
+            cols[i] = table.getJTable().getColumnName(i + 1);
+        }
+        return cols;
     }
 }

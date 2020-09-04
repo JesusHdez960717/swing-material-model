@@ -87,6 +87,10 @@ public class HeaderDetailPanel extends _PanelTransparent {
         this.labelHeader.setText(text);
     }
 
+    public String getHeaderText() {
+        return this.labelHeader.getText();
+    }
+
     public void addButtonNuevoActionListener(ActionListener action) {
         buttonAdd.addActionListener(action);
     }
@@ -104,14 +108,14 @@ public class HeaderDetailPanel extends _PanelTransparent {
     }
 
     public void addOptionElement(Component element) {
-        addOptionElement(element, panelOptionsExtra.getComponentCount());
+        addOptionElement(element, 0/*, panelOptionsExtra.getComponentCount()*/);
     }
 
     public void addOptionElement(Component element, int index) {
         int heigth = (int) panelOptionsExtra.getSize().getHeight();
         int width = heigth * panelOptionsExtra.getComponentCount() + 1;
         panelOptionsExtra.setSize(width, heigth);
-        panelOptionsExtra.add(element);
+        panelOptionsExtra.add(element, index);
     }
 
     public void setOptionPanelVisibility(boolean visible) {
