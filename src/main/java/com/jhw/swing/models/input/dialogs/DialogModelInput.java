@@ -2,6 +2,8 @@ package com.jhw.swing.models.input.dialogs;
 
 import com.clean.core.app.services.NotificationsGeneralType;
 import com.clean.core.app.services.Notification;
+import com.jhw.personalization.core.domain.Personalization;
+import com.jhw.personalization.services.PersonalizationHandler;
 import com.jhw.swing.material.components.scrollpane._MaterialScrollPaneCore;
 import com.jhw.swing.models.input.panels.BaseModelInputPanel;
 import com.jhw.swing.models.input.panels.ModelPanel;
@@ -183,8 +185,10 @@ public class DialogModelInput<T> extends JDialog implements ModelablePanel<T> {
     private void personalize() {
         if (getOldModel() == null) {
             this.setTitle("Crear");
+            this.setIconImage(PersonalizationHandler.getDerivableIcon(Personalization.KEY_ICON_BUTTON_ADD).getImage());
         } else {
             this.setTitle("Editar");
+            this.setIconImage(PersonalizationHandler.getDerivableIcon(Personalization.KEY_ICON_BUTTON_EDIT).getImage());
         }
     }
 

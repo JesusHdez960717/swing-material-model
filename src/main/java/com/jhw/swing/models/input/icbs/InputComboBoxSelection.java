@@ -10,6 +10,7 @@ import com.jhw.personalization.services.PersonalizationHandler;
 import com.jhw.swing.material.components.container.panel._PanelTransparent;
 import com.jhw.swing.material.components.textfield._MaterialTextFieldIcon;
 import com.jhw.swing.material.standards.MaterialColors;
+import com.jhw.swing.material.standards.MaterialShadow;
 import com.jhw.swing.models.utils.PersonalizationModel;
 import com.jhw.swing.util.PersonalizationMaterial;
 import com.jhw.swing.util.interfaces.BindableComponent;
@@ -44,11 +45,12 @@ public abstract class InputComboBoxSelection<T> extends _PanelTransparent implem
     }
 
     private void initComponents(String label, String hint) {
+        buttonIcon = new _MaterialButtonIconTransparent();
+        buttonIcon.setRippleColor(MaterialColors.TRANSPARENT);
+        
         comboBox = new _MaterialComboBoxFiltrable();
         comboBox.setLabel(label);
         comboBox.setHint(hint);
-
-        int h = (int) this.comboBox.getPreferredSize().getHeight();
 
         buttonNuevo = new _MaterialButtonIconTransparent();
         buttonNuevo.setForeground(PersonalizationHandler.getColor(Personalization.KEY_COLOR_BUTTON_ADD));
@@ -56,9 +58,7 @@ public abstract class InputComboBoxSelection<T> extends _PanelTransparent implem
         buttonNuevo.setIcon(
                 PersonalizationHandler.getDerivableIcon(Personalization.KEY_ICON_BUTTON_ADD)
                         .deriveIcon(PersonalizationHandler.getColor(Personalization.KEY_COLOR_BUTTON_ADD))
-                        .deriveIcon(h * .6f));
-
-        buttonIcon = new _MaterialButtonIconTransparent();
+                        .deriveIcon(38f));
 
         this.setLayout(new BorderLayout());
         this.add(comboBox, BorderLayout.CENTER);
@@ -144,6 +144,7 @@ public abstract class InputComboBoxSelection<T> extends _PanelTransparent implem
     public void setEnabled(boolean enabled) {
         comboBox.setEnabled(enabled);
         buttonNuevo.setEnabled(enabled);
+        buttonIcon.setEnabled(enabled);
     }
 
     protected abstract void updateComboBox() throws Exception;

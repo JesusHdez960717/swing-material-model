@@ -1,5 +1,7 @@
 package com.jhw.swing.models.detail;
 
+import com.jhw.personalization.core.domain.Personalization;
+import com.jhw.personalization.services.PersonalizationHandler;
 import com.jhw.swing.bundles.dialog.DialogPanel;
 import com.jhw.swing.util.UpdateCascade;
 import javax.swing.JPanel;
@@ -22,10 +24,15 @@ public class DialogDetail extends DialogPanel {
 
     public DialogDetail(Update act[], String title, JPanel panel) {
         super(title, panel);
+
         this.actualizables = UpdateCascade.from(act);
+
         addListeners();
+
         this.setSize((int) Math.max(600, panel.getPreferredSize().getWidth()), (int) Math.max(500, panel.getPreferredSize().getHeight()));
         this.setLocationRelativeTo(null);
+        
+        this.setIconImage(PersonalizationHandler.getDerivableIcon(Personalization.KEY_ICON_BUTTON_VIEW).getImage());
     }
 
     private void addListeners() {

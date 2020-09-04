@@ -4,6 +4,8 @@ import com.clean.core.app.services.Notification;
 import com.clean.core.app.services.NotificationsGeneralType;
 import com.jhw.swing.material.components.container.layout.VerticalLayoutComponent;
 import com.jhw.swing.material.components.container.layout.VerticalLayoutContainer;
+import com.jhw.swing.material.components.datepicker._MaterialDatePicker;
+import com.jhw.swing.material.components.datepicker._MaterialDatePickerIcon;
 import com.jhw.swing.material.components.textfield.validated._MaterialTextFieldMoneyIcon;
 import com.jhw.swing.material.standards.MaterialIcons;
 import com.jhw.swing.models.input.panels.ModelPanel;
@@ -20,7 +22,6 @@ public class CargoInputView extends ModelPanel<CargoModel> {
     public CargoInputView(CargoModel model) {
         super(model);
         initComponents();
-        addListeners();
         personalize();
         update();
     }
@@ -30,7 +31,7 @@ public class CargoInputView extends ModelPanel<CargoModel> {
         setHeader("Cargo");
         textFieldNombre = new com.jhw.swing.material.components.textfield._MaterialTextFieldIcon<>();
         textAreaDescripcion = new com.jhw.swing.material.components.textarea.prepared._MaterialTextAreaDescripcion();
-        fileChooserPanel = new com.jhw.swing.material.components.filechooser._MaterialFileChooserPanel();
+        fileChooserPanel = new com.jhw.swing.material.components.filechooser._MaterialFileChooserIcon();
         cargoICBS1 = new com.jhw.swing.models.example.CargoICBS();
 
         textFieldNombre.setHint("Nombre del cargo");
@@ -40,7 +41,9 @@ public class CargoInputView extends ModelPanel<CargoModel> {
         money = new _MaterialTextFieldMoneyIcon();
         money.setLabel("money");
         money.setHint("extra hint");
-        
+
+        datePicker = new _MaterialDatePickerIcon();
+
         VerticalLayoutContainer.builder v = VerticalLayoutContainer.builder();
 
         //HorizontalLayoutContainer.builder hlc = HorizontalLayoutContainer.builder((int) cargoICBS1.getPreferredSize().getHeight());
@@ -52,6 +55,7 @@ public class CargoInputView extends ModelPanel<CargoModel> {
         v.add(textFieldNombre);
 
         v.add(fileChooserPanel);
+        v.add(datePicker);
         v.add(VerticalLayoutComponent.builder(textAreaDescripcion).resize(true).build());
 
         this.setComponent(v.build());
@@ -59,8 +63,9 @@ public class CargoInputView extends ModelPanel<CargoModel> {
 
     // Variables declaration - do not modify
     private com.jhw.swing.models.example.CargoICBS cargoICBS1;
+    private _MaterialDatePickerIcon datePicker;
     private _MaterialTextFieldMoneyIcon money;
-    private com.jhw.swing.material.components.filechooser._MaterialFileChooserPanel fileChooserPanel;
+    private com.jhw.swing.material.components.filechooser._MaterialFileChooserIcon fileChooserPanel;
     private com.jhw.swing.material.components.textarea.prepared._MaterialTextAreaDescripcion textAreaDescripcion;
     private com.jhw.swing.material.components.textfield._MaterialTextFieldIcon textFieldNombre;
     // End of variables declaration                   
@@ -96,7 +101,6 @@ public class CargoInputView extends ModelPanel<CargoModel> {
             cargo = new CargoModel(nombre, desc);
         }
         cargo.setIdCargo(new Random().nextInt(10000) + 100);
-        cargo.setFiles(fileChooserPanel.getSelectedFiles());
         return cargo;
     }
 
@@ -146,15 +150,6 @@ public class CargoInputView extends ModelPanel<CargoModel> {
     @Override
     public boolean onCancelAction() {
         return true;
-    }
-
-    private void addListeners() {
-        fileChooserPanel.addButtonOpenFolderAction(new java.awt.event.ActionListener() {
-            @Override
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                onButtonOpenFolderActionPerformed();
-            }
-        });
     }
 
     private void onButtonOpenFolderActionPerformed() {

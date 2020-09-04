@@ -1,8 +1,8 @@
 package com.jhw.swing.models.detail;
 
-import com.clean.core.app.services.ExceptionHandler;
 import com.clean.core.app.services.Notification;
 import com.clean.core.app.services.NotificationsGeneralType;
+import com.clean.core.domain.DomainObject;
 import com.jhw.swing.material.components.button._MaterialButtonIconTransparent;
 import com.jhw.swing.material.components.container.panel._MaterialPanel;
 import com.jhw.swing.material.components.labels._MaterialLabel;
@@ -35,21 +35,21 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.border.EmptyBorder;
 import com.jhw.swing.material.components.table.TableColumnAdjuster;
-import com.jhw.swing.material.standards.MaterialIcons;
 import javax.swing.ImageIcon;
+import javax.swing.JPopupMenu;
 
 /**
  *
  * @author Jesus Hernandez Barrios (jhernandezb96@gmail.com)
  * @param <T> Tipo de modelo de la clase
  */
-public abstract class _MaterialPanelDetail<T> extends _MaterialPanel implements Update {
+public abstract class _MaterialPanelDetail<T extends DomainObject> extends _MaterialPanel implements Update {
 
     private final String modelColumnName = "_" + SHA.hash256(String.valueOf(new SecureRandom().nextLong())) + "_";
     private final String actionsColumnName = "_" + SHA.hash256(String.valueOf(new SecureRandom().nextLong())) + "_";
 
     private final _MaterialPanelActions.builder builder = new _MaterialPanelActions.builder();
-    private final List<T> list = new ArrayList<>();
+    protected final List<T> list = new ArrayList<>();
 
     private TableColumnAdjuster adjuster;
 
@@ -84,8 +84,8 @@ public abstract class _MaterialPanelDetail<T> extends _MaterialPanel implements 
     }
 
     // Variables declaration - do not modify
-    private HeaderDetailPanel header;
-    private com.jhw.swing.material.components.table._MaterialTableByPage table;
+    protected HeaderDetailPanel header;
+    protected com.jhw.swing.material.components.table._MaterialTableByPage table;
     // End of variables declaration                   
 
     public void setIcon(ImageIcon icon) {
@@ -154,30 +154,50 @@ public abstract class _MaterialPanelDetail<T> extends _MaterialPanel implements 
 
     public abstract Object[] getRowObject(T obj);
 
+    /**
+     * Siempre recive un T obj != null
+     *
+     * @param obj
+     * @return
+     */
     protected abstract T deleteAction(T obj);
 
+    /**
+     * Siempre recive un T obj != null
+     *
+     * @param obj
+     */
     protected abstract void editAction(T obj);
 
+    /**
+     * Siempre recive un T obj != null
+     *
+     * @param obj
+     */
     protected abstract void viewAction(T obj);
 
     private void deleteActionInternal() {
         try {
             T before = getSelectedElement();
-            int oldRow = Math.max(0, Math.min(table.getSelectedRow(), table.getRowCount() - 2));//-1 para ajustar al 0 y -1 por eliminar el ultimo
-            if (Notification.showConfirmDialog(NotificationsGeneralType.CONFIRM_DELETE, before)) {
-                T after = deleteAction(before);
-                if (after != null) {
-                    //si se elimina el ultimo deje de editar xq si no lanza excepcion x editar un index que no existe
-                    if (table.getJTable().getCellEditor() != null) {//es null si se elimina con el click derecho
-                        table.getJTable().getCellEditor().stopCellEditing();
+            if (before != null) {
+                int oldRow = Math.max(0, Math.min(table.getSelectedRow(), table.getRowCount() - 2));//-1 para ajustar al 0 y -1 por eliminar el ultimo
+
+                if (Notification.showConfirmDialog(NotificationsGeneralType.CONFIRM_DELETE, before)) {
+                    T after = deleteAction(before);
+                    if (after != null) {
+                        //si se elimina el ultimo deje de editar xq si no lanza excepcion x editar un index que no existe
+                        if (table.getJTable().getCellEditor() != null) {//es null si se elimina con el click derecho
+                            table.getJTable().getCellEditor().stopCellEditing();
+                        }
+
+                        Notification.showNotification(NotificationsGeneralType.NOTIFICATION_DELETE, after);
+                        update();
+
+                        //para que se mantenga el ultimo seleccionado
+                        table.getJTable().setRowSelectionInterval(oldRow, oldRow);
                     }
-
-                    Notification.showNotification(NotificationsGeneralType.NOTIFICATION_DELETE, after);
-                    update();
-
-                    //para que se mantenga el ultimo seleccionado
-                    table.getJTable().setRowSelectionInterval(oldRow, oldRow);
                 }
+
             }
         } catch (Exception ex) {
             System.out.println("Excepcion en el deleteAction " + ex.getMessage());
@@ -240,6 +260,14 @@ public abstract class _MaterialPanelDetail<T> extends _MaterialPanel implements 
         if (evt.getClickCount() == 2) {//double click en la fila
             tableDoubleCickMouseListener(getSelectedElement());
         }
+    }
+
+    public List<T> getSelectedList() {
+        List<T> answ = new ArrayList<>();
+        for (int selectedRow : getJTable().getSelectedRows()) {
+            answ.add((T) getTable().getValueAt(selectedRow, 0));
+        }
+        return answ;
     }
 
     @Override
@@ -358,7 +386,10 @@ public abstract class _MaterialPanelDetail<T> extends _MaterialPanel implements 
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    editAction(getSelectedElement());
+                    T element = getSelectedElement();
+                    if (element != null) {
+                        editAction(element);
+                    }
                 } catch (Exception ex) {
                     System.out.println("Excepcion en el editAction " + ex.getMessage());
                 }
@@ -369,7 +400,10 @@ public abstract class _MaterialPanelDetail<T> extends _MaterialPanel implements 
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    viewAction(getSelectedElement());
+                    T element = getSelectedElement();
+                    if (element != null) {
+                        viewAction(element);
+                    }
                 } catch (Exception ex) {
                     System.out.println("Excepcion en el viewAction " + ex.getMessage());
                 }
@@ -404,7 +438,6 @@ public abstract class _MaterialPanelDetail<T> extends _MaterialPanel implements 
     public void addOptionElement(Action action) {
         _MaterialButtonIconTransparent btn = new _MaterialButtonIconTransparent();
         btn.setAction(action);
-        btn.setToolTipText(action.getValue(Action.NAME).toString());
         addOptionElement(btn);
     }
 
@@ -455,5 +488,13 @@ public abstract class _MaterialPanelDetail<T> extends _MaterialPanel implements 
                 adjuster.adjustColumn(i);
             }
         }
+    }
+
+    public String[] getColumnNames() {
+        String[] cols = new String[table.getJTable().getColumnCount() - 2];
+        for (int i = 0; i < cols.length; i++) {
+            cols[i] = table.getJTable().getColumnName(i + 1);
+        }
+        return cols;
     }
 }
