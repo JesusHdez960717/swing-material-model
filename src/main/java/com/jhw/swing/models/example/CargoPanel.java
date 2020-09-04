@@ -34,11 +34,12 @@ public class CargoPanel extends _MaterialPanelDetailDragDrop<CargoModel> {
         getTable().getTable().getColumn("money").setCellRenderer(new MoneyCellRender());
 
         this.setActionColumnButtonsVisivility(true, false, false);
-        
-        this.getTable().setPageVisibility(true);
-        
-        this.update();
 
+        this.getTable().setPageVisibility(true);
+
+        this.update();
+        
+        this.setExportConfig(new CargoExporter(this));
     }
 
     @Override
@@ -75,11 +76,11 @@ public class CargoPanel extends _MaterialPanelDetailDragDrop<CargoModel> {
         Notification.showConfirmDialog(NotificationsGeneralType.CONFIRM_ERROR, "no se puede todavia");
     }
 
-    @Override
+    /*@Override
     public void personalizeBuilder(ExcelListWriter.builder builder) {
         builder.updateValuesColumnCellStyle(2, (Workbook t, CellStyle u) -> {
             u.setDataFormat(t.createDataFormat().getFormat("dd-MM-yyyy"));
             return u;
         });
-    }
+    }*/
 }
