@@ -41,6 +41,7 @@ import com.jhw.swing.material.standards.MaterialIcons;
 import java.io.File;
 import java.util.function.Consumer;
 import javax.swing.ImageIcon;
+import javax.swing.JPopupMenu;
 
 /**
  *
@@ -266,6 +267,14 @@ public abstract class _MaterialPanelDetail<T extends DomainObject> extends _Mate
         }
     }
 
+    public List<T> getSelectedList() {
+        List<T> answ = new ArrayList<>();
+        for (int selectedRow : getJTable().getSelectedRows()) {
+            answ.add((T) getTable().getValueAt(selectedRow, 0));
+        }
+        return answ;
+    }
+
     @Override
     public void setBackground(Color bg) {
         super.setBackground(bg);
@@ -434,7 +443,10 @@ public abstract class _MaterialPanelDetail<T extends DomainObject> extends _Mate
     public void addOptionElement(Action action) {
         _MaterialButtonIconTransparent btn = new _MaterialButtonIconTransparent();
         btn.setAction(action);
-        btn.setToolTipText(action.getValue(Action.NAME).toString());
+        btn.setText("");//le quito el texto no vaya a ser muy grnade
+        btn.setToolTipText(action.getValue(Action.NAME).toString());//se lo pongo como tooltip
+        
+        btn.setComponentPopupMenu((JPopupMenu) action.getValue("popup"));
         addOptionElement(btn);
     }
 
@@ -488,7 +500,7 @@ public abstract class _MaterialPanelDetail<T extends DomainObject> extends _Mate
     }
 
     public String[] getColumnNames() {
-        String[] cols = new String[table.getJTable().getColumnCount()-2];
+        String[] cols = new String[table.getJTable().getColumnCount() - 2];
         for (int i = 0; i < cols.length; i++) {
             cols[i] = table.getJTable().getColumnName(i + 1);
         }
