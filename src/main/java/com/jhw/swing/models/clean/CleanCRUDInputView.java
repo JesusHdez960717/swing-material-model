@@ -30,6 +30,8 @@ public abstract class CleanCRUDInputView<T> extends ModelPanel<T> implements Bin
     private final CRUDUseCase<T> uc;
     private final Class<? extends T> clazz;
 
+    private T base;
+
     public CleanCRUDInputView(T model, CRUDUseCase<T> uc) {
         this(model, uc, null);
     }
@@ -38,6 +40,14 @@ public abstract class CleanCRUDInputView<T> extends ModelPanel<T> implements Bin
         super(model);
         this.clazz = clazz;
         this.uc = uc;
+    }
+
+    public T getBase() {
+        return base;
+    }
+
+    public void setBase(T base) {
+        this.base = base;
     }
 
     @Override
@@ -142,22 +152,35 @@ public abstract class CleanCRUDInputView<T> extends ModelPanel<T> implements Bin
             }
         }
 
+        if (getOldModel() != null) {
+            update(bindMap, getOldModel());
+        }
+        if (base != null) {
+            update(bindMap, base);
+        }
+
         if (getOldModel() == null) {
             setHeader(getHeaderNew());
         } else {
             setHeader(getHeaderEdit());
 
-            for (String fieldName : bindMap.keySet()) {
-                try {
-                    Object component = bindMap.get(fieldName);
-                    if (component instanceof BindableComponent) {
-                        Field f = clazz.getDeclaredField(fieldName);
-                        f.setAccessible(true);
-                        ((BindableComponent) component).setObject(f.get(getOldModel()));
+        }
+    }
+
+    private void update(Map<String, Object> bindMap, T obj) {
+        for (String fieldName : bindMap.keySet()) {
+            try {
+                Object component = bindMap.get(fieldName);
+                if (component instanceof BindableComponent) {
+                    Field f = clazz.getDeclaredField(fieldName);
+                    f.setAccessible(true);
+                    Object val = f.get(obj);
+                    if (val != null) {
+                        ((BindableComponent) component).setObject(val);
                     }
-                } catch (Exception e) {
-                    ExceptionHandler.handleException(e);
                 }
+            } catch (Exception e) {
+                ExceptionHandler.handleException(e);
             }
         }
     }
