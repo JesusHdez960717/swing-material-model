@@ -16,6 +16,7 @@ import com.jhw.swing.utils.icons.DerivableIcon;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.border.EmptyBorder;
@@ -114,6 +115,7 @@ public class HeaderDetailPanel extends _PanelTransparent {
     public void addOptionElement(Component element, int index) {
         int heigth = (int) panelOptionsExtra.getSize().getHeight();
         int width = heigth * panelOptionsExtra.getComponentCount() + 1;
+        element.setPreferredSize(new Dimension((int) element.getPreferredSize().getWidth(), heigth));
         panelOptionsExtra.setSize(width, heigth);
         panelOptionsExtra.add(element, index);
     }

@@ -13,12 +13,15 @@ import com.jhw.excel.utils.ExportableConfigExcel;
 import com.jhw.files.utils.PersonalizationFiles;
 import com.jhw.personalization.services.PersonalizationHandler;
 import com.jhw.swing.material.components.button._MaterialButtonIconTransparent;
+import com.jhw.swing.material.components.button._MaterialButtonPopup;
 import com.jhw.swing.material.components.filechooser.FileDropHandler;
 import com.jhw.swing.material.components.table.Column;
+import com.jhw.swing.material.standards.MaterialColors;
 import com.jhw.swing.material.standards.MaterialIcons;
 import com.jhw.swing.models.utils.DefaultExportableConfig;
 import com.jhw.swing.util.AbstractActionUtils;
 import com.jhw.utils.services.ConverterService;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.util.List;
@@ -35,25 +38,25 @@ import javax.swing.JPopupMenu;
  * @param <T>
  */
 public abstract class _MaterialPanelDetailDragDrop<T extends DomainObject> extends _MaterialPanelDetail<T> {
-
+    
     private final DomainListFileReader<T> reader;
-
+    
     private DefaultExportableConfig exportConfig;
-
+    
     public _MaterialPanelDetailDragDrop(DomainListFileReader<T> reader) {
         this(reader, new Column[]{});
     }
-
+    
     public _MaterialPanelDetailDragDrop(Column... arr) {
         this(null, arr);
     }
-
+    
     public _MaterialPanelDetailDragDrop(DomainListFileReader<T> reader, Column... arr) {
         super(arr);
         this.reader = reader;
         personalize();
     }
-
+    
     public void setButtonAddTransferConsumer(DomainListFileReader<T> reader) {
         header.getButtonAdd().setTransferHandler(new FileDropHandler((List<File> t) -> {
             try {
@@ -62,35 +65,38 @@ public abstract class _MaterialPanelDetailDragDrop<T extends DomainObject> exten
                 ExceptionHandler.handleException(e);
             }
         }));
+        header.getButtonAdd().setToolTipText("Arrastre algún fichero para importar");
     }
-
+    
     public void insertAll(List<T> newDomains) {
         JOptionPane.showMessageDialog(null, "Importando multiples objetos.\n" + newDomains);
     }
-
+    
     private void personalize() {
-        Action excelAction = new AbstractAction("Exportar (Excel por defecto). Click derecho para desplegar TODAS las opciones de exportación.", MaterialIcons.EXCEL.deriveIcon(24f)) {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                onExportToExcelAction();
-            }
-        };
-        excelAction.putValue(_MaterialButtonIconTransparent.KEY_ACTION_POPUP, getPopupAllExportSupported());
-        addOptionElement(excelAction);
+        _MaterialButtonPopup exportButton = new _MaterialButtonPopup(getPopupAllExportSupported());
+        exportButton.setText("Exportar");
+        exportButton.setIconTextGap(10);
+        exportButton.setIcon(MaterialIcons.EXPORT);
+        exportButton.setToolTipText("Exportar a diferentes formato. Click para desplegar TODAS las opciones de exportación.");
+        addOptionElement(exportButton);
+
+        //reader para el boton de add
         if (reader != null) {
             setButtonAddTransferConsumer(reader);
         }
+
+        //config por defecto para exportar
         exportConfig = new DefaultExportableConfig(this);
     }
-
+    
     public DefaultExportableConfig getExportConfig() {
         return exportConfig;
     }
-
+    
     public void setExportConfig(DefaultExportableConfig expConfig) {
         this.exportConfig = expConfig;
     }
-
+    
     private void onExportToExcelAction() {
         try {
             exportConfig.exportExcelBuilder().write().open();
@@ -98,7 +104,7 @@ public abstract class _MaterialPanelDetailDragDrop<T extends DomainObject> exten
             ExceptionHandler.handleException(e);
         }
     }
-
+    
     private void onExportToExcelSelectedAction() {
         try {
             exportConfig.exportExcelBuilder()
@@ -108,7 +114,7 @@ public abstract class _MaterialPanelDetailDragDrop<T extends DomainObject> exten
             ExceptionHandler.handleException(e);
         }
     }
-
+    
     private JPopupMenu getPopupAllExportSupported() {
         JPopupMenu menu = new JPopupMenu("Exportar a:");
 
@@ -132,7 +138,7 @@ public abstract class _MaterialPanelDetailDragDrop<T extends DomainObject> exten
         menuExcel.add(excelSelected);
         //agregado el menu de excel al menu general
         menu.add(menuExcel);
-
+        
         return menu;
     }
 }
