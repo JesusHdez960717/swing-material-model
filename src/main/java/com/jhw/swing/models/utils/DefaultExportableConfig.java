@@ -11,7 +11,6 @@ import com.jhw.excel.utils.ExportableConfigExcel;
 import com.jhw.files.utils.PersonalizationFiles;
 import com.jhw.personalization.services.PersonalizationHandler;
 import com.jhw.swing.models.detail._MaterialPanelDetailDragDrop;
-import com.jhw.swing.models.example.CargoModel;
 import com.jhw.utils.services.ConverterService;
 import java.io.File;
 import java.util.List;
