@@ -5,6 +5,7 @@
  */
 package com.jhw.swing.models.example;
 
+import com.jhw.modules.default_config.DefaultConfigSwingModule;
 import com.jhw.swing.material.standards.MaterialColors;
 import com.jhw.swing.ui.MaterialLookAndFeel;
 import java.awt.BorderLayout;
@@ -50,6 +51,8 @@ public class EXAMPLE_MODEL extends javax.swing.JFrame {
         } catch (Exception e) {
         }
 
+        DefaultConfigSwingModule.init().register(null);
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

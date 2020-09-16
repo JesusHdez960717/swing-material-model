@@ -48,7 +48,7 @@ public class CargoInputView extends ModelPanel<CargoModel> {
 
         textFieldNombre.setHint("Nombre del cargo");
         textFieldNombre.setLabel("Cargo");
-        textFieldNombre.setIcon(MaterialIcons.MONETIZATION_ON);
+        textFieldNombre.setIcon(MaterialIcons.EDIT);
 
         money = MaterialTextFactory.buildFormatedMoneyIcon();
         money.setLabel("money");

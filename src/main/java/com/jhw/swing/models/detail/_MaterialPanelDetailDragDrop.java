@@ -108,17 +108,39 @@ public abstract class _MaterialPanelDetailDragDrop<T extends DomainObject> exten
     private List<Action> getPopupAllExportSupported() {
         List<Action> actions = new ArrayList<>();
         //accion de exportarlo todo a excel
-        actions.add(new AbstractAction("Exportar Todo", MaterialIcons.SELECT_ALL) {
+        actions.add(new AbstractAction("Todo", MaterialIcons.EXCEL.deriveIcon(24f)) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 onExportToExcelAction();
             }
         });
         //accion de exportar lo seleccionado a excel
-        actions.add(new AbstractAction("Exportar Seleccionado", MaterialIcons.FLIP) {
+        actions.add(new AbstractAction("Selec.", MaterialIcons.EXCEL.deriveIcon(24f)) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 onExportToExcelSelectedAction();
+            }
+        });
+        
+        //TEST
+        actions.add(new AbstractAction("Todo", MaterialIcons.PAGES.deriveIcon(24f)) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            }
+        });
+        actions.add(new AbstractAction("Selec.", MaterialIcons.PAGES.deriveIcon(24f)) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            }
+        });
+        actions.add(new AbstractAction("Todo", MaterialIcons.ADD_ALARM.deriveIcon(24f)) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            }
+        });
+        actions.add(new AbstractAction("Selec.", MaterialIcons.ADD_ALARM.deriveIcon(24f)) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
             }
         });
         return actions;

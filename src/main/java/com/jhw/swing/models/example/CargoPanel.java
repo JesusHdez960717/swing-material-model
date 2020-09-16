@@ -20,10 +20,10 @@ public class CargoPanel extends _MaterialPanelDetailDragDrop<CargoModel> {
 
     public CargoPanel() {
         super(new Column[]{
-            Column.builder().name("nombre").editable(true).build(),
-            Column.builder().name("money").editable(true).build(),
-            Column.builder().name("fecha").editable(true).build(),
-            Column.builder().name("Descripcion").editable(true).build()
+            Column.builder().name("nombre").build(),
+            Column.builder().name("money").build(),
+            Column.builder().name("fecha").build(),
+            Column.builder().name("Descripcion").build()
         });
 
         this.setHeaderText("Modelo de cargo");

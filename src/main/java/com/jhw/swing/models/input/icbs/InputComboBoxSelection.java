@@ -1,12 +1,17 @@
 package com.jhw.swing.models.input.icbs;
 
 import com.clean.core.app.services.ExceptionHandler;
+import com.jhw.personalization.core.domain.Personalization;
+import com.jhw.personalization.services.PersonalizationHandler;
+import com.jhw.swing.material.components.button.MaterialButtonIcon;
+import com.jhw.swing.material.components.button.MaterialButtonsFactory;
 import com.jhw.swing.material.components.button._MaterialButtonIconTransparent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import com.jhw.swing.material.components.combobox._MaterialComboBoxIcon;
 import com.jhw.utils.interfaces.Update;
 import java.awt.BorderLayout;
+import java.awt.Color;
 
 /**
  *
@@ -28,10 +33,18 @@ public abstract class InputComboBoxSelection<T> extends _MaterialComboBoxIcon<T>
     private void initComponents(String label, String hint) {
         this.setLabel(label);
         this.setHint(hint);
+        
+        buttonNuevo = MaterialButtonsFactory.buildIconTransparent();
+        buttonNuevo.setForeground(PersonalizationHandler.getColor(Personalization.KEY_COLOR_BUTTON_ADD));
+        buttonNuevo.setRippleColor(Color.black);
+        buttonNuevo.setIcon(
+                PersonalizationHandler.getDerivableIcon(Personalization.KEY_ICON_BUTTON_ADD)
+                        .deriveIcon(PersonalizationHandler.getColor(Personalization.KEY_COLOR_BUTTON_ADD))
+                        .deriveIcon(38f));
         this.add(buttonNuevo, BorderLayout.EAST);
     }
 
-    private _MaterialButtonIconTransparent buttonNuevo;
+    private MaterialButtonIcon buttonNuevo;
 
     @Override
     public void update() {
