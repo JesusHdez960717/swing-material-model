@@ -13,6 +13,7 @@ public abstract class _MaterialPanelDetailMini<T extends DomainObject> extends _
     public _MaterialPanelDetailMini() {
         this(new Column[]{});
     }
+    private boolean vis = false;
 
     public _MaterialPanelDetailMini(Column... arr) {
         super(arr);
@@ -25,8 +26,14 @@ public abstract class _MaterialPanelDetailMini<T extends DomainObject> extends _
         this.getLabelHeader().setForeground(MaterialColors.BLACK);
     }
 
+    @Override
+    public double getElevation() {
+        return vis ? 1 : 0;
+    }
+
     public void setElevationVisibility(boolean vis) {
-        this.setElevation(vis ? 1 : 0);
+        this.vis = vis;
+        this.repaint();
     }
 
 }

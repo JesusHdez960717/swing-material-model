@@ -4,8 +4,15 @@ import com.clean.core.app.services.Notification;
 import com.clean.core.app.services.NotificationsGeneralType;
 import com.jhw.swing.material.components.container.layout.VerticalLayoutComponent;
 import com.jhw.swing.material.components.container.layout.VerticalLayoutContainer;
+import com.jhw.swing.material.components.datepicker.MaterialDatePicker;
+import com.jhw.swing.material.components.datepicker.MaterialDatePickersFactory;
 import com.jhw.swing.material.components.datepicker._MaterialDatePicker;
 import com.jhw.swing.material.components.datepicker._MaterialDatePickerIcon;
+import com.jhw.swing.material.components.filechooser.MaterialFileChooser;
+import com.jhw.swing.material.components.filechooser.MaterialFileChoosersFactory;
+import com.jhw.swing.material.components.textfield.MaterialFormatedTextField;
+import com.jhw.swing.material.components.textfield.MaterialTextFactory;
+import com.jhw.swing.material.components.textfield.MaterialTextField;
 import com.jhw.swing.material.components.textfield.validated._MaterialTextFieldMoneyIcon;
 import com.jhw.swing.material.standards.MaterialIcons;
 import com.jhw.swing.models.input.panels.ModelPanel;
@@ -29,20 +36,20 @@ public class CargoInputView extends ModelPanel<CargoModel> {
     @SuppressWarnings("unchecked")
     private void initComponents() {
         setHeader("Cargo");
-        textFieldNombre = new com.jhw.swing.material.components.textfield._MaterialTextFieldIcon<>();
-        textAreaDescripcion = new com.jhw.swing.material.components.textarea.prepared._MaterialTextAreaDescripcion();
-        fileChooserPanel = new com.jhw.swing.material.components.filechooser._MaterialFileChooserIcon();
+        textFieldNombre = MaterialTextFactory.buildIcon();
+        textAreaDescripcion = MaterialTextAreaFactory.buildDescripcion();
+        fileChooserPanel = MaterialFileChoosersFactory.buildIcon();
         cargoICBS1 = new com.jhw.swing.models.example.CargoICBS();
 
         textFieldNombre.setHint("Nombre del cargo");
         textFieldNombre.setLabel("Cargo");
         textFieldNombre.setIcon(MaterialIcons.MONETIZATION_ON);
 
-        money = new _MaterialTextFieldMoneyIcon();
+        money = MaterialTextFactory.buildFormatedMoneyIcon();
         money.setLabel("money");
         money.setHint("extra hint");
 
-        datePicker = new _MaterialDatePickerIcon();
+        datePicker = MaterialDatePickersFactory.buildIcon();
 
         VerticalLayoutContainer.builder v = VerticalLayoutContainer.builder();
 
@@ -63,11 +70,11 @@ public class CargoInputView extends ModelPanel<CargoModel> {
 
     // Variables declaration - do not modify
     private com.jhw.swing.models.example.CargoICBS cargoICBS1;
-    private _MaterialDatePickerIcon datePicker;
-    private _MaterialTextFieldMoneyIcon money;
-    private com.jhw.swing.material.components.filechooser._MaterialFileChooserIcon fileChooserPanel;
-    private com.jhw.swing.material.components.textarea.prepared._MaterialTextAreaDescripcion textAreaDescripcion;
-    private com.jhw.swing.material.components.textfield._MaterialTextFieldIcon textFieldNombre;
+    private MaterialDatePicker datePicker;
+    private MaterialFormatedTextField money;
+    private MaterialFileChooser fileChooserPanel;
+    private MaterialTextArea textAreaDescripcion;
+    private MaterialTextField textFieldNombre;
     // End of variables declaration                   
 
     @Override

@@ -6,9 +6,15 @@
 package com.jhw.swing.models.detail;
 
 import com.jhw.personalization.services.PersonalizationHandler;
+import com.jhw.swing.material.components.button.MaterialButton;
+import com.jhw.swing.material.components.button.MaterialButtonsFactory;
 import com.jhw.swing.material.components.button.prepared._buttonAddEdit;
+import com.jhw.swing.material.components.container.MaterialContainersFactory;
 import com.jhw.swing.material.components.container.panel._PanelTransparent;
+import com.jhw.swing.material.components.labels.MaterialLabel;
+import com.jhw.swing.material.components.labels.MaterialLabelsFactory;
 import com.jhw.swing.material.components.labels._MaterialLabel;
+import com.jhw.swing.material.components.searchfield.MaterialSearchField;
 import com.jhw.swing.material.components.searchfield._MaterialSearchField;
 import com.jhw.swing.material.standards.MaterialFontRoboto;
 import com.jhw.swing.models.utils.PersonalizationModel;
@@ -19,6 +25,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
+import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 /**
@@ -32,29 +39,26 @@ public class HeaderDetailPanel extends _PanelTransparent {
     }
 
     private void initComponents() {
-        labelHeader = new com.jhw.swing.material.components.labels._MaterialLabel();
-        searchField = new com.jhw.swing.material.components.searchfield._MaterialSearchField();
-        buttonAdd = new com.jhw.swing.material.components.button.prepared._buttonAddEdit();
-        panelOptionsExtra = new com.jhw.swing.material.components.container.panel._PanelTransparent();
+        panelOptionsExtra = MaterialContainersFactory.buildPanelTransparent();
 
         panelOptionsExtra.setLayout(new java.awt.GridLayout(1, 0));
 
         this.setLayout(new BorderLayout());
 
         //search field
-        searchField = new _MaterialSearchField();
+        searchField = _MaterialSearchField.from();
 
         //actions
         _PanelTransparent header = new _PanelTransparent();
         header.setBorder(new EmptyBorder(0, 5, 0, 0));
         header.setLayout(new BorderLayout());
-        labelHeader = new _MaterialLabel();
+        
+        labelHeader = MaterialLabelsFactory.build();
         labelHeader.setIconTextGap(10);
         labelHeader.setFont(MaterialFontRoboto.BOLD.deriveFont(24f));
         header.add(labelHeader, BorderLayout.WEST);
 
-        buttonAdd.isCreated(true);
-
+        buttonAdd = MaterialButtonsFactory.buildAddEdit();
         _PanelTransparent buttonActions = new _PanelTransparent();
         buttonActions.setLayout(new BorderLayout());
         buttonActions.add(buttonAdd, BorderLayout.EAST);
@@ -71,10 +75,10 @@ public class HeaderDetailPanel extends _PanelTransparent {
         this.add(header2, BorderLayout.NORTH);
     }
 
-    private com.jhw.swing.material.components.button.prepared._buttonAddEdit buttonAdd;
-    private com.jhw.swing.material.components.labels._MaterialLabel labelHeader;
-    private com.jhw.swing.material.components.container.panel._PanelTransparent panelOptionsExtra;
-    private com.jhw.swing.material.components.searchfield._MaterialSearchField searchField;
+    private MaterialLabel labelHeader;
+    private MaterialSearchField searchField;
+    private MaterialButton buttonAdd;
+    private JPanel panelOptionsExtra;
 
     public String getSearchText() {
         return searchField.getSearchField().getText();
@@ -136,7 +140,7 @@ public class HeaderDetailPanel extends _PanelTransparent {
         this.labelHeader.setEnabled(enabled);
     }
 
-    public _buttonAddEdit getButtonAdd() {
+    public MaterialButton getButtonAdd() {
         return buttonAdd;
     }
 
@@ -144,7 +148,7 @@ public class HeaderDetailPanel extends _PanelTransparent {
         this.buttonAdd = buttonAdd;
     }
 
-    public _MaterialLabel getLabelHeader() {
+    public MaterialLabel getLabelHeader() {
         return labelHeader;
     }
 
@@ -152,7 +156,7 @@ public class HeaderDetailPanel extends _PanelTransparent {
         this.labelHeader = labelHeader;
     }
 
-    public _PanelTransparent getPanelOptionsExtra() {
+    public JPanel getPanelOptionsExtra() {
         return panelOptionsExtra;
     }
 
@@ -160,11 +164,11 @@ public class HeaderDetailPanel extends _PanelTransparent {
         this.panelOptionsExtra = panelOptionsExtra;
     }
 
-    public _MaterialSearchField getSearchField() {
+    public MaterialSearchField getSearchField() {
         return searchField;
     }
 
-    public void setSearchField(_MaterialSearchField searchField) {
+    public void setSearchField(MaterialSearchField searchField) {
         this.searchField = searchField;
     }
 

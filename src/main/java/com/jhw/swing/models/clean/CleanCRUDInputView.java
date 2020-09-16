@@ -9,13 +9,14 @@ import com.clean.core.app.services.ExceptionHandler;
 import com.clean.core.app.usecase.CRUDUseCase;
 import com.clean.core.exceptions.ValidationException;
 import com.clean.core.utils.validation.ValidationMessage;
+import com.jhw.swing.material.effects.Wrong;
 import com.jhw.swing.models.input.panels.ModelPanel;
-import com.jhw.swing.util.interfaces.Wrong;
 import com.jhw.utils.jackson.JACKSON;
 import java.lang.reflect.Field;
 import java.util.Map;
 import com.jhw.swing.util.interfaces.BindableComponent;
 import com.jhw.utils.interfaces.Update;
+import com.jhw.utils.services.ConverterService;
 import java.util.HashMap;
 
 /**
@@ -73,7 +74,7 @@ public abstract class CleanCRUDInputView<T> extends ModelPanel<T> implements Bin
 
     private <T> T getValue(Class<T> fieldType, Object componentBinded) throws Exception {
         try {
-            return JACKSON.convert(((BindableComponent) componentBinded).getObject(), fieldType);
+            return ConverterService.convert(((BindableComponent) componentBinded).getObject(), fieldType);
         } catch (Exception e) {
             if (componentBinded instanceof Wrong) {
                 ((Wrong) componentBinded).wrong("Valor incorrecto para este campo");
