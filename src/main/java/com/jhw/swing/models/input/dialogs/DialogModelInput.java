@@ -81,15 +81,15 @@ public class DialogModelInput<T> extends JDialog implements ModelablePanel<T> {
     }
 
     private void addListeners() {
-        basePanel.getMaterialButtonCancel().addActionListener((java.awt.event.ActionEvent evt) -> {
+        basePanel.getButtonCancel().addActionListener((java.awt.event.ActionEvent evt) -> {
             onCancelAction();
         });
 
-        basePanel.getMaterialButtonOK().addActionListener((java.awt.event.ActionEvent evt) -> {
+        basePanel.getButtonAddEdit().addActionListener((java.awt.event.ActionEvent evt) -> {
             onCreateAction();
         });
 
-        basePanel.getMaterialButtonDelete().addActionListener((java.awt.event.ActionEvent evt) -> {
+        basePanel.getButtonDelete().addActionListener((java.awt.event.ActionEvent evt) -> {
             onDeleteAction();
         });
 
@@ -144,18 +144,6 @@ public class DialogModelInput<T> extends JDialog implements ModelablePanel<T> {
                 }
             }
         });
-    }
-
-    public void addOKActionListener(ActionListener action) {
-        basePanel.getMaterialButtonOK().addActionListener(action);
-    }
-
-    public void addDeleteActionListener(ActionListener action) {
-        basePanel.getMaterialButtonDelete().addActionListener(action);
-    }
-
-    public void addCancelActionListener(ActionListener action) {
-        basePanel.getMaterialButtonCancel().addActionListener(action);
     }
 
     @Override

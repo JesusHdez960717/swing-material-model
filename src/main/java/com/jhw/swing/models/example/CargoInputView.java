@@ -4,8 +4,20 @@ import com.clean.core.app.services.Notification;
 import com.clean.core.app.services.NotificationsGeneralType;
 import com.jhw.swing.material.components.container.layout.VerticalLayoutComponent;
 import com.jhw.swing.material.components.container.layout.VerticalLayoutContainer;
+import com.jhw.swing.material.components.datepicker.MaterialDatePicker;
+import com.jhw.swing.material.components.datepicker.MaterialDatePickerIcon;
+import com.jhw.swing.material.components.datepicker.MaterialDatePickersFactory;
 import com.jhw.swing.material.components.datepicker._MaterialDatePicker;
 import com.jhw.swing.material.components.datepicker._MaterialDatePickerIcon;
+import com.jhw.swing.material.components.filechooser.MaterialFileChooser;
+import com.jhw.swing.material.components.filechooser.MaterialFileChoosersFactory;
+import com.jhw.swing.material.components.textarea.MaterialTextArea;
+import com.jhw.swing.material.components.textarea.MaterialTextAreaFactory;
+import com.jhw.swing.material.components.textfield.MaterialFormatedTextField;
+import com.jhw.swing.material.components.textfield.MaterialFormatedTextFieldIcon;
+import com.jhw.swing.material.components.textfield.MaterialTextFactory;
+import com.jhw.swing.material.components.textfield.MaterialTextField;
+import com.jhw.swing.material.components.textfield.MaterialTextFieldIcon;
 import com.jhw.swing.material.components.textfield.validated._MaterialTextFieldMoneyIcon;
 import com.jhw.swing.material.standards.MaterialIcons;
 import com.jhw.swing.models.input.panels.ModelPanel;
@@ -29,20 +41,20 @@ public class CargoInputView extends ModelPanel<CargoModel> {
     @SuppressWarnings("unchecked")
     private void initComponents() {
         setHeader("Cargo");
-        textFieldNombre = new com.jhw.swing.material.components.textfield._MaterialTextFieldIcon<>();
-        textAreaDescripcion = new com.jhw.swing.material.components.textarea.prepared._MaterialTextAreaDescripcion();
-        fileChooserPanel = new com.jhw.swing.material.components.filechooser._MaterialFileChooserIcon();
+        textFieldNombre = MaterialTextFactory.buildIcon();
+        textAreaDescripcion = MaterialTextAreaFactory.buildDescripcion();
+        fileChooserPanel = MaterialFileChoosersFactory.buildIcon();
         cargoICBS1 = new com.jhw.swing.models.example.CargoICBS();
 
         textFieldNombre.setHint("Nombre del cargo");
         textFieldNombre.setLabel("Cargo");
-        textFieldNombre.setIcon(MaterialIcons.MONETIZATION_ON);
+        textFieldNombre.setIcon(MaterialIcons.EDIT);
 
-        money = new _MaterialTextFieldMoneyIcon();
+        money = MaterialTextFactory.buildFormatedMoneyIcon();
         money.setLabel("money");
         money.setHint("extra hint");
 
-        datePicker = new _MaterialDatePickerIcon();
+        datePicker = MaterialDatePickersFactory.buildIcon();
 
         VerticalLayoutContainer.builder v = VerticalLayoutContainer.builder();
 
@@ -63,11 +75,11 @@ public class CargoInputView extends ModelPanel<CargoModel> {
 
     // Variables declaration - do not modify
     private com.jhw.swing.models.example.CargoICBS cargoICBS1;
-    private _MaterialDatePickerIcon datePicker;
-    private _MaterialTextFieldMoneyIcon money;
-    private com.jhw.swing.material.components.filechooser._MaterialFileChooserIcon fileChooserPanel;
-    private com.jhw.swing.material.components.textarea.prepared._MaterialTextAreaDescripcion textAreaDescripcion;
-    private com.jhw.swing.material.components.textfield._MaterialTextFieldIcon textFieldNombre;
+    private MaterialDatePickerIcon datePicker;
+    private MaterialFormatedTextFieldIcon money;
+    private MaterialFileChooser fileChooserPanel;
+    private MaterialTextArea textAreaDescripcion;
+    private MaterialTextFieldIcon<String> textFieldNombre;
     // End of variables declaration                   
 
     @Override
@@ -81,16 +93,16 @@ public class CargoInputView extends ModelPanel<CargoModel> {
         } else {
             setHeader("Editar Cargo");
 
-            textFieldNombre.setText(getOldModel().getNombreCargo());
-            textAreaDescripcion.setText(getOldModel().getDescripcion());
+            textFieldNombre.setObject(getOldModel().getNombreCargo());
+            textAreaDescripcion.setObject(getOldModel().getDescripcion());
         }
     }
 
     @Override
     public CargoModel getNewModel() {
-        String nombre = textFieldNombre.getText();
-        String desc = textAreaDescripcion.getText();
-        CargoModel cargoICBS = cargoICBS1.getSelectedItem();
+        String nombre = textFieldNombre.getObject();
+        String desc = textAreaDescripcion.getObject();
+        CargoModel cargoICBS = cargoICBS1.getObject();
 
         CargoModel cargo;
         if (getOldModel() != null) {

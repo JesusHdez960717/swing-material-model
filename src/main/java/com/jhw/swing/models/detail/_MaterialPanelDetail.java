@@ -5,8 +5,10 @@ import com.clean.core.app.services.NotificationsGeneralType;
 import com.clean.core.domain.DomainObject;
 import com.jhw.swing.material.components.button._MaterialButtonIconTransparent;
 import com.jhw.swing.material.components.container.panel._MaterialPanel;
+import com.jhw.swing.material.components.labels.MaterialLabel;
 import com.jhw.swing.material.components.labels._MaterialLabel;
 import com.jhw.swing.material.components.table.Column;
+import com.jhw.swing.material.components.table.MaterialTableByPage;
 import com.jhw.swing.material.components.table._MaterialTableByPage;
 import com.jhw.swing.material.components.table.editors_renders.component.ComponentCellEditor;
 import com.jhw.swing.material.components.table.editors_renders.component.ComponentCellRender;
@@ -36,7 +38,6 @@ import javax.swing.Action;
 import javax.swing.border.EmptyBorder;
 import com.jhw.swing.material.components.table.TableColumnAdjuster;
 import javax.swing.ImageIcon;
-import javax.swing.JPopupMenu;
 
 /**
  *
@@ -63,7 +64,6 @@ public abstract class _MaterialPanelDetail<T extends DomainObject> extends _Mate
         initComponents();
         setColumns(arr);
         addListeners();
-        personalizationInner();
     }
 
     private void initComponents() {
@@ -83,10 +83,8 @@ public abstract class _MaterialPanelDetail<T extends DomainObject> extends _Mate
         this.add(table);
     }
 
-    // Variables declaration - do not modify
     protected HeaderDetailPanel header;
-    protected com.jhw.swing.material.components.table._MaterialTableByPage table;
-    // End of variables declaration                   
+    protected MaterialTableByPage table;
 
     public void setIcon(ImageIcon icon) {
         header.setIcon(icon);
@@ -123,7 +121,7 @@ public abstract class _MaterialPanelDetail<T extends DomainObject> extends _Mate
             }
         });
 
-        table.getJTable().addMouseListener(new java.awt.event.MouseAdapter() {
+        table.getTable().addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 onTableMouseDoubleClicked(evt);
             }
@@ -190,15 +188,15 @@ public abstract class _MaterialPanelDetail<T extends DomainObject> extends _Mate
                     T after = deleteAction(before);
                     if (after != null) {
                         //si se elimina el ultimo deje de editar xq si no lanza excepcion x editar un index que no existe
-                        if (table.getJTable().getCellEditor() != null) {//es null si se elimina con el click derecho
-                            table.getJTable().getCellEditor().stopCellEditing();
+                        if (table.getTable().getCellEditor() != null) {//es null si se elimina con el click derecho
+                            table.getTable().getCellEditor().stopCellEditing();
                         }
 
                         Notification.showNotification(NotificationsGeneralType.NOTIFICATION_DELETE, after);
                         update();
 
                         //para que se mantenga el ultimo seleccionado
-                        table.getJTable().setRowSelectionInterval(oldRow, oldRow);
+                        table.getTable().setRowSelectionInterval(oldRow, oldRow);
                     }
                 }
 
@@ -268,7 +266,7 @@ public abstract class _MaterialPanelDetail<T extends DomainObject> extends _Mate
 
     public List<T> getSelectedList() {
         List<T> answ = new ArrayList<>();
-        for (int selectedRow : getJTable().getSelectedRows()) {
+        for (int selectedRow : getTable().getSelectedRows()) {
             answ.add((T) getTable().getValueAt(selectedRow, 0));
         }
         return answ;
@@ -379,7 +377,7 @@ public abstract class _MaterialPanelDetail<T extends DomainObject> extends _Mate
         table.getTable().getColumn(actionsColumnName).setHeaderRenderer(new HeaderCellRender());
         createBuilder();
 
-        adjuster = new TableColumnAdjuster(getJTable());
+        adjuster = new TableColumnAdjuster(getTable());
     }
 
     private void createBuilder() {
@@ -428,9 +426,9 @@ public abstract class _MaterialPanelDetail<T extends DomainObject> extends _Mate
 
         //set up popup
         if (b) {
-            table.getJTable().setComponentPopupMenu(builder.builPopup());
+            table.getTable().setComponentPopupMenu(builder.builPopup());
         } else {
-            table.getJTable().setComponentPopupMenu(null);
+            table.getTable().setComponentPopupMenu(null);
         }
     }
 
@@ -457,11 +455,6 @@ public abstract class _MaterialPanelDetail<T extends DomainObject> extends _Mate
         header.setOptionPanelVisibility(visible);
     }
 
-    private void personalizationInner() {
-        table.getScrollPane().getViewport().setOpaque(false);
-        table.getScrollPane().getViewport().setBackground(MaterialColors.TRANSPARENT);
-    }
-
     @Override
     public void setEnabled(boolean enabled) {
         super.setEnabled(enabled);
@@ -474,34 +467,34 @@ public abstract class _MaterialPanelDetail<T extends DomainObject> extends _Mate
         setActionColumnVisivility(true);
     }
 
-    public JTable getJTable() {
-        return table.getJTable();
+    public JTable getTable() {
+        return table.getTable();
     }
 
     public String getModelColumnName() {
         return modelColumnName;
     }
 
-    public _MaterialLabel getLabelHeader() {
+    public MaterialLabel getLabelHeader() {
         return header.getLabelHeader();
     }
 
-    public _MaterialTableByPage getTable() {
+    public MaterialTableByPage getTableByPage() {
         return table;
     }
 
     private void adjustColumns() {
         if (adjustColumns) {
-            for (int i = getJTable().getColumnCount() - 2; i > 0; i--) {
+            for (int i = getTable().getColumnCount() - 2; i > 0; i--) {
                 adjuster.adjustColumn(i);
             }
         }
     }
 
     public String[] getColumnNames() {
-        String[] cols = new String[table.getJTable().getColumnCount() - 2];
+        String[] cols = new String[table.getTable().getColumnCount() - 2];
         for (int i = 0; i < cols.length; i++) {
-            cols[i] = table.getJTable().getColumnName(i + 1);
+            cols[i] = table.getTable().getColumnName(i + 1);
         }
         return cols;
     }

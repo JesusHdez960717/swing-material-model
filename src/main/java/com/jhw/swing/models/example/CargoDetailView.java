@@ -31,16 +31,16 @@ public class CargoDetailView extends _MaterialPanelDetail<CargoModel> {
             Column.builder().name("Descripcion").editable(true).build()
         });
 
-        this.setHeaderText("Modelo de cargo");
-        getTable().getTable().getColumn("Color").setCellRenderer(new ComponentCellRender(false));
+        this.setHeaderText("Modelo de cargo(cargo detail view)");
+        getTable().getColumn("Color").setCellRenderer(new ComponentCellRender(false));
 
         //this.setActionColumnVisivility(true);
         this.setActionColumnButtonsVisivility(true, false, false);
         addActionsExtra();
 
-        this.getTable().setPageVisibility(true);
+        this.getTableByPage().setPageVisibility(true);
 
-        //this.update();
+        this.update();
         //addOptionsElements();
         //this.setOptionPanelVisibility(false);
     }

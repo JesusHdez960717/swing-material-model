@@ -1,5 +1,7 @@
 package com.jhw.swing.models.detail;
 
+import com.jhw.swing.material.components.button.MaterialButtonIcon;
+import com.jhw.swing.material.components.button.MaterialButtonsFactory;
 import com.jhw.swing.material.components.button._MaterialButtonIconTransparent;
 import com.jhw.swing.material.components.container.panel._PanelGradient;
 import java.awt.GridLayout;
@@ -16,6 +18,10 @@ import javax.swing.JPopupMenu;
  * @author Jesus Hernandez Barrios (jhernandezb96@gmail.com)
  */
 public class _MaterialPanelActions extends _PanelGradient {
+
+    public static _MaterialPanelActions from() {
+        return new _MaterialPanelActions();
+    }
 
     private Action actionDelete;
     private Action actionEdit;
@@ -58,22 +64,22 @@ public class _MaterialPanelActions extends _PanelGradient {
         this.removeAll();
 
         for (Action c : extras) {
-            _MaterialButtonIconTransparent act = new _MaterialButtonIconTransparent();
+            MaterialButtonIcon act = MaterialButtonsFactory.buildIconTransparent();
             act.setAction(c);
             this.add(act);
         }
         if (viewVisibility) {
-            _MaterialButtonIconTransparent act = new _MaterialButtonIconTransparent();
+            MaterialButtonIcon act = MaterialButtonsFactory.buildIconTransparent();
             act.setAction(actionView);
             this.add(act);
         }
         if (editVisibility) {
-            _MaterialButtonIconTransparent act = new _MaterialButtonIconTransparent();
+            MaterialButtonIcon act = MaterialButtonsFactory.buildIconTransparent();
             act.setAction(actionEdit);
             this.add(act);
         }
         if (deleteVisibility) {
-            _MaterialButtonIconTransparent act = new _MaterialButtonIconTransparent();
+            MaterialButtonIcon act = MaterialButtonsFactory.buildIconTransparent();
             act.setAction(actionDelete);
             this.add(act);
         }
@@ -182,7 +188,7 @@ public class _MaterialPanelActions extends _PanelGradient {
         }
 
         public _MaterialPanelActions build() {
-            _MaterialPanelActions action = new _MaterialPanelActions();
+            _MaterialPanelActions action = _MaterialPanelActions.from();
             action.addButtonDeleteActionListener(deleteAction);
             action.addButtonEditActionListener(editAction);
             action.addButtonViewActionListener(viewAction);

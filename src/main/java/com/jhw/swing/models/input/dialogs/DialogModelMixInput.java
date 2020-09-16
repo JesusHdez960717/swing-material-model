@@ -79,16 +79,17 @@ public class DialogModelMixInput<T> extends JDialog implements ModelablePanel<T>
         basePanel.getMixPanel().getButtonAddEdit().addActionListener((ActionEvent e) -> {
             onCreateAction();
         });
-        basePanel.getMaterialButtonCancel().addActionListener((java.awt.event.ActionEvent evt) -> {
+        basePanel.getButtonCancel().addActionListener((java.awt.event.ActionEvent evt) -> {
             onCancelAction();
         });
-        basePanel.getMaterialButtonDelete().addActionListener(new java.awt.event.ActionListener() {
+        basePanel.getButtonDelete().addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 onDeleteAction();
             }
         });
         this.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 actualizarActualizables();
             }
@@ -137,14 +138,6 @@ public class DialogModelMixInput<T> extends JDialog implements ModelablePanel<T>
                 }
             }
         });
-    }
-
-    public void addDeleteActionListener(ActionListener action) {
-        basePanel.getMaterialButtonDelete().addActionListener(action);
-    }
-
-    public void addCancelActionListener(ActionListener action) {
-        basePanel.getMaterialButtonCancel().addActionListener(action);
     }
 
     @Override

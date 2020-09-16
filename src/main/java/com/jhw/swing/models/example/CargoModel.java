@@ -25,7 +25,7 @@ public class CargoModel extends DomainObject {
 
     public static final void crearList() {
         list.clear();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 10; i++) {
             list.add(new CargoModel(i, "nombre " + i, "Descripcion"));
         }
     }

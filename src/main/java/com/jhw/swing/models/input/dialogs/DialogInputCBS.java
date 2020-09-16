@@ -70,11 +70,11 @@ public class DialogInputCBS<T> extends JDialog implements ModelablePanel<T> {
     }
 
     private void addListeners() {
-        basePanel.getMaterialButtonCancel().addActionListener((java.awt.event.ActionEvent evt) -> {
+        basePanel.getButtonCancel().addActionListener((java.awt.event.ActionEvent evt) -> {
             onCancelAction();
         });
 
-        basePanel.getMaterialButtonOK().addActionListener((java.awt.event.ActionEvent evt) -> {
+        basePanel.getButtonAddEdit().addActionListener((java.awt.event.ActionEvent evt) -> {
             onCreateAction();
         });
 
@@ -122,18 +122,6 @@ public class DialogInputCBS<T> extends JDialog implements ModelablePanel<T> {
                 }
             }
         });
-    }
-
-    public void addOKActionListener(ActionListener action) {
-        basePanel.getMaterialButtonOK().addActionListener(action);
-    }
-
-    public void addDeleteActionListener(ActionListener action) {
-        basePanel.getMaterialButtonDelete().addActionListener(action);
-    }
-
-    public void addCActionListener(ActionListener action) {
-        basePanel.getMaterialButtonCancel().addActionListener(action);
     }
 
     @Override
@@ -212,7 +200,7 @@ public class DialogInputCBS<T> extends JDialog implements ModelablePanel<T> {
         }
         if (obj != null) {
             icbs.update();
-            icbs.setSelectedItem(obj);
+            icbs.setObject(obj);
             dispose();
         }
         return obj;

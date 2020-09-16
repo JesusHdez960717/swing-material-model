@@ -1,7 +1,5 @@
 package com.jhw.swing.models.input.panels;
 
-import com.jhw.swing.material.components.button._MaterialButton;
-import com.jhw.swing.material.components.button._MaterialButtonIconTransparent;
 import com.jhw.swing.material.components.button.prepared._buttonAddEdit;
 import com.jhw.swing.material.components.container.panel._PanelGradient;
 import java.awt.Color;
@@ -9,13 +7,17 @@ import com.jhw.utils.interfaces.Update;
 import com.jhw.swing.models.input.ModelablePanel;
 import com.jhw.personalization.core.domain.Personalization;
 import com.jhw.personalization.services.PersonalizationHandler;
+import com.jhw.swing.material.components.button.MaterialButton;
+import com.jhw.swing.material.components.button.MaterialButtonIcon;
+import com.jhw.swing.material.components.button.MaterialButtonsFactory;
+import com.jhw.swing.material.components.container.MaterialContainersFactory;
 import com.jhw.swing.material.components.container.layout.HorizontalLayoutContainer;
-import com.jhw.swing.material.components.container.panel._PanelTransparent;
-import com.jhw.swing.material.components.container.panel.prepared._MaterialPanelComponent;
+import com.jhw.swing.material.components.container.panel.MaterialPanelBorder;
 import com.jhw.swing.material.standards.MaterialColors;
 import com.jhw.swing.material.standards.MaterialIcons;
 import java.awt.BorderLayout;
 import java.util.Map;
+import javax.swing.JPanel;
 
 /**
  *
@@ -29,16 +31,17 @@ public class BaseModelInputPanel<T> extends _PanelGradient implements Update, Mo
     public BaseModelInputPanel(ModelPanel modelPanel) {
         initComponents();
         this.modelPanel = modelPanel;
-        this.panelModelCore.setComponent(this.modelPanel);
+        this.panelModelCore.add(this.modelPanel);
         personalize();
     }
 
     private void initComponents() {
-        panelModelCore = new _MaterialPanelComponent();
-        panelButtons = new _PanelTransparent();
-        buttonAddEdit = new com.jhw.swing.material.components.button.prepared._buttonAddEdit();
-        buttonCancel = new com.jhw.swing.material.components.button._MaterialButton();
-        buttonDelete = new com.jhw.swing.material.components.button._MaterialButtonIconTransparent();
+        panelButtons = MaterialContainersFactory.buildPanelTransparent();
+        buttonCancel = MaterialButtonsFactory.buildButton();
+        buttonDelete = MaterialButtonsFactory.buildIconTransparent();
+        panelModelCore = MaterialContainersFactory.buildPanelComponent();
+
+        buttonAddEdit = MaterialButtonsFactory.buildAddEdit();
 
         this.setLayout(new BorderLayout());
         this.add(panelModelCore);
@@ -59,15 +62,15 @@ public class BaseModelInputPanel<T> extends _PanelGradient implements Update, Mo
     }// </editor-fold>                        
 
     // Variables declaration - do not modify//:variables
-    private com.jhw.swing.material.components.button.prepared._buttonAddEdit buttonAddEdit;
-    private com.jhw.swing.material.components.button._MaterialButton buttonCancel;
-    private com.jhw.swing.material.components.button._MaterialButtonIconTransparent buttonDelete;
-    private _PanelTransparent panelButtons;
-    private _MaterialPanelComponent panelModelCore;
+    private MaterialButton buttonAddEdit;
+    private MaterialButton buttonCancel;
+    private MaterialButtonIcon buttonDelete;
+    private JPanel panelButtons;
+    private MaterialPanelBorder panelModelCore;
     // End of variables declaration                   
 
     private void personalize() {
-        buttonAddEdit.isCreated(modelPanel.getOldModel() == null);
+        ((_buttonAddEdit) buttonAddEdit).isCreated(modelPanel.getOldModel() == null);
         buttonDelete.setIcon(MaterialIcons.DELETE_FOREVER);
 
         buttonDelete.setVisible(modelPanel.getOldModel() != null);
@@ -153,27 +156,15 @@ public class BaseModelInputPanel<T> extends _PanelGradient implements Update, Mo
         return modelPanel;
     }
 
-    public _MaterialButton getMaterialButtonCancel() {
-        return buttonCancel;
-    }
-
-    public _MaterialButton getMaterialButtonOK() {
+    public MaterialButton getButtonAddEdit() {
         return buttonAddEdit;
     }
 
-    public _buttonAddEdit getButtonAddEdit() {
-        return buttonAddEdit;
-    }
-
-    public _MaterialButton getButtonCancel() {
+    public MaterialButton getButtonCancel() {
         return buttonCancel;
     }
 
-    public _MaterialButtonIconTransparent getButtonDelete() {
-        return buttonDelete;
-    }
-
-    public _MaterialButtonIconTransparent getMaterialButtonDelete() {
+    public MaterialButtonIcon getButtonDelete() {
         return buttonDelete;
     }
 

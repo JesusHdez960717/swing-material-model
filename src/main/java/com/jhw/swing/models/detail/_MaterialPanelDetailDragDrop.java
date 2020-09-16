@@ -8,26 +8,19 @@ package com.jhw.swing.models.detail;
 import com.clean.core.app.services.ExceptionHandler;
 import com.clean.core.domain.DomainObject;
 import com.jhw.excel.utils.DomainListFileReader;
-import com.jhw.excel.utils.ExcelListWriter;
-import com.jhw.excel.utils.ExportableConfigExcel;
-import com.jhw.files.utils.PersonalizationFiles;
-import com.jhw.personalization.services.PersonalizationHandler;
-import com.jhw.swing.material.components.button._MaterialButtonIconTransparent;
+import com.jhw.swing.material.components.button.MaterialButton;
+import com.jhw.swing.material.components.button.MaterialButtonsFactory;
 import com.jhw.swing.material.components.filechooser.FileDropHandler;
 import com.jhw.swing.material.components.table.Column;
 import com.jhw.swing.material.standards.MaterialIcons;
 import com.jhw.swing.models.utils.DefaultExportableConfig;
-import com.jhw.swing.util.AbstractActionUtils;
-import com.jhw.utils.services.ConverterService;
 import java.awt.event.ActionEvent;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.JPopupMenu;
 
 /**
  *
@@ -62,6 +55,7 @@ public abstract class _MaterialPanelDetailDragDrop<T extends DomainObject> exten
                 ExceptionHandler.handleException(e);
             }
         }));
+        header.getButtonAdd().setToolTipText("Arrastre algún fichero para importar");
     }
 
     public void insertAll(List<T> newDomains) {
@@ -69,17 +63,19 @@ public abstract class _MaterialPanelDetailDragDrop<T extends DomainObject> exten
     }
 
     private void personalize() {
-        Action excelAction = new AbstractAction("Exportar (Excel por defecto). Click derecho para desplegar TODAS las opciones de exportación.", MaterialIcons.EXCEL.deriveIcon(24f)) {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                onExportToExcelAction();
-            }
-        };
-        excelAction.putValue(_MaterialButtonIconTransparent.KEY_ACTION_POPUP, getPopupAllExportSupported());
-        addOptionElement(excelAction);
+        MaterialButton exportButton = MaterialButtonsFactory.buildPopup(getPopupAllExportSupported());
+        exportButton.setText("Exportar");
+        exportButton.setIconTextGap(10);
+        exportButton.setIcon(MaterialIcons.EXPORT);
+        exportButton.setToolTipText("Exportar a diferentes formato. Click para desplegar TODAS las opciones de exportación.");
+        addOptionElement(exportButton);
+
+        //reader para el boton de add
         if (reader != null) {
             setButtonAddTransferConsumer(reader);
         }
+
+        //config por defecto para exportar
         exportConfig = new DefaultExportableConfig(this);
     }
 
@@ -109,30 +105,44 @@ public abstract class _MaterialPanelDetailDragDrop<T extends DomainObject> exten
         }
     }
 
-    private JPopupMenu getPopupAllExportSupported() {
-        JPopupMenu menu = new JPopupMenu("Exportar a:");
-
-        //crea el menu de excel
-        JMenuItem menuExcel = new JMenu(AbstractActionUtils.from("Excel", MaterialIcons.EXCEL));
+    private List<Action> getPopupAllExportSupported() {
+        List<Action> actions = new ArrayList<>();
         //accion de exportarlo todo a excel
-        JMenuItem excelAll = new JMenuItem(new AbstractAction("Exportar Todo", MaterialIcons.SELECT_ALL) {
+        actions.add(new AbstractAction("Todo", MaterialIcons.EXCEL.deriveIcon(24f)) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 onExportToExcelAction();
             }
         });
-        menuExcel.add(excelAll);
         //accion de exportar lo seleccionado a excel
-        JMenuItem excelSelected = new JMenuItem(new AbstractAction("Exportar Seleccionado", MaterialIcons.FLIP) {
+        actions.add(new AbstractAction("Selec.", MaterialIcons.EXCEL.deriveIcon(24f)) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 onExportToExcelSelectedAction();
             }
         });
-        menuExcel.add(excelSelected);
-        //agregado el menu de excel al menu general
-        menu.add(menuExcel);
-
-        return menu;
+        
+        //TEST
+        actions.add(new AbstractAction("Todo", MaterialIcons.PAGES.deriveIcon(24f)) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            }
+        });
+        actions.add(new AbstractAction("Selec.", MaterialIcons.PAGES.deriveIcon(24f)) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            }
+        });
+        actions.add(new AbstractAction("Todo", MaterialIcons.ADD_ALARM.deriveIcon(24f)) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            }
+        });
+        actions.add(new AbstractAction("Selec.", MaterialIcons.ADD_ALARM.deriveIcon(24f)) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            }
+        });
+        return actions;
     }
 }

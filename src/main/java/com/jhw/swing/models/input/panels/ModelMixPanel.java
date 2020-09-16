@@ -1,8 +1,11 @@
 package com.jhw.swing.models.input.panels;
 
+import com.jhw.swing.material.components.button.MaterialButton;
+import com.jhw.swing.material.components.button.MaterialButtonsFactory;
 import com.jhw.swing.material.components.button.prepared._buttonAddEdit;
+import com.jhw.swing.material.components.container.MaterialContainersFactory;
+import com.jhw.swing.material.components.container.panel.MaterialPanelBorder;
 import com.jhw.swing.material.components.container.panel._PanelTransparent;
-import com.jhw.swing.material.components.container.panel.prepared._MaterialPanelComponent;
 import java.awt.Component;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,6 +13,7 @@ import java.util.List;
 import com.jhw.utils.interfaces.Update;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 /**
@@ -38,11 +42,10 @@ public abstract class ModelMixPanel<T> extends _PanelTransparent {
     }
 
     private void initComponents() {
-
-        panelGeneral = new _MaterialPanelComponent();
-        panelInputView = new com.jhw.swing.material.components.container.panel._PanelComponent();
-        buttonAddEdit = new com.jhw.swing.material.components.button.prepared._buttonAddEdit();
-        panelExtra = new com.jhw.swing.material.components.container.panel._PanelTransparent();
+        panelGeneral = MaterialContainersFactory.buildPanelComponent();
+        panelInputView = MaterialContainersFactory.buildPanelComponent();
+        buttonAddEdit = MaterialButtonsFactory.buildAddEdit();
+        panelExtra = MaterialContainersFactory.buildPanelTransparent();
 
         panelExtra.setLayout(new java.awt.GridLayout(0, 1));
 
@@ -67,15 +70,13 @@ public abstract class ModelMixPanel<T> extends _PanelTransparent {
         this.add(panelExtra, BorderLayout.EAST);
     }// </editor-fold>                        
 
-    // Variables declaration - do not modify//:variables
-    private _MaterialPanelComponent panelGeneral;
-    private com.jhw.swing.material.components.button.prepared._buttonAddEdit buttonAddEdit;
-    private com.jhw.swing.material.components.container.panel._PanelTransparent panelExtra;//extra
-    private com.jhw.swing.material.components.container.panel._PanelComponent panelInputView;//model
-    // End of variables declaration                   
+    private MaterialPanelBorder panelGeneral;
+    private MaterialButton buttonAddEdit;
+    private JPanel panelExtra;//extra
+    private JPanel panelInputView;//model
 
     private void personalize() {
-        this.panelInputView.setComponent(modelPanel);
+        this.panelInputView.add(modelPanel);
         panelExtra.removeAll();
         for (Component c : extras) {
             panelExtra.add(c);
@@ -100,7 +101,7 @@ public abstract class ModelMixPanel<T> extends _PanelTransparent {
     }
 
     public void updateAll() {
-        buttonAddEdit.isCreated(modelPanel.getOldModel() == null);
+        ((_buttonAddEdit) buttonAddEdit).isCreated(modelPanel.getOldModel() == null);
         modelPanel.update();
 
         for (Component component : panelExtra.getComponents()) {
@@ -114,7 +115,8 @@ public abstract class ModelMixPanel<T> extends _PanelTransparent {
         return modelPanel;
     }
 
-    public _buttonAddEdit getButtonAddEdit() {
+    public MaterialButton getButtonAddEdit() {
         return buttonAddEdit;
     }
+
 }

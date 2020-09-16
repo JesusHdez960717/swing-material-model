@@ -2,7 +2,6 @@ package com.jhw.swing.models.example;
 
 import com.clean.core.app.services.Notification;
 import com.clean.core.app.services.NotificationsGeneralType;
-import com.jhw.excel.utils.ExcelListWriter;
 import com.jhw.swing.models.input.dialogs.DialogModelInput;
 import com.jhw.swing.material.components.table.Column;
 import com.jhw.swing.material.components.table.editors_renders.money.MoneyCellRender;
@@ -12,8 +11,6 @@ import com.jhw.swing.models.detail._MaterialPanelDetailDragDrop;
 import com.jhw.utils.others.SDF;
 import java.math.BigDecimal;
 import java.util.Date;
-import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.Workbook;
 
 /**
  *
@@ -23,19 +20,19 @@ public class CargoPanel extends _MaterialPanelDetailDragDrop<CargoModel> {
 
     public CargoPanel() {
         super(new Column[]{
-            Column.builder().name("nombre").editable(true).build(),
-            Column.builder().name("money").editable(true).build(),
-            Column.builder().name("fecha").editable(true).build(),
-            Column.builder().name("Descripcion").editable(true).build()
+            Column.builder().name("nombre").build(),
+            Column.builder().name("money").build(),
+            Column.builder().name("fecha").build(),
+            Column.builder().name("Descripcion").build()
         });
 
         this.setHeaderText("Modelo de cargo");
 
-        getTable().getTable().getColumn("money").setCellRenderer(new MoneyCellRender());
+        getTable().getColumn("money").setCellRenderer(new MoneyCellRender());
 
         this.setActionColumnButtonsVisivility(true, false, false);
 
-        this.getTable().setPageVisibility(true);
+        this.getTableByPage().setPageVisibility(true);
 
         this.update();
         
