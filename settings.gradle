@@ -5,11 +5,13 @@ project(':utils').projectDir = "E:\\Trabajos\\Projects\\GIT Projects Gradle\\Uti
 project(':clean-core').projectDir = "E:\\Trabajos\\Projects\\GIT Projects Gradle\\CleanCoreFull" as File
 project(':clean-swing').projectDir = "E:\\Trabajos\\Projects\\GIT Projects Gradle\\CleanSwing" as File
 
-include 'derivable-icons', 'material-standards', 'material-personalization', 'material-swing'
+include 'derivable-icons', 'material-swing-preparated', 'material-standards', 'material-personalization', 'material-swing'
 project(':derivable-icons').projectDir = "E:\\Trabajos\\Projects\\GIT Projects Gradle\\Material\\Derivable Icons" as File
 project(':material-standards').projectDir = "E:\\Trabajos\\Projects\\GIT Projects Gradle\\Material\\Standards" as File
 project(':material-personalization').projectDir = "E:\\Trabajos\\Projects\\GIT Projects Gradle\\Modulos Utils\\Personalization" as File
 project(':material-swing').projectDir = "E:\\Trabajos\\Projects\\GIT Projects Gradle\\MaterialSwing" as File
+project(':material-swing-preparated').projectDir = "E:\\Trabajos\\Projects\\GIT Projects Gradle\\Material\\SwingPrepared" as File
+
 
 include 'module-default-config', 'material-notification'
 project(':module-default-config').projectDir = "E:\\Trabajos\\Projects\\GIT Projects Gradle\\Modulos Utils\\DefaultConfiguration" as File

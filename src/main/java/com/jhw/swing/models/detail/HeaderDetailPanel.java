@@ -7,17 +7,16 @@ package com.jhw.swing.models.detail;
 
 import com.jhw.personalization.services.PersonalizationHandler;
 import com.jhw.swing.material.components.button.MaterialButton;
-import com.jhw.swing.material.components.button.MaterialButtonsFactory;
-import com.jhw.swing.material.components.button.prepared._buttonAddEdit;
 import com.jhw.swing.material.components.container.MaterialContainersFactory;
 import com.jhw.swing.material.components.container.panel._PanelTransparent;
 import com.jhw.swing.material.components.labels.MaterialLabel;
 import com.jhw.swing.material.components.labels.MaterialLabelsFactory;
-import com.jhw.swing.material.components.labels._MaterialLabel;
 import com.jhw.swing.material.components.searchfield.MaterialSearchField;
 import com.jhw.swing.material.components.searchfield._MaterialSearchField;
 import com.jhw.swing.material.standards.MaterialFontRoboto;
 import com.jhw.swing.models.utils.PersonalizationModel;
+import com.jhw.swing.prepared.button.MaterialButtonAddEdit;
+import com.jhw.swing.prepared.button.MaterialPreparedButtonsFactory;
 import com.jhw.swing.utils.icons.DerivableIcon;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -58,7 +57,7 @@ public class HeaderDetailPanel extends _PanelTransparent {
         labelHeader.setFont(MaterialFontRoboto.BOLD.deriveFont(24f));
         header.add(labelHeader, BorderLayout.WEST);
 
-        buttonAdd = MaterialButtonsFactory.buildAddEdit();
+        buttonAdd = MaterialPreparedButtonsFactory.buildAddEdit();
         _PanelTransparent buttonActions = new _PanelTransparent();
         buttonActions.setLayout(new BorderLayout());
         buttonActions.add(buttonAdd, BorderLayout.EAST);
@@ -77,7 +76,7 @@ public class HeaderDetailPanel extends _PanelTransparent {
 
     private MaterialLabel labelHeader;
     private MaterialSearchField searchField;
-    private MaterialButton buttonAdd;
+    private MaterialButtonAddEdit buttonAdd;
     private JPanel panelOptionsExtra;
 
     public String getSearchText() {
@@ -144,15 +143,11 @@ public class HeaderDetailPanel extends _PanelTransparent {
         return buttonAdd;
     }
 
-    public void setButtonAdd(_buttonAddEdit buttonAdd) {
-        this.buttonAdd = buttonAdd;
-    }
-
     public MaterialLabel getLabelHeader() {
         return labelHeader;
     }
 
-    public void setLabelHeader(_MaterialLabel labelHeader) {
+    public void setLabelHeader(MaterialLabel labelHeader) {
         this.labelHeader = labelHeader;
     }
 

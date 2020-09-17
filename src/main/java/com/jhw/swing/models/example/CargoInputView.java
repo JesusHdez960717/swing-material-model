@@ -4,23 +4,18 @@ import com.clean.core.app.services.Notification;
 import com.clean.core.app.services.NotificationsGeneralType;
 import com.jhw.swing.material.components.container.layout.VerticalLayoutComponent;
 import com.jhw.swing.material.components.container.layout.VerticalLayoutContainer;
-import com.jhw.swing.material.components.datepicker.MaterialDatePicker;
 import com.jhw.swing.material.components.datepicker.MaterialDatePickerIcon;
 import com.jhw.swing.material.components.datepicker.MaterialDatePickersFactory;
-import com.jhw.swing.material.components.datepicker._MaterialDatePicker;
-import com.jhw.swing.material.components.datepicker._MaterialDatePickerIcon;
 import com.jhw.swing.material.components.filechooser.MaterialFileChooser;
 import com.jhw.swing.material.components.filechooser.MaterialFileChoosersFactory;
 import com.jhw.swing.material.components.textarea.MaterialTextArea;
-import com.jhw.swing.material.components.textarea.MaterialTextAreaFactory;
-import com.jhw.swing.material.components.textfield.MaterialFormatedTextField;
 import com.jhw.swing.material.components.textfield.MaterialFormatedTextFieldIcon;
 import com.jhw.swing.material.components.textfield.MaterialTextFactory;
-import com.jhw.swing.material.components.textfield.MaterialTextField;
 import com.jhw.swing.material.components.textfield.MaterialTextFieldIcon;
-import com.jhw.swing.material.components.textfield.validated._MaterialTextFieldMoneyIcon;
 import com.jhw.swing.material.standards.MaterialIcons;
 import com.jhw.swing.models.input.panels.ModelPanel;
+import com.jhw.swing.prepared.textarea.MaterialPreparedTextAreaFactory;
+import com.jhw.swing.prepared.textfield.MaterialPreparedTextFactory;
 import java.awt.Desktop;
 import java.io.File;
 import java.util.Random;
@@ -42,7 +37,7 @@ public class CargoInputView extends ModelPanel<CargoModel> {
     private void initComponents() {
         setHeader("Cargo");
         textFieldNombre = MaterialTextFactory.buildIcon();
-        textAreaDescripcion = MaterialTextAreaFactory.buildDescripcion();
+        textAreaDescripcion = MaterialPreparedTextAreaFactory.buildDescripcion();
         fileChooserPanel = MaterialFileChoosersFactory.buildIcon();
         cargoICBS1 = new com.jhw.swing.models.example.CargoICBS();
 
@@ -50,7 +45,7 @@ public class CargoInputView extends ModelPanel<CargoModel> {
         textFieldNombre.setLabel("Cargo");
         textFieldNombre.setIcon(MaterialIcons.EDIT);
 
-        money = MaterialTextFactory.buildFormatedMoneyIcon();
+        money = MaterialPreparedTextFactory.buildFormatedMoneyIcon();
         money.setLabel("money");
         money.setHint("extra hint");
 
