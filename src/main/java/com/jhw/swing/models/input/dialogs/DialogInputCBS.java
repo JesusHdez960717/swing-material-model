@@ -22,6 +22,7 @@ import java.awt.BorderLayout;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.util.Map;
+import javax.swing.JComponent;
 import javax.swing.ScrollPaneLayout;
 
 /**
@@ -34,7 +35,7 @@ import javax.swing.ScrollPaneLayout;
  * @author Yo
  * @param <T>
  */
-public class DialogInputCBS<T, Y extends Update & BindableComponent<T>> extends JDialog implements ModelablePanel<T> {
+public class DialogInputCBS<T, Y extends JComponent & Update & BindableComponent<T>> extends JDialog implements ModelablePanel<T> {
 
     private final BaseModelInputPanel<T> basePanel;
     private final Y icbs;
@@ -203,6 +204,7 @@ public class DialogInputCBS<T, Y extends Update & BindableComponent<T>> extends 
         if (obj != null) {
             icbs.update();
             icbs.setObject(obj);
+            icbs.revalidate();
             dispose();
         }
         return obj;

@@ -5,9 +5,10 @@ import com.jhw.personalization.core.domain.Personalization;
 import com.jhw.personalization.services.PersonalizationHandler;
 import com.jhw.swing.material.components.button.MaterialButtonIcon;
 import com.jhw.swing.material.components.button.MaterialButtonsFactory;
-import java.awt.event.ActionListener;
 import com.jhw.swing.material.components.container.panel._PanelTransparent;
 import com.jhw.swing.material.effects.Wrong;
+import com.jhw.swing.models.input.dialogs.DialogInputCBS;
+import com.jhw.swing.models.input.panels.ModelPanel;
 import com.jhw.swing.util.interfaces.BindableComponent;
 import com.jhw.utils.interfaces.Update;
 import java.awt.BorderLayout;
@@ -60,7 +61,9 @@ public abstract class InputGeneralSelection<T, Y extends JComponent & BindableCo
     }
 
     private void addListeners() {
-        buttonNuevo.addActionListener(buttonAddAction());
+        buttonNuevo.addActionListener((java.awt.event.ActionEvent evt) -> {
+            new DialogInputCBS(InputGeneralSelection.this, inputPanel());
+        });
     }
 
     @Override
@@ -72,7 +75,7 @@ public abstract class InputGeneralSelection<T, Y extends JComponent & BindableCo
 
     protected abstract void updateComponent() throws Exception;
 
-    public abstract ActionListener buttonAddAction();
+    public abstract ModelPanel<T> inputPanel();
 
     public void setButtonNuevoVisibility(boolean visible) {
         buttonNuevo.setVisible(visible);
