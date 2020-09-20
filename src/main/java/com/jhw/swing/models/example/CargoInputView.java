@@ -2,6 +2,7 @@ package com.jhw.swing.models.example;
 
 import com.clean.core.app.services.Notification;
 import com.clean.core.app.services.NotificationsGeneralType;
+import com.jhw.swing.material.components.container.MaterialContainersFactory;
 import com.jhw.swing.material.components.container.layout.VerticalLayoutComponent;
 import com.jhw.swing.material.components.container.layout.VerticalLayoutContainer;
 import com.jhw.swing.material.components.datepicker.MaterialDatePickerIcon;
@@ -14,6 +15,7 @@ import com.jhw.swing.material.components.textfield.MaterialTextFactory;
 import com.jhw.swing.material.components.textfield.MaterialTextFieldIcon;
 import com.jhw.swing.material.standards.MaterialIcons;
 import com.jhw.swing.models.input.panels.ModelPanel;
+import com.jhw.swing.models.input.popup_selection.InputPopupSelection;
 import com.jhw.swing.prepared.textarea.MaterialPreparedTextAreaFactory;
 import com.jhw.swing.prepared.textfield.MaterialPreparedTextFactory;
 import java.awt.Desktop;
@@ -52,6 +54,8 @@ public class CargoInputView extends ModelPanel<CargoModel> {
 
         datePicker = MaterialDatePickersFactory.buildIcon();
 
+        popupIconICBS = new CargoICBSPopup();
+        popupIconICBS.update();
         icbsTest = new ICBSGeneralTest();
         VerticalLayoutContainer.builder v = VerticalLayoutContainer.builder();
 
@@ -62,16 +66,19 @@ public class CargoInputView extends ModelPanel<CargoModel> {
         v.add(textFieldMoney);
         v.add(cargoICBS1);
         v.add(icbsTest);
-        v.add(textFieldNombre);
-
+        v.add(popupIconICBS);
         v.add(fileChooserPanel);
         v.add(datePicker);
+
+        v.add(MaterialContainersFactory.buildPanelTransparent());
+        v.add(textFieldNombre);
         v.add(VerticalLayoutComponent.builder(textAreaDescripcion).resize(true).build());
 
         this.setComponent(v.build());
     }
 
     // Variables declaration - do not modify
+    private InputPopupSelection popupIconICBS;
     private com.jhw.swing.models.example.CargoICBS cargoICBS1;
     private MaterialDatePickerIcon datePicker;
     private MaterialFormatedTextFieldIcon textFieldMoney;
@@ -104,7 +111,7 @@ public class CargoInputView extends ModelPanel<CargoModel> {
         String desc = textAreaDescripcion.getObject();
         CargoModel cargoICBS = cargoICBS1.getObject();
         CargoModel cargoICBS2 = icbsTest.getObject();
-        JOptionPane.showMessageDialog(null, cargoICBS2.getNombreCargo());
+        JOptionPane.showMessageDialog(null, popupIconICBS.getObject());
 
         CargoModel cargo;
         if (getOldModel() != null) {
