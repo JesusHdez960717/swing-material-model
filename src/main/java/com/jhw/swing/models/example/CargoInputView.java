@@ -19,6 +19,7 @@ import com.jhw.swing.prepared.textfield.MaterialPreparedTextFactory;
 import java.awt.Desktop;
 import java.io.File;
 import java.util.Random;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -42,23 +43,25 @@ public class CargoInputView extends ModelPanel<CargoModel> {
         cargoICBS1 = new com.jhw.swing.models.example.CargoICBS();
 
         textFieldNombre.setHint("Nombre del cargo");
-        textFieldNombre.setLabel("Cargo");
+        textFieldNombre.setLabel("Cargo *");
         textFieldNombre.setIcon(MaterialIcons.EDIT);
 
-        money = MaterialPreparedTextFactory.buildFormatedMoneyIcon();
-        money.setLabel("money");
-        money.setHint("extra hint");
+        textFieldMoney = MaterialPreparedTextFactory.buildFormatedMoneyIcon();
+        textFieldMoney.setLabel("money");
+        textFieldMoney.setHint("extra hint");
 
         datePicker = MaterialDatePickersFactory.buildIcon();
 
+        icbsTest = new ICBSGeneralTest();
         VerticalLayoutContainer.builder v = VerticalLayoutContainer.builder();
 
         //HorizontalLayoutContainer.builder hlc = HorizontalLayoutContainer.builder((int) cargoICBS1.getPreferredSize().getHeight());
         //hlc.add(HorizontalLayoutComponent.builder(textFieldNombre).build());
         //hlc.add(HorizontalLayoutComponent.builder(cargoICBS1).gapLeft(10).build());
         //v.add(hlc.build());
-        v.add(money);
+        v.add(textFieldMoney);
         v.add(cargoICBS1);
+        v.add(icbsTest);
         v.add(textFieldNombre);
 
         v.add(fileChooserPanel);
@@ -71,14 +74,16 @@ public class CargoInputView extends ModelPanel<CargoModel> {
     // Variables declaration - do not modify
     private com.jhw.swing.models.example.CargoICBS cargoICBS1;
     private MaterialDatePickerIcon datePicker;
-    private MaterialFormatedTextFieldIcon money;
+    private MaterialFormatedTextFieldIcon textFieldMoney;
     private MaterialFileChooser fileChooserPanel;
     private MaterialTextArea textAreaDescripcion;
     private MaterialTextFieldIcon<String> textFieldNombre;
+    private ICBSGeneralTest icbsTest;
     // End of variables declaration                   
 
     @Override
     public void update() {
+        icbsTest.update();
         cargoICBS1.update();
     }
 
@@ -98,6 +103,8 @@ public class CargoInputView extends ModelPanel<CargoModel> {
         String nombre = textFieldNombre.getObject();
         String desc = textAreaDescripcion.getObject();
         CargoModel cargoICBS = cargoICBS1.getObject();
+        CargoModel cargoICBS2 = icbsTest.getObject();
+        JOptionPane.showMessageDialog(null, cargoICBS2.getNombreCargo());
 
         CargoModel cargo;
         if (getOldModel() != null) {

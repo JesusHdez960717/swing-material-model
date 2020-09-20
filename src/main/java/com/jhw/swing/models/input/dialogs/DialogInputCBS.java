@@ -16,6 +16,8 @@ import javax.swing.JTextArea;
 import javax.swing.text.JTextComponent;
 import com.jhw.swing.models.input.ModelablePanel;
 import com.jhw.swing.models.input.icbs.InputComboBoxSelection;
+import com.jhw.swing.util.interfaces.BindableComponent;
+import com.jhw.utils.interfaces.Update;
 import java.awt.BorderLayout;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
@@ -32,14 +34,14 @@ import javax.swing.ScrollPaneLayout;
  * @author Yo
  * @param <T>
  */
-public class DialogInputCBS<T> extends JDialog implements ModelablePanel<T> {
+public class DialogInputCBS<T, Y extends Update & BindableComponent<T>> extends JDialog implements ModelablePanel<T> {
 
     private final BaseModelInputPanel<T> basePanel;
-    private final InputComboBoxSelection icbs;
+    private final Y icbs;
 
     private final _MaterialScrollPaneCore scrollPane = new _MaterialScrollPaneCore();
 
-    public DialogInputCBS(InputComboBoxSelection icbs, ModelPanel modelPanel) {
+    public DialogInputCBS(Y icbs, ModelPanel modelPanel) {
         super();
         this.icbs = icbs;
         basePanel = new BaseModelInputPanel<>(modelPanel);
