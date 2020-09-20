@@ -12,21 +12,21 @@ import java.util.List;
  * @author Jesus Hernandez Barrios (jhernandezb96@gmail.com) 5/4/2020
  */
 public class CargoICBS extends InputComboBoxSelection<CargoModel> {
-    
+
     public CargoICBS() {
         setLabel("Cargo");
         setHint("Hint de los cojones");
         setIcon(MaterialIcons.EDIT);
     }
-    
+
     @Override
-    public List<CargoModel> getList() {
+    public List<CargoModel> getList() throws Exception {
         return CargoModel.getCargos();
     }
-    
+
     @Override
     public ModelPanel<CargoModel> inputPanel() {
         return new CargoInputView(null);
     }
-    
+
 }

@@ -8,6 +8,8 @@ import com.jhw.swing.material.effects.Iconable;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
 import javax.swing.ComboBoxModel;
 import javax.swing.Icon;
 
@@ -23,15 +25,19 @@ public abstract class InputComboBoxSelection<T> extends InputGeneralSelection<T,
     }
 
     private void addListeners() {
-        getComponent().getComboBox().addActionListener((ActionEvent e) -> {
+        addActionListener((ActionEvent e) -> {
             clearWrong();
         });
+    }
+
+    public void addActionListener(ActionListener listener) {
+        getComponent().getComboBox().addActionListener(listener);
     }
 
     @Override
     public void update() {
         try {
-            setUpList();
+            setUpList(getList());
         } catch (Exception e) {
             ExceptionHandler.handleException(e);
         }
@@ -43,8 +49,8 @@ public abstract class InputComboBoxSelection<T> extends InputGeneralSelection<T,
      *
      * @throws Exception
      */
-    protected void setUpList() throws Exception {
-        getComponent().setModel(getList());
+    protected void setUpList(List<T> l) throws Exception {
+        getComponent().setModel(l);
     }
 
     @Override
@@ -80,6 +86,7 @@ public abstract class InputComboBoxSelection<T> extends InputGeneralSelection<T,
     @Override
     public void setLabel(String string) {
         getComponent().setLabel(string);
+        getComponent().setHint("Seleccione " + string.toLowerCase()+"...");
     }
 
     @Override
