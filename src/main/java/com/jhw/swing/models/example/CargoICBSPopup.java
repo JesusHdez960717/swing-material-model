@@ -31,8 +31,8 @@ public class CargoICBSPopup extends InputPopupSelection<CargoModel> {
     }
 
     @Override
-    public void updateComponent() {
-        setComponent(CargoModel.getCargos());
+    public List<CargoModel> getList() {
+        return CargoModel.getCargos();
     }
 
     @Override

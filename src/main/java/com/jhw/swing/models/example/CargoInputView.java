@@ -56,7 +56,6 @@ public class CargoInputView extends ModelPanel<CargoModel> {
 
         popupIconICBS = new CargoICBSPopup();
         popupIconICBS.update();
-        icbsTest = new ICBSGeneralTest();
         VerticalLayoutContainer.builder v = VerticalLayoutContainer.builder();
 
         //HorizontalLayoutContainer.builder hlc = HorizontalLayoutContainer.builder((int) cargoICBS1.getPreferredSize().getHeight());
@@ -65,7 +64,6 @@ public class CargoInputView extends ModelPanel<CargoModel> {
         //v.add(hlc.build());
         v.add(textFieldMoney);
         v.add(cargoICBS1);
-        v.add(icbsTest);
         v.add(popupIconICBS);
         v.add(fileChooserPanel);
         v.add(datePicker);
@@ -85,13 +83,12 @@ public class CargoInputView extends ModelPanel<CargoModel> {
     private MaterialFileChooser fileChooserPanel;
     private MaterialTextArea textAreaDescripcion;
     private MaterialTextFieldIcon<String> textFieldNombre;
-    private ICBSGeneralTest icbsTest;
     // End of variables declaration                   
 
     @Override
     public void update() {
-        icbsTest.update();
         cargoICBS1.update();
+        popupIconICBS.update();
     }
 
     private void personalize() {
@@ -109,8 +106,6 @@ public class CargoInputView extends ModelPanel<CargoModel> {
     public CargoModel getNewModel() {
         String nombre = textFieldNombre.getObject();
         String desc = textAreaDescripcion.getObject();
-        CargoModel cargoICBS = cargoICBS1.getObject();
-        CargoModel cargoICBS2 = icbsTest.getObject();
         JOptionPane.showMessageDialog(null, popupIconICBS.getObject());
 
         CargoModel cargo;

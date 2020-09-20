@@ -14,6 +14,7 @@ import com.jhw.utils.interfaces.Update;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.List;
 import javax.swing.JComponent;
 
 /**
@@ -51,15 +52,6 @@ public abstract class InputGeneralSelection<T, Y extends JComponent & BindableCo
         return component;
     }
 
-    @Override
-    public void update() {
-        try {
-            updateComponent();
-        } catch (Exception e) {
-            ExceptionHandler.handleException(e);
-        }
-    }
-
     private void addListeners() {
         buttonNuevo.addActionListener((java.awt.event.ActionEvent evt) -> {
             new DialogInputCBS(InputGeneralSelection.this, inputPanel());
@@ -73,7 +65,7 @@ public abstract class InputGeneralSelection<T, Y extends JComponent & BindableCo
         component.setEnabled(enabled);
     }
 
-    protected abstract void updateComponent() throws Exception;
+    protected abstract List<T> getList() throws Exception;
 
     public abstract ModelPanel<T> inputPanel();
 

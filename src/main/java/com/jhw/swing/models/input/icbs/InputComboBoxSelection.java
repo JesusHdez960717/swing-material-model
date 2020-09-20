@@ -1,5 +1,6 @@
 package com.jhw.swing.models.input.icbs;
 
+import com.clean.core.app.services.ExceptionHandler;
 import com.jhw.swing.material.components.combobox.MaterialComboBoxDefinition;
 import com.jhw.swing.material.components.combobox.MaterialComboBoxFactory;
 import com.jhw.swing.material.components.combobox.MaterialComboBoxIcon;
@@ -7,7 +8,6 @@ import com.jhw.swing.material.effects.Iconable;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.ComboBoxModel;
 import javax.swing.Icon;
 
@@ -23,12 +23,28 @@ public abstract class InputComboBoxSelection<T> extends InputGeneralSelection<T,
     }
 
     private void addListeners() {
-        getComponent().getComboBox().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                clearWrong();
-            }
+        getComponent().getComboBox().addActionListener((ActionEvent e) -> {
+            clearWrong();
         });
+    }
+
+    @Override
+    public void update() {
+        try {
+            setUpList();
+        } catch (Exception e) {
+            ExceptionHandler.handleException(e);
+        }
+    }
+
+    /**
+     * Metodo a reimplementar si se quiere personalizar la manera en que se pone
+     * la lista en el combo box
+     *
+     * @throws Exception
+     */
+    protected void setUpList() throws Exception {
+        getComponent().setModel(getList());
     }
 
     @Override

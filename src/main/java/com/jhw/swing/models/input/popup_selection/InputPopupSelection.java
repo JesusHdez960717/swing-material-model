@@ -1,5 +1,6 @@
 package com.jhw.swing.models.input.popup_selection;
 
+import com.clean.core.app.services.ExceptionHandler;
 import com.jhw.swing.models.input.icbs.InputGeneralSelection;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
@@ -17,6 +18,21 @@ public abstract class InputPopupSelection<T> extends InputGeneralSelection<T, Bu
         super(ButtonPopupIconICBS.from());
     }
 
+    @Override
+    public void update() {
+        try {
+            setComponent(getList());
+        } catch (Exception e) {
+            ExceptionHandler.handleException(e);
+        }
+    }
+
+    /**
+     * Método a reimplementar si se quiere personalizar la manera en la que se
+     * ponen los componentes en el popup
+     *
+     * @param components
+     */
     protected void setComponent(List<T> components) {
         List<Action> l = new ArrayList<>(components.size());
         for (T c : components) {

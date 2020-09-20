@@ -5,6 +5,7 @@ import com.jhw.swing.models.input.dialogs.DialogInputCBS;
 import com.jhw.swing.models.input.icbs.InputComboBoxSelection;
 import com.jhw.swing.models.input.panels.ModelPanel;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 /**
  *
@@ -19,8 +20,8 @@ public class CargoICBS extends InputComboBoxSelection<CargoModel> {
     }
     
     @Override
-    public void updateComponent() {
-        getComponent().setModel(CargoModel.getCargos());
+    public List<CargoModel> getList() {
+        return CargoModel.getCargos();
     }
     
     @Override
