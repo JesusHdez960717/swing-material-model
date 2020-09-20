@@ -5,6 +5,7 @@
  */
 package com.jhw.swing.models.input.popup_selection;
 
+import com.jhw.swing.material.components.button._MaterialInputPopupIcon;
 import com.jhw.swing.material.effects.Wrong;
 import com.jhw.swing.util.interfaces.BindableComponent;
 import java.awt.Color;
