@@ -53,7 +53,7 @@ public abstract class InputGeneralSelection<T, Y extends JComponent & BindableCo
     @Override
     public void update() {
         try {
-            updateComboBox();
+            updateComponent();
         } catch (Exception e) {
             ExceptionHandler.handleException(e);
         }
@@ -70,7 +70,7 @@ public abstract class InputGeneralSelection<T, Y extends JComponent & BindableCo
         component.setEnabled(enabled);
     }
 
-    protected abstract void updateComboBox() throws Exception;
+    protected abstract void updateComponent() throws Exception;
 
     public abstract ActionListener buttonAddAction();
 

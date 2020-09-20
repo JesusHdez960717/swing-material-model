@@ -13,12 +13,12 @@ public class CargoICBS extends InputComboBoxSelection<CargoModel> {
 
     public CargoICBS() {
         super("Cargo");
-        setIcon(MaterialIcons.EDIT);
+        getComponent().setIcon(MaterialIcons.EDIT);
     }
 
     @Override
-    public void updateComboBox() {
-        setModel(CargoModel.getCargos());
+    public void updateComponent() {
+        getComponent().setModel(CargoModel.getCargos());
         //getComboBox().decorate();
     }
 

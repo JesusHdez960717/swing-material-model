@@ -26,7 +26,7 @@ public class ICBSGeneralTest extends InputGeneralSelection<CargoModel, MaterialC
     }
 
     @Override
-    public void updateComboBox() {
+    public void updateComponent() {
         getComponent().setModel(CargoModel.getCargos());
         //getComboBox().decorate();
     }
