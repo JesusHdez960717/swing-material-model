@@ -199,7 +199,6 @@ public class DialogInputCBS<T, Y extends JComponent & Update & BindableComponent
         } catch (Exception e) {
         }
         if (obj != null) {
-            icbs.update();//TODO: quitar esto de aqui, se supone que si esta bind con el UC, se actualize solo
             icbs.setObject(obj);
             icbs.revalidate();
             dispose();

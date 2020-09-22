@@ -212,6 +212,8 @@ public class DialogModelInput<T> extends JDialog implements ModelablePanel<T> {
                     if (obj != null) {
                         Notification.showNotification(NotificationsGeneralType.NOTIFICATION_CREATE, obj);
                     }
+                    return onPostCreateAction(obj);
+
                 }
             } else {
                 if (Notification.showConfirmDialog(NotificationsGeneralType.CONFIRM_EDIT)) {
@@ -219,11 +221,12 @@ public class DialogModelInput<T> extends JDialog implements ModelablePanel<T> {
                     if (obj != null) {
                         Notification.showNotification(NotificationsGeneralType.NOTIFICATION_EDIT, obj);
                     }
+                    return onPostCreateAction(obj);
                 }
             }
         } catch (Exception e) {
         }
-        return onPostCreateAction(obj);
+        return null;
     }
 
     @Override
