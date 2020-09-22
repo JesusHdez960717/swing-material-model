@@ -39,6 +39,11 @@ public class CargoICBSPopup extends InputPopupSelection<CargoModel> {
     }
 
     @Override
+    protected void addPropertyChange() {
+        CargoModel.addPropertyChangeListener(this);
+    }
+
+    @Override
     public ModelPanel<CargoModel> inputPanel() {//input para el agregar
         return new CargoInputView(null);
     }

@@ -31,7 +31,7 @@ public class CargoICBS extends InputComboBoxSelection<CargoModel> {
 
     @Override
     protected void addPropertyChange() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        CargoModel.addPropertyChangeListener(this);
     }
 
 }
