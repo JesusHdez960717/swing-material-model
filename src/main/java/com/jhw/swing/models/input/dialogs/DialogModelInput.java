@@ -4,12 +4,12 @@ import com.clean.core.app.services.NotificationsGeneralType;
 import com.clean.core.app.services.Notification;
 import com.jhw.personalization.core.domain.Personalization;
 import com.jhw.personalization.services.PersonalizationHandler;
-import com.jhw.swing.material.components.scrollpane._MaterialScrollPaneCore;
+import com.jhw.swing.material.components.scrollpane.MaterialScrollFactory;
+import com.jhw.swing.material.components.scrollpane.MaterialScrollPane;
 import com.jhw.swing.models.input.panels.BaseModelInputPanel;
 import com.jhw.swing.models.input.panels.ModelPanel;
 import java.awt.event.KeyEvent;
 import java.awt.Component;
-import java.awt.event.ActionListener;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -28,32 +28,38 @@ import javax.swing.ScrollPaneLayout;
  * El clasico donde se crean los modelos, es el encargado de mostrar
  * notificaciones de creado o editado y demas.
  *
- * Ejemplo: new DialogModelInput(this, new ModelPanelTest(1));
- *
  * @author Yo
  * @param <T>
  */
 public class DialogModelInput<T> extends JDialog implements ModelablePanel<T> {
 
+    public static DialogModelInput from(ModelPanel modelPanel) {
+        return DialogModelInput.builder(modelPanel).build();
+    }
+
     private final BaseModelInputPanel<T> basePanel;
-    private final UpdateCascade aa;
-    private boolean closeAfterCreate = true;
+    private final UpdateCascade updates;
+    private boolean closeAfterCreate;
 
-    private final _MaterialScrollPaneCore scrollPane = new _MaterialScrollPaneCore();
+    private final MaterialScrollPane scrollPane = MaterialScrollFactory.buildPane();
 
-    public DialogModelInput(Update act, boolean close, ModelPanel modelPanel) {
-        this(new Update[]{act}, modelPanel);
-        this.closeAfterCreate = close;
-    }
-
+    /**
+     * Usar el from con el update por listeners
+     *
+     * @param act
+     * @param modelPanel
+     * @deprecated
+     */
+    @Deprecated
     public DialogModelInput(Update act, ModelPanel modelPanel) {
-        this(new Update[]{act}, modelPanel);
+        this(true, modelPanel, new Update[]{act});
     }
 
-    public DialogModelInput(Update act[], ModelPanel modelPanel) {
-        super();
-        this.aa = new UpdateCascade(act);
-        basePanel = new BaseModelInputPanel<>(modelPanel);
+    @Deprecated
+    public DialogModelInput(boolean close, ModelPanel modelPanel, Update... act) {
+        this.closeAfterCreate = close;
+        this.updates = UpdateCascade.from(act);
+        this.basePanel = new BaseModelInputPanel<>(modelPanel);
         this.setLayout(new BorderLayout());
 
         //add el scroll
@@ -96,7 +102,7 @@ public class DialogModelInput<T> extends JDialog implements ModelablePanel<T> {
         this.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent evt) {
-                actualizarActualizables();
+                updates.updateCascade();
             }
         });
 
@@ -225,7 +231,7 @@ public class DialogModelInput<T> extends JDialog implements ModelablePanel<T> {
         try {
             if (Notification.showConfirmDialog(NotificationsGeneralType.CONFIRM_CANCEL)) {
                 if (basePanel.onCancelAction()) {
-                    actualizarActualizables();
+                    updates.updateCascade();
                     dispose();
                     return true;
                 }
@@ -242,7 +248,7 @@ public class DialogModelInput<T> extends JDialog implements ModelablePanel<T> {
         } catch (Exception e) {
         }
         if (obj != null) {
-            actualizarActualizables();
+            updates.updateCascade();
             basePanel.setOldModel(obj);
             basePanel.update();
             if (closeAfterCreate) {
@@ -259,14 +265,38 @@ public class DialogModelInput<T> extends JDialog implements ModelablePanel<T> {
         } catch (Exception e) {
         }
         if (obj != null) {
-            actualizarActualizables();
+            updates.updateCascade();
             dispose();
         }
         return obj;
     }
 
-    public void actualizarActualizables() {
-        aa.updateCascade();
+    public static builder builder(ModelPanel modelPanel) {
+        return new builder(modelPanel);
     }
 
+    public static class builder {
+
+        ModelPanel modelPanel;
+        Update[] updates = new Update[0];
+        boolean closeAfterCreate = true;
+
+        public builder(ModelPanel modelPanel) {
+            this.modelPanel = modelPanel;
+        }
+
+        public builder close(boolean close) {
+            this.closeAfterCreate = close;
+            return this;
+        }
+
+        public builder updates(Update... updates) {
+            this.updates = updates;
+            return this;
+        }
+
+        public DialogModelInput build() {
+            return new DialogModelInput(closeAfterCreate, modelPanel, updates);
+        }
+    }
 }
