@@ -9,13 +9,11 @@ import com.jhw.swing.models.input.panels.ModelPanel;
 import com.jhw.swing.material.components.scrollpane._MaterialScrollPaneCore;
 import com.jhw.swing.util.Utils;
 import java.awt.Component;
-import java.awt.event.ActionListener;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.text.JTextComponent;
 import com.jhw.swing.models.input.ModelablePanel;
-import com.jhw.swing.models.input.icbs.InputComboBoxSelection;
 import com.jhw.swing.util.interfaces.BindableComponent;
 import com.jhw.utils.interfaces.Update;
 import java.awt.BorderLayout;
@@ -42,8 +40,7 @@ public class DialogInputCBS<T, Y extends JComponent & Update & BindableComponent
 
     private final _MaterialScrollPaneCore scrollPane = new _MaterialScrollPaneCore();
 
-    public DialogInputCBS(Y icbs, ModelPanel modelPanel) {
-        super();
+    public DialogInputCBS(Y icbs, ModelPanel<T> modelPanel) {
         this.icbs = icbs;
         basePanel = new BaseModelInputPanel<>(modelPanel);
         this.setLayout(new BorderLayout());
@@ -202,7 +199,7 @@ public class DialogInputCBS<T, Y extends JComponent & Update & BindableComponent
         } catch (Exception e) {
         }
         if (obj != null) {
-            icbs.update();
+            icbs.update();//TODO: quitar esto de aqui, se supone que si esta bind con el UC, se actualize solo
             icbs.setObject(obj);
             icbs.revalidate();
             dispose();
