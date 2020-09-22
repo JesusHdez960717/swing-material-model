@@ -47,7 +47,8 @@ public class CargoDetailView extends _MaterialPanelDetail<CargoModel> {
 
     @Override
     protected void buttonNuevoActionListener() {
-        new DialogModelInput<CargoModel>(this, new CargoInputView(null)).setResizable(true);
+        DialogModelInput.from(new CargoInputView(null));
+        //new DialogModelInput<CargoModel>(this, new CargoInputView(null)).setResizable(true);
     }
 
     @Override
