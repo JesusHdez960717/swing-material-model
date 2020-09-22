@@ -70,8 +70,7 @@ public abstract class InputGeneralSelection<T, Y extends JComponent & BindableCo
 
     protected abstract List<T> getList() throws Exception;
 
-    protected void addPropertyChange() {
-    }
+    protected abstract void addPropertyChange();
 
     public abstract ModelPanel<T> inputPanel();
 
