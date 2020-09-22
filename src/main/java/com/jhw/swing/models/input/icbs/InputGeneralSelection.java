@@ -14,6 +14,8 @@ import com.jhw.utils.interfaces.Update;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.List;
 import javax.swing.JComponent;
 
@@ -21,7 +23,7 @@ import javax.swing.JComponent;
  *
  * @author Jesus Hernandez Barrios (jhernandzb96@gmail.com)
  */
-public abstract class InputGeneralSelection<T, Y extends JComponent & BindableComponent<T> & Wrong> extends _PanelTransparent implements BindableComponent<T>, Update, Wrong {
+public abstract class InputGeneralSelection<T, Y extends JComponent & BindableComponent<T> & Wrong> extends _PanelTransparent implements BindableComponent<T>, Update, Wrong, PropertyChangeListener {
 
     public InputGeneralSelection(Y component) {
         this.component = component;
@@ -29,6 +31,7 @@ public abstract class InputGeneralSelection<T, Y extends JComponent & BindableCo
         addListeners();
 
         clearWrong();
+        addPropertyChange();
     }
 
     private void initComponents() {
@@ -67,10 +70,39 @@ public abstract class InputGeneralSelection<T, Y extends JComponent & BindableCo
 
     protected abstract List<T> getList() throws Exception;
 
+    protected void addPropertyChange() {
+    }
+
     public abstract ModelPanel<T> inputPanel();
 
     public void setButtonNuevoVisibility(boolean visible) {
         buttonNuevo.setVisible(visible);
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        switch (evt.getPropertyName()) {
+            case "create":
+                internalUpdate();
+                break;
+            case "edit":
+                internalUpdate();
+                break;
+            case "destroy":
+                internalUpdate();
+                break;
+            case "destroyById":
+                internalUpdate();
+                break;
+        }
+    }
+
+    private void internalUpdate() {
+        T obj = getObject();
+        update();
+        if (obj != null) {
+            setObject(obj);
+        }
     }
 
     @Override
