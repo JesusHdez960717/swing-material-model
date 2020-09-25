@@ -18,6 +18,7 @@ import javax.swing.text.JTextComponent;
 import com.jhw.swing.util.UpdateCascade;
 import com.jhw.utils.interfaces.Update;
 import com.jhw.swing.models.input.ModelablePanel;
+import com.jhw.swing.models.input.panels.ModelPanel;
 import java.awt.BorderLayout;
 import java.awt.Rectangle;
 import javax.swing.ScrollPaneLayout;
@@ -34,17 +35,16 @@ import java.util.Map;
  */
 public class DialogModelMixInput<T> extends JDialog implements ModelablePanel<T> {
 
+    public static DialogModelMixInput from(ModelMixPanel modelPanel) {
+        return DialogModelMixInput.builder(modelPanel).build();
+    }
+
     private final BaseModelInputMixPanel<T> basePanel;
     private final UpdateCascade aa;
 
     private final _MaterialScrollPaneCore scrollPane = new _MaterialScrollPaneCore();
 
-    public DialogModelMixInput(Update act, ModelMixPanel modelPanel) {
-        this(new Update[]{act}, modelPanel);
-    }
-
-    public DialogModelMixInput(Update act[], ModelMixPanel modelPanel) {
-        super();
+    public DialogModelMixInput(ModelMixPanel modelPanel, Update... act) {
         this.aa = new UpdateCascade(act);
         this.basePanel = new BaseModelInputMixPanel(modelPanel);
 
@@ -254,5 +254,28 @@ public class DialogModelMixInput<T> extends JDialog implements ModelablePanel<T>
 
     public void actualizarActualizables() {
         aa.updateCascade();
+    }
+
+    public static DialogModelMixInput.builder builder(ModelMixPanel modelPanel) {
+        return new DialogModelMixInput.builder(modelPanel);
+    }
+
+    public static class builder {
+
+        ModelMixPanel modelPanel;
+        Update[] updates = new Update[0];
+
+        public builder(ModelMixPanel modelPanel) {
+            this.modelPanel = modelPanel;
+        }
+
+        public builder updates(Update... updates) {
+            this.updates = updates;
+            return this;
+        }
+
+        public DialogModelMixInput build() {
+            return new DialogModelMixInput(modelPanel, updates);
+        }
     }
 }

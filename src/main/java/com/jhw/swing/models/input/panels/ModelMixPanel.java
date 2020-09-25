@@ -1,11 +1,11 @@
 package com.jhw.swing.models.input.panels;
 
 import com.jhw.swing.material.components.button.MaterialButton;
-import com.jhw.swing.material.components.button.MaterialButtonsFactory;
-import com.jhw.swing.material.components.button.prepared._buttonAddEdit;
 import com.jhw.swing.material.components.container.MaterialContainersFactory;
 import com.jhw.swing.material.components.container.panel.MaterialPanelBorder;
 import com.jhw.swing.material.components.container.panel._PanelTransparent;
+import com.jhw.swing.prepared.button.MaterialButtonAddEdit;
+import com.jhw.swing.prepared.button.MaterialPreparedButtonsFactory;
 import java.awt.Component;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,7 +44,7 @@ public abstract class ModelMixPanel<T> extends _PanelTransparent {
     private void initComponents() {
         panelGeneral = MaterialContainersFactory.buildPanelComponent();
         panelInputView = MaterialContainersFactory.buildPanelComponent();
-        buttonAddEdit = MaterialButtonsFactory.buildAddEdit();
+        buttonAddEdit = MaterialPreparedButtonsFactory.buildAddEdit();
         panelExtra = MaterialContainersFactory.buildPanelTransparent();
 
         panelExtra.setLayout(new java.awt.GridLayout(0, 1));
@@ -71,7 +71,7 @@ public abstract class ModelMixPanel<T> extends _PanelTransparent {
     }// </editor-fold>                        
 
     private MaterialPanelBorder panelGeneral;
-    private MaterialButton buttonAddEdit;
+    private MaterialButtonAddEdit buttonAddEdit;
     private JPanel panelExtra;//extra
     private JPanel panelInputView;//model
 
@@ -101,7 +101,7 @@ public abstract class ModelMixPanel<T> extends _PanelTransparent {
     }
 
     public void updateAll() {
-        ((_buttonAddEdit) buttonAddEdit).isCreated(modelPanel.getOldModel() == null);
+        buttonAddEdit.isCreated(modelPanel.getOldModel() == null);
         modelPanel.update();
 
         for (Component component : panelExtra.getComponents()) {

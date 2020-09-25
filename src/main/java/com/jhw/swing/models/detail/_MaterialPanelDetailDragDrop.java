@@ -15,6 +15,8 @@ import com.jhw.swing.material.components.table.Column;
 import com.jhw.swing.material.standards.MaterialIcons;
 import com.jhw.swing.models.utils.DefaultExportableConfig;
 import java.awt.event.ActionEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -121,7 +123,7 @@ public abstract class _MaterialPanelDetailDragDrop<T extends DomainObject> exten
                 onExportToExcelSelectedAction();
             }
         });
-        
+
         //TEST
         actions.add(new AbstractAction("Todo", MaterialIcons.PAGES.deriveIcon(24f)) {
             @Override
@@ -145,4 +147,5 @@ public abstract class _MaterialPanelDetailDragDrop<T extends DomainObject> exten
         });
         return actions;
     }
+
 }

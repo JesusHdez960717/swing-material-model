@@ -9,17 +9,18 @@ import com.jhw.swing.models.input.panels.ModelPanel;
 import com.jhw.swing.material.components.scrollpane._MaterialScrollPaneCore;
 import com.jhw.swing.util.Utils;
 import java.awt.Component;
-import java.awt.event.ActionListener;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.text.JTextComponent;
 import com.jhw.swing.models.input.ModelablePanel;
-import com.jhw.swing.models.input.icbs.InputComboBoxSelection;
+import com.jhw.swing.util.interfaces.BindableComponent;
+import com.jhw.utils.interfaces.Update;
 import java.awt.BorderLayout;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.util.Map;
+import javax.swing.JComponent;
 import javax.swing.ScrollPaneLayout;
 
 /**
@@ -32,15 +33,14 @@ import javax.swing.ScrollPaneLayout;
  * @author Yo
  * @param <T>
  */
-public class DialogInputCBS<T> extends JDialog implements ModelablePanel<T> {
+public class DialogInputCBS<T, Y extends JComponent & Update & BindableComponent<T>> extends JDialog implements ModelablePanel<T> {
 
     private final BaseModelInputPanel<T> basePanel;
-    private final InputComboBoxSelection icbs;
+    private final Y icbs;
 
     private final _MaterialScrollPaneCore scrollPane = new _MaterialScrollPaneCore();
 
-    public DialogInputCBS(InputComboBoxSelection icbs, ModelPanel modelPanel) {
-        super();
+    public DialogInputCBS(Y icbs, ModelPanel<T> modelPanel) {
         this.icbs = icbs;
         basePanel = new BaseModelInputPanel<>(modelPanel);
         this.setLayout(new BorderLayout());
@@ -199,8 +199,8 @@ public class DialogInputCBS<T> extends JDialog implements ModelablePanel<T> {
         } catch (Exception e) {
         }
         if (obj != null) {
-            icbs.update();
             icbs.setObject(obj);
+            icbs.revalidate();
             dispose();
         }
         return obj;

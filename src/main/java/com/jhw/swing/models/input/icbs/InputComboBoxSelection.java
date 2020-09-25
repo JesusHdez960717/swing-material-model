@@ -1,84 +1,122 @@
 package com.jhw.swing.models.input.icbs;
 
 import com.clean.core.app.services.ExceptionHandler;
-import com.jhw.personalization.core.domain.Personalization;
-import com.jhw.personalization.services.PersonalizationHandler;
-import com.jhw.swing.material.components.button.MaterialButtonIcon;
-import com.jhw.swing.material.components.button.MaterialButtonsFactory;
-import com.jhw.swing.material.components.button._MaterialButtonIconTransparent;
+import com.jhw.swing.material.components.combobox.MaterialComboBoxDefinition;
+import com.jhw.swing.material.components.combobox.MaterialComboBoxFactory;
+import com.jhw.swing.material.components.combobox.MaterialComboBoxIcon;
+import com.jhw.swing.material.effects.Iconable;
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import com.jhw.swing.material.components.combobox._MaterialComboBoxIcon;
-import com.jhw.utils.interfaces.Update;
-import java.awt.BorderLayout;
-import java.awt.Color;
+import java.util.List;
+import javax.swing.ComboBoxModel;
+import javax.swing.Icon;
 
 /**
  *
  * @author Jesus Hernandez Barrios (jhernandzb96@gmail.com)
  */
-public abstract class InputComboBoxSelection<T> extends _MaterialComboBoxIcon<T> implements Update {
+public abstract class InputComboBoxSelection<T> extends InputGeneralSelection<T, MaterialComboBoxIcon<T>> implements Iconable, MaterialComboBoxDefinition<T> {
 
-    public InputComboBoxSelection(String str) {
-        this(str, str);
-    }
-
-    public InputComboBoxSelection(String label, String hint) {
-        initComponents(label, hint);
+    public InputComboBoxSelection() {
+        super(MaterialComboBoxFactory.buildIcon());
         addListeners();
-
-        clearWrong();
     }
 
-    private void initComponents(String label, String hint) {
-        this.setLabel(label);
-        this.setHint(hint);
-        
-        buttonNuevo = MaterialButtonsFactory.buildIconTransparent();
-        buttonNuevo.setForeground(PersonalizationHandler.getColor(Personalization.KEY_COLOR_BUTTON_ADD));
-        buttonNuevo.setRippleColor(Color.black);
-        buttonNuevo.setIcon(
-                PersonalizationHandler.getDerivableIcon(Personalization.KEY_ICON_BUTTON_ADD)
-                        .deriveIcon(PersonalizationHandler.getColor(Personalization.KEY_COLOR_BUTTON_ADD))
-                        .deriveIcon(38f));
-        this.add(buttonNuevo, BorderLayout.EAST);
+    private void addListeners() {
+        addActionListener((ActionEvent e) -> {
+            clearWrong();
+        });
     }
 
-    private MaterialButtonIcon buttonNuevo;
+    public void addActionListener(ActionListener listener) {
+        getComponent().getComboBox().addActionListener(listener);
+    }
 
     @Override
     public void update() {
         try {
-            updateComboBox();
+            setUpList(getList());
         } catch (Exception e) {
             ExceptionHandler.handleException(e);
         }
     }
 
-    private void addListeners() {
-        buttonNuevo.addActionListener(buttonAddAction());
-
-        this.getComboBox().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                clearWrong();
-            }
-        });
-
+    /**
+     * Metodo a reimplementar si se quiere personalizar la manera en que se pone
+     * la lista en el combo box
+     *
+     * @throws Exception
+     */
+    protected void setUpList(List<T> l) throws Exception {
+        getComponent().setModel(l);
     }
 
     @Override
-    public void setEnabled(boolean enabled) {
-        super.setEnabled(enabled);
-        buttonNuevo.setEnabled(enabled);
+    public void setModel(ComboBoxModel<T> cbm) {
+        getComponent().setModel(cbm);
     }
 
-    protected abstract void updateComboBox() throws Exception;
+    @Override
+    public void paintLine(Graphics grphcs) {
+        getComponent().paintLine(grphcs);
+    }
 
-    public abstract ActionListener buttonAddAction();
+    @Override
+    public int getYLine(Graphics grphcs) {
+        return getComponent().getYLine(grphcs);
+    }
 
-    public void setButtonNuevoVisibility(boolean visible) {
-        buttonNuevo.setVisible(visible);
+    @Override
+    public Color getAccentFloatingLabel() {
+        return getComponent().getAccentFloatingLabel();
+    }
+
+    @Override
+    public void setAccentFloatingLabel(Color color) {
+        getComponent().setAccentFloatingLabel(color);
+    }
+
+    @Override
+    public String getLabel() {
+        return getComponent().getLabel();
+    }
+
+    @Override
+    public void setLabel(String string) {
+        getComponent().setLabel(string);
+        getComponent().setHint("Seleccione " + string.toLowerCase()+"...");
+    }
+
+    @Override
+    public String getHint() {
+        return getComponent().getHint();
+    }
+
+    @Override
+    public void setHint(String string) {
+        getComponent().setHint(string);
+    }
+
+    @Override
+    public void paintLabel(Graphics grphcs) {
+        getComponent().paintLabel(grphcs);
+    }
+
+    @Override
+    public void paintHint(Graphics grphcs) {
+        getComponent().paintHint(grphcs);
+    }
+
+    @Override
+    public void setIcon(Icon icon) {
+        getComponent().setIcon(icon);
+    }
+
+    @Override
+    public Icon getIcon() {
+        return getComponent().getIcon();
     }
 
 }

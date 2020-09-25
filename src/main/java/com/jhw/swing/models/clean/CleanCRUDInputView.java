@@ -11,7 +11,6 @@ import com.clean.core.exceptions.ValidationException;
 import com.clean.core.utils.validation.ValidationMessage;
 import com.jhw.swing.material.effects.Wrong;
 import com.jhw.swing.models.input.panels.ModelPanel;
-import com.jhw.utils.jackson.JACKSON;
 import java.lang.reflect.Field;
 import java.util.Map;
 import com.jhw.swing.util.interfaces.BindableComponent;

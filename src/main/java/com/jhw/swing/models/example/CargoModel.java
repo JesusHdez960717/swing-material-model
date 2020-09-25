@@ -17,6 +17,26 @@ import java.util.List;
  */
 public class CargoModel extends DomainObject {
 
+    private static final java.beans.PropertyChangeSupport propertyChangeSupport = new java.beans.PropertyChangeSupport(0);
+
+    /**
+     * Add PropertyChangeListener.
+     *
+     * @param listener
+     */
+    public static void addPropertyChangeListener(java.beans.PropertyChangeListener listener) {
+        propertyChangeSupport.addPropertyChangeListener(listener);
+    }
+
+    /**
+     * Remove PropertyChangeListener.
+     *
+     * @param listener
+     */
+    public static void removePropertyChangeListener(java.beans.PropertyChangeListener listener) {
+        propertyChangeSupport.removePropertyChangeListener(listener);
+    }
+
     private static final List<CargoModel> list = new ArrayList<>();
 
     static {
@@ -36,15 +56,18 @@ public class CargoModel extends DomainObject {
 
     public static final void addCargo(CargoModel c) {
         list.add(c);
+        propertyChangeSupport.firePropertyChange("create", null, c);
     }
 
     public static final void deleteCargo(CargoModel c) {
         list.remove(c);
+        propertyChangeSupport.firePropertyChange("destroy", null, c);
     }
 
     public static final void editCargo(CargoModel c) {
         list.remove(c);
         list.add(c);
+        propertyChangeSupport.firePropertyChange("edit", null, c);
     }
 
     private static final long serialVersionUID = 1L;

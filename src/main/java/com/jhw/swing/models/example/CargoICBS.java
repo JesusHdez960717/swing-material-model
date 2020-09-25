@@ -3,7 +3,9 @@ package com.jhw.swing.models.example;
 import com.jhw.swing.material.standards.MaterialIcons;
 import com.jhw.swing.models.input.dialogs.DialogInputCBS;
 import com.jhw.swing.models.input.icbs.InputComboBoxSelection;
+import com.jhw.swing.models.input.panels.ModelPanel;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 /**
  *
@@ -12,28 +14,24 @@ import java.awt.event.ActionListener;
 public class CargoICBS extends InputComboBoxSelection<CargoModel> {
 
     public CargoICBS() {
-        super("Cargo");
+        setLabel("Cargo");
+        setHint("Hint de los cojones");
         setIcon(MaterialIcons.EDIT);
     }
 
     @Override
-    public void updateComboBox() {
-        setModel(CargoModel.getCargos());
-        //getComboBox().decorate();
+    public List<CargoModel> getList() throws Exception {
+        return CargoModel.getCargos();
     }
 
     @Override
-    public ActionListener buttonAddAction() {
-        return new java.awt.event.ActionListener() {
-            @Override
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                onButtonAddActionPerformed();
-            }
-        };
+    public ModelPanel<CargoModel> inputPanel() {
+        return new CargoInputView(null);
     }
 
-    private void onButtonAddActionPerformed() {
-        new DialogInputCBS(this, new CargoInputView(null));
+    @Override
+    protected void addPropertyChange() {
+        CargoModel.addPropertyChangeListener(this);
     }
 
 }

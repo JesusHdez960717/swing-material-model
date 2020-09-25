@@ -1,6 +1,5 @@
 package com.jhw.swing.models.input.panels;
 
-import com.jhw.swing.material.components.button.prepared._buttonAddEdit;
 import com.jhw.swing.material.components.container.panel._PanelGradient;
 import java.awt.Color;
 import com.jhw.utils.interfaces.Update;
@@ -15,6 +14,8 @@ import com.jhw.swing.material.components.container.layout.HorizontalLayoutContai
 import com.jhw.swing.material.components.container.panel.MaterialPanelBorder;
 import com.jhw.swing.material.standards.MaterialColors;
 import com.jhw.swing.material.standards.MaterialIcons;
+import com.jhw.swing.prepared.button.MaterialButtonAddEdit;
+import com.jhw.swing.prepared.button.MaterialPreparedButtonsFactory;
 import java.awt.BorderLayout;
 import java.util.Map;
 import javax.swing.JPanel;
@@ -41,7 +42,7 @@ public class BaseModelInputPanel<T> extends _PanelGradient implements Update, Mo
         buttonDelete = MaterialButtonsFactory.buildIconTransparent();
         panelModelCore = MaterialContainersFactory.buildPanelComponent();
 
-        buttonAddEdit = MaterialButtonsFactory.buildAddEdit();
+        buttonAddEdit = MaterialPreparedButtonsFactory.buildAddEdit();
 
         this.setLayout(new BorderLayout());
         this.add(panelModelCore);
@@ -62,7 +63,7 @@ public class BaseModelInputPanel<T> extends _PanelGradient implements Update, Mo
     }// </editor-fold>                        
 
     // Variables declaration - do not modify//:variables
-    private MaterialButton buttonAddEdit;
+    private MaterialButtonAddEdit buttonAddEdit;
     private MaterialButton buttonCancel;
     private MaterialButtonIcon buttonDelete;
     private JPanel panelButtons;
@@ -70,7 +71,7 @@ public class BaseModelInputPanel<T> extends _PanelGradient implements Update, Mo
     // End of variables declaration                   
 
     private void personalize() {
-        ((_buttonAddEdit) buttonAddEdit).isCreated(modelPanel.getOldModel() == null);
+        buttonAddEdit.isCreated(modelPanel.getOldModel() == null);
         buttonDelete.setIcon(MaterialIcons.DELETE_FOREVER);
 
         buttonDelete.setVisible(modelPanel.getOldModel() != null);
