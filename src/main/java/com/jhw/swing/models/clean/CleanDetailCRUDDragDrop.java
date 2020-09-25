@@ -12,6 +12,7 @@ import com.jhw.swing.material.components.table.Column;
 import com.jhw.swing.models.detail._MaterialPanelDetailDragDrop;
 import com.jhw.swing.models.input.dialogs.DialogModelInput;
 import com.jhw.swing.models.input.panels.ModelPanel;
+import com.jhw.swing.models.utils.UpdateListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
@@ -21,6 +22,8 @@ import java.util.List;
  * @author Jesus Hernandez Barrios (jhernandezb96@gmail.com)
  */
 public abstract class CleanDetailCRUDDragDrop<T extends DomainObject> extends _MaterialPanelDetailDragDrop<T> implements PropertyChangeListener {
+
+    private final UpdateListener updList = new UpdateListener(this);
 
     public CleanDetailCRUDDragDrop(DomainListFileReader<T> reader) {
         super(reader);
@@ -45,20 +48,7 @@ public abstract class CleanDetailCRUDDragDrop<T extends DomainObject> extends _M
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         super.propertyChange(evt);
-        switch (evt.getPropertyName()) {
-            case "create":
-                update();
-                break;
-            case "edit":
-                update();
-                break;
-            case "destroy":
-                update();
-                break;
-            case "destroyById":
-                update();
-                break;
-        }
+        updList.propertyChange(evt);
     }
 
     protected abstract void addPropertyChange();
