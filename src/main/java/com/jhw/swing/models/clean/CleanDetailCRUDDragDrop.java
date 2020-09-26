@@ -76,5 +76,9 @@ public abstract class CleanDetailCRUDDragDrop<T extends DomainObject> extends _M
         DialogModelInput.from(getModelPanelEdit(obj));
     }
 
+    @Override
+    protected void viewAction(T obj) {
+    }
+
     protected abstract ModelPanel<T> getModelPanelEdit(T obj);
 }
