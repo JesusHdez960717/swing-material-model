@@ -6,8 +6,9 @@
 package com.jhw.swing.models.utils;
 
 import com.clean.core.domain.DomainObject;
-import com.jhw.excel.utils.ExcelListWriter;
-import com.jhw.excel.utils.ExportableConfigExcel;
+import com.jhw.export.excel.ExcelListWriter;
+import com.jhw.export.excel.ExportableConfigExcel;
+import com.jhw.export.utils.ExportableConfig;
 import com.jhw.files.utils.PersonalizationFiles;
 import com.jhw.personalization.services.PersonalizationHandler;
 import com.jhw.swing.models.detail._MaterialPanelDetailDragDrop;
@@ -19,7 +20,7 @@ import java.util.List;
  *
  * @author Jesus Hernandez Barrios (jhernandezb96@gmail.com)
  */
-public class DefaultExportableConfig<T extends DomainObject> implements ExportableConfigExcel<T> {
+public class DefaultExportableConfig<T extends DomainObject> implements ExportableConfig<T>, ExportableConfigExcel<T> {
 
     private final _MaterialPanelDetailDragDrop detail;
 
@@ -29,15 +30,6 @@ public class DefaultExportableConfig<T extends DomainObject> implements Exportab
 
     public final List<Object[]> convert(List<T> list) {
         return ConverterService.convert(list, this::getRowObjectExport);
-    }
-
-    @Override
-    public ExcelListWriter.builder exportExcelBuilder() {
-        return ExcelListWriter.builder().config(this);
-    }
-
-    @Override
-    public void personalizeBuilder(ExcelListWriter.builder bldr) {
     }
 
     @Override
@@ -65,4 +57,14 @@ public class DefaultExportableConfig<T extends DomainObject> implements Exportab
         return detail.getHeaderText();
     }
 
+    //-----------------<EXCEL>-----------------
+    @Override
+    public ExcelListWriter.builder exportExcelBuilder() {
+        return ExcelListWriter.builder().config(this);
+    }
+
+    @Override
+    public void personalizeBuilder(ExcelListWriter.builder bldr) {
+    }
+    //-----------------</EXCEL>-----------------
 }
