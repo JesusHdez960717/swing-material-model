@@ -1,25 +1,38 @@
-rootProject.name = 'Model'
+rootProject.name = 'swing-material-model'
 
-include 'utils', ':clean-core', 'clean-swing'
-project(':utils').projectDir = "E:\\Trabajos\\Projects\\GIT Projects Gradle\\Utils" as File
-project(':clean-core').projectDir = "E:\\Trabajos\\Projects\\GIT Projects Gradle\\CleanCoreFull" as File
-project(':clean-swing').projectDir = "E:\\Trabajos\\Projects\\GIT Projects Gradle\\CleanSwing" as File
+include ':clean-core-full'
+project(':clean-core-full').projectDir = "E:\\Trabajos\\Projects\\GIT Projects Gradle\\clean-core-full" as File
 
-include 'derivable-icons', 'material-swing-preparated', 'material-standards', 'material-personalization', 'material-swing'
-project(':derivable-icons').projectDir = "E:\\Trabajos\\Projects\\GIT Projects Gradle\\Material\\Derivable Icons" as File
-project(':material-standards').projectDir = "E:\\Trabajos\\Projects\\GIT Projects Gradle\\Material\\Standards" as File
-project(':material-personalization').projectDir = "E:\\Trabajos\\Projects\\GIT Projects Gradle\\Modulos Utils\\Personalization" as File
-project(':material-swing').projectDir = "E:\\Trabajos\\Projects\\GIT Projects Gradle\\MaterialSwing" as File
-project(':material-swing-preparated').projectDir = "E:\\Trabajos\\Projects\\GIT Projects Gradle\\Material\\SwingPrepared" as File
+include ':clean-swing'
+project(':clean-swing').projectDir = "E:\\Trabajos\\Projects\\GIT Projects Gradle\\clean-swing" as File
 
+include ':utils-core'
+project(':utils-core').projectDir = "E:\\Trabajos\\Projects\\GIT Projects Gradle\\utils-core" as File
 
-include 'module-default-config', 'material-notification'
-project(':module-default-config').projectDir = "E:\\Trabajos\\Projects\\GIT Projects Gradle\\Modulos Utils\\DefaultConfiguration" as File
-project(':material-notification').projectDir = "E:\\Trabajos\\Projects\\GIT Projects Gradle\\Material\\Notifications" as File
+include ':swing-derivable_icons'
+project(':swing-derivable_icons').projectDir = "E:\\Trabajos\\Projects\\GIT Projects Gradle\\swing-derivable_icons" as File
 
-include 'material-personalization'
-project(':material-personalization').projectDir = "E:\\Trabajos\\Projects\\GIT Projects Gradle\\Modulos Utils\\Personalization" as File
+include ':swing-material-standards'
+project(':swing-material-standards').projectDir = "E:\\Trabajos\\Projects\\GIT Projects Gradle\\swing-material-standards" as File
 
-include 'module-export', 'module-files'
-project(':module-export').projectDir = "E:\\Trabajos\\Projects\\GIT Projects Gradle\\Modulos Utils\\Export" as File
-project(':module-files').projectDir = "E:\\Trabajos\\Projects\\GIT Projects Gradle\\Modulos Utils\\Files" as File
+include ':module-util-personalization'
+project(':module-util-personalization').projectDir = "E:\\Trabajos\\Projects\\GIT Projects Gradle\\module-util-personalization" as File
+
+include ':swing-material-prepared'
+project(':swing-material-prepared').projectDir = "E:\\Trabajos\\Projects\\GIT Projects Gradle\\swing-material-prepared" as File
+
+include ':swing-material-core'
+project(':swing-material-core').projectDir = "E:\\Trabajos\\Projects\\GIT Projects Gradle\\swing-material-core" as File
+
+include ':swing-material-notifications'
+project(':swing-material-notifications').projectDir = "E:\\Trabajos\\Projects\\GIT Projects Gradle\\swing-material-notifications" as File
+
+include ':utils-export'
+project(':utils-export').projectDir = "E:\\Trabajos\\Projects\\GIT Projects Gradle\\utils-export" as File
+
+include ':utils-files'
+project(':utils-files').projectDir = "E:\\Trabajos\\Projects\\GIT Projects Gradle\\utils-files" as File
+
+include ':module-util-default_configuration'
+project(':module-util-default_configuration').projectDir = "E:\\Trabajos\\Projects\\GIT Projects Gradle\\module-util-default_configuration" as File
+

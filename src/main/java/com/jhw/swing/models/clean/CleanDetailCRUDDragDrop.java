@@ -7,7 +7,7 @@ package com.jhw.swing.models.clean;
 
 import com.clean.core.app.services.ExceptionHandler;
 import com.clean.core.domain.DomainObject;
-import com.jhw.excel.utils.DomainListFileReader;
+import com.jhw.export.utils.DomainListFileReader;
 import com.jhw.swing.material.components.table.Column;
 import com.jhw.swing.models.detail._MaterialPanelDetailDragDrop;
 import com.jhw.swing.models.input.dialogs.DialogModelInput;
@@ -74,6 +74,10 @@ public abstract class CleanDetailCRUDDragDrop<T extends DomainObject> extends _M
     @Override
     protected void editAction(T obj) {
         DialogModelInput.from(getModelPanelEdit(obj));
+    }
+
+    @Override
+    protected void viewAction(T obj) {
     }
 
     protected abstract ModelPanel<T> getModelPanelEdit(T obj);

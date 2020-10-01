@@ -13,21 +13,21 @@ repositories {
 dependencies {
     testCompile 'junit:junit:4.13'
     
-    implementation project(':utils')
-    implementation project(':clean-core')
+    implementation project(':utils-core')
+    implementation project(':clean-core-full')
     implementation project(':clean-swing')
     
-    implementation project(':derivable-icons')
-    implementation project(':material-standards')
-    implementation project(':material-personalization')
-    implementation project(':material-swing')
-    implementation project(':material-swing-preparated')
+    implementation project(':swing-derivable_icons')
+    implementation project(':swing-material-standards')
+    implementation project(':module-util-personalization')
+    implementation project(':swing-material-core')
+    implementation project(':swing-material-prepared')
 
     
-    implementation project(':module-default-config')
-    implementation project(':material-notification')
-    implementation project(':material-personalization')
+    implementation project(':module-util-default_configuration')
+    implementation project(':swing-material-notifications')
+    implementation project(':module-util-personalization')
     
-    implementation project(':module-export')
-    implementation project(':module-files')
+    implementation project(':utils-export')
+    implementation project(':utils-files')
 }
