@@ -6,11 +6,11 @@
 package com.jhw.swing.models.utils;
 
 import com.clean.core.domain.DomainObject;
-import com.jhw.export.excel.ExcelListWriter;
-import com.jhw.export.excel.ExportableConfigExcel;
-import com.jhw.export.utils.ExportableConfig;
-import com.jhw.files.utils.PersonalizationFiles;
-import com.jhw.personalization.services.PersonalizationHandler;
+import com.jhw.utils.export.excel.ExcelListWriter;
+import com.jhw.utils.export.excel.ExportableConfigExcel;
+import com.jhw.utils.export.utils.ExportableConfig;
+import com.jhw.utils.file.PersonalizationFiles;
+import com.jhw.module.util.personalization.services.PersonalizationHandler;
 import com.jhw.swing.models.detail._MaterialPanelDetailDragDrop;
 import com.jhw.utils.services.ConverterService;
 import java.io.File;

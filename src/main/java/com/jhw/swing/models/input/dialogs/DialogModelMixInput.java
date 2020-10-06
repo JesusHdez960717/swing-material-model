@@ -2,8 +2,8 @@ package com.jhw.swing.models.input.dialogs;
 
 import com.clean.core.app.services.Notification;
 import com.clean.core.app.services.NotificationsGeneralType;
-import com.jhw.personalization.core.domain.Personalization;
-import com.jhw.personalization.services.PersonalizationHandler;
+import com.jhw.module.util.personalization.core.domain.Personalization;
+import com.jhw.module.util.personalization.services.PersonalizationHandler;
 import com.jhw.swing.material.components.scrollpane._MaterialScrollPaneCore;
 import com.jhw.swing.models.input.panels.BaseModelInputMixPanel;
 import java.awt.event.ActionEvent;

@@ -7,7 +7,7 @@ package com.jhw.swing.models.detail;
 
 import com.clean.core.app.services.ExceptionHandler;
 import com.clean.core.domain.DomainObject;
-import com.jhw.export.utils.DomainListFileReader;
+import com.jhw.utils.export.utils.DomainListFileReader;
 import com.jhw.swing.material.components.button.MaterialButton;
 import com.jhw.swing.material.components.button.MaterialButtonsFactory;
 import com.jhw.swing.material.components.filechooser.FileDropHandler;

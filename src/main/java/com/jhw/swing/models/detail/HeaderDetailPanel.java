@@ -5,7 +5,7 @@
  */
 package com.jhw.swing.models.detail;
 
-import com.jhw.personalization.services.PersonalizationHandler;
+import com.jhw.module.util.personalization.services.PersonalizationHandler;
 import com.jhw.swing.material.components.button.MaterialButton;
 import com.jhw.swing.material.components.container.MaterialContainersFactory;
 import com.jhw.swing.material.components.container.panel._PanelTransparent;
@@ -17,7 +17,7 @@ import com.jhw.swing.material.standards.MaterialFontRoboto;
 import com.jhw.swing.models.utils.PersonalizationModel;
 import com.jhw.swing.prepared.button.MaterialButtonAddEdit;
 import com.jhw.swing.prepared.button.MaterialPreparedButtonsFactory;
-import com.jhw.swing.utils.icons.DerivableIcon;
+import com.jhw.swing.derivable_icons.DerivableIcon;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
