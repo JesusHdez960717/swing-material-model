@@ -14,7 +14,10 @@ import com.jhw.swing.material.components.filechooser.FileDropHandler;
 import com.jhw.swing.material.components.table.Column;
 import com.jhw.swing.material.standards.MaterialIcons;
 import com.jhw.swing.models.utils.DefaultExportableConfig;
+import com.jhw.swing.util.AbstractActionUtils;
+import com.jhw.utils.services.ConverterService;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
@@ -100,7 +103,25 @@ public abstract class _MaterialPanelDetailDragDrop<T extends DomainObject> exten
     private void onExportToExcelSelectedAction() {
         try {
             exportConfig.exportExcelBuilder()
-                    .values(exportConfig.convert(getSelectedList()))
+                    .values(ConverterService.convert(getSelectedList(), exportConfig::getRowObjectExport))
+                    .write().open();
+        } catch (Exception e) {
+            ExceptionHandler.handleException(e);
+        }
+    }
+
+    private void onExportToJSONAction() {
+        try {
+            exportConfig.exportJSONBuilder().write().open();
+        } catch (Exception e) {
+            ExceptionHandler.handleException(e);
+        }
+    }
+
+    private void onExportToJSONSelectedAction() {
+        try {
+            exportConfig.exportJSONBuilder()
+                    .values(ConverterService.convert(exportConfig.getColumnNamesExport(), getSelectedList(), exportConfig::getRowObjectExport))
                     .write().open();
         } catch (Exception e) {
             ExceptionHandler.handleException(e);
@@ -110,31 +131,35 @@ public abstract class _MaterialPanelDetailDragDrop<T extends DomainObject> exten
     private List<Action> getPopupAllExportSupported() {
         List<Action> actions = new ArrayList<>();
         //accion de exportarlo todo a excel
-        actions.add(new AbstractAction("Todo", MaterialIcons.EXCEL.deriveIcon(24f)) {
+        actions.add(AbstractActionUtils.from("Todo", MaterialIcons.EXCEL.deriveIcon(24f), "Exportar toda la lista a Excel", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 onExportToExcelAction();
             }
-        });
+        }));
         //accion de exportar lo seleccionado a excel
-        actions.add(new AbstractAction("Selec.", MaterialIcons.EXCEL.deriveIcon(24f)) {
+        actions.add(AbstractActionUtils.from("Selec.", MaterialIcons.EXCEL.deriveIcon(24f), "Exportar los elementos seleccionados a Excel", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 onExportToExcelSelectedAction();
             }
-        });
+        }));
 
+        //accion de exportarlo todo a JSON
+        actions.add(AbstractActionUtils.from("Todo", MaterialIcons.TEC_JSON.deriveIcon(24f), "Exportar toda la lista a JSON", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                onExportToJSONAction();
+            }
+        }));
+        //accion de exportar lo seleccionado a excel
+        actions.add(AbstractActionUtils.from("Selec.", MaterialIcons.TEC_JSON.deriveIcon(24f), "Exportar los elementos seleccionados a JSON", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                onExportToJSONSelectedAction();
+            }
+        }));
         //TEST
-        actions.add(new AbstractAction("Todo", MaterialIcons.PAGES.deriveIcon(24f)) {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            }
-        });
-        actions.add(new AbstractAction("Selec.", MaterialIcons.PAGES.deriveIcon(24f)) {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            }
-        });
         actions.add(new AbstractAction("Todo", MaterialIcons.ADD_ALARM.deriveIcon(24f)) {
             @Override
             public void actionPerformed(ActionEvent e) {
