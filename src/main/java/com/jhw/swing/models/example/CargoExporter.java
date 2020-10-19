@@ -8,7 +8,7 @@ package com.jhw.swing.models.example;
 import java.util.Date;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Workbook;
-import com.jhw.export.excel.ExcelListWriter;
+import com.jhw.utils.export.excel.ExcelListWriter;
 import com.jhw.swing.models.utils.DefaultExportableConfig;
 
 /**
@@ -17,7 +17,7 @@ import com.jhw.swing.models.utils.DefaultExportableConfig;
  */
 public class CargoExporter extends DefaultExportableConfig<CargoModel> {
 
-    public CargoExporter(CargoPanel detail) {
+    public CargoExporter(CargoDetailViewCleanDrag detail) {
         super(detail);
     }
 

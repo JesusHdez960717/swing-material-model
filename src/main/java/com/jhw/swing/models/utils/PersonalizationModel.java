@@ -5,7 +5,7 @@
  */
 package com.jhw.swing.models.utils;
 
-import com.jhw.personalization.services.PersonalizationHandler;
+import com.jhw.module.util.personalization.services.PersonalizationHandler;
 
 /**
  *

@@ -112,25 +112,23 @@ public abstract class _MaterialPanelDetail<T extends DomainObject> extends _Mate
     }
 
     private void addListeners() {
-        header.getButtonAdd().addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonNuevoActionListener();
-            }
+        header.getButtonAdd().addActionListener((java.awt.event.ActionEvent evt) -> {
+            buttonNuevoActionListener();
         });
 
         table.getTable().addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 onTableMouseDoubleClicked(evt);
             }
         });
 
-        header.getSearchField().setSearchActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                setCollection(new ArrayList<>(list));
-            }
+        header.getSearchField().setSearchActionListener((java.awt.event.ActionEvent evt) -> {
+            setCollection(new ArrayList<>(list));
         });
 
         table.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 onTableKeyTyped(evt);
             }
@@ -186,9 +184,8 @@ public abstract class _MaterialPanelDetail<T extends DomainObject> extends _Mate
                     if (after != null) {
                         //si se elimina el ultimo deje de editar xq si no lanza excepcion x editar un index que no existe
                         if (table.getTable().getCellEditor() != null) {//es null si se elimina con el click derecho
-                            table.getTable().getCellEditor().stopCellEditing();
+                            table.getTable().getCellEditor().cancelCellEditing();//cancel para que NO acepte ningun valor parcialmente editado
                         }
-
                         Notification.showNotification(NotificationsGeneralType.NOTIFICATION_DELETE, after);
                         update();
 

@@ -1,7 +1,7 @@
 package com.jhw.swing.models.detail;
 
-import com.jhw.personalization.core.domain.Personalization;
-import com.jhw.personalization.services.PersonalizationHandler;
+import com.jhw.module.util.personalization.core.domain.Personalization;
+import com.jhw.module.util.personalization.services.PersonalizationHandler;
 import com.jhw.swing.bundles.dialog.DialogPanel;
 import com.jhw.swing.util.UpdateCascade;
 import javax.swing.JPanel;

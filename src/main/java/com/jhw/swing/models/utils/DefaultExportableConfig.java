@@ -6,13 +6,14 @@
 package com.jhw.swing.models.utils;
 
 import com.clean.core.domain.DomainObject;
-import com.jhw.export.excel.ExcelListWriter;
-import com.jhw.export.excel.ExportableConfigExcel;
-import com.jhw.export.utils.ExportableConfig;
-import com.jhw.files.utils.PersonalizationFiles;
-import com.jhw.personalization.services.PersonalizationHandler;
+import com.jhw.utils.export.excel.ExcelListWriter;
+import com.jhw.utils.export.excel.ExportableConfigExcel;
+import com.jhw.utils.export.utils.ExportableConfig;
+import com.jhw.utils.file.PersonalizationFiles;
+import com.jhw.module.util.personalization.services.PersonalizationHandler;
 import com.jhw.swing.models.detail._MaterialPanelDetailDragDrop;
-import com.jhw.utils.services.ConverterService;
+import com.jhw.utils.export.json.ExportableConfigJSON;
+import com.jhw.utils.export.json.JSONListWriter;
 import java.io.File;
 import java.util.List;
 
@@ -20,16 +21,12 @@ import java.util.List;
  *
  * @author Jesus Hernandez Barrios (jhernandezb96@gmail.com)
  */
-public class DefaultExportableConfig<T extends DomainObject> implements ExportableConfig<T>, ExportableConfigExcel<T> {
+public class DefaultExportableConfig<T extends DomainObject> implements ExportableConfig<T>, ExportableConfigExcel<T>, ExportableConfigJSON<T> {
 
     private final _MaterialPanelDetailDragDrop detail;
 
     public DefaultExportableConfig(_MaterialPanelDetailDragDrop detail) {
         this.detail = detail;
-    }
-
-    public final List<Object[]> convert(List<T> list) {
-        return ConverterService.convert(list, this::getRowObjectExport);
     }
 
     @Override
@@ -67,4 +64,11 @@ public class DefaultExportableConfig<T extends DomainObject> implements Exportab
     public void personalizeBuilder(ExcelListWriter.builder bldr) {
     }
     //-----------------</EXCEL>-----------------
+
+    //-----------------<JSON>-----------------
+    @Override
+    public JSONListWriter.builder exportJSONBuilder() {
+        return new JSONListWriter.builder().config(this);
+    }
+    //-----------------</JSON>-----------------
 }

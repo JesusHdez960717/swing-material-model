@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 import com.jhw.swing.material.standards.MaterialIcons;
+import com.jhw.swing.models.detail._MaterialPanelDetailDragDrop;
 import java.awt.Color;
 import java.util.Random;
 import javax.swing.AbstractAction;
@@ -21,21 +22,22 @@ import javax.swing.Action;
  *
  * @author Jesus Hernandez Barrios (jhernandezb96@gmail.com)
  */
-public class CargoDetailView extends _MaterialPanelDetail<CargoModel> {
+public class CargoDetailViewDragDrop extends _MaterialPanelDetailDragDrop<CargoModel> {
 
 
-    public CargoDetailView() {
+    public CargoDetailViewDragDrop() {
         setColumns(new Column[]{
             Column.builder().name("Color").build(),
             Column.builder().name("nombre").editable(true).build(),
             Column.builder().name("Descripcion").editable(true).build()
         });
 
-        this.setHeaderText("Modelo de cargo(cargo detail view)");
+        this.setHeaderText("Modelo de cargo(drag drop)");
         getTable().getColumn("Color").setCellRenderer(new ComponentCellRender(false));
 
         //this.setActionColumnVisivility(true);
         this.setActionColumnButtonsVisivility(true, false, false);
+        addActionsExtra();
 
         this.getTableByPage().setPageVisibility(true);
 
@@ -115,6 +117,19 @@ public class CargoDetailView extends _MaterialPanelDetail<CargoModel> {
         });
         this.addOptionElement(btn3);
 
+    }
+
+    private void addActionsExtra() {
+        Action btn1 = new AbstractAction("NOTIFY", MaterialIcons.ADD) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Notification.showNotification(NotificationsGeneralType.NOTIFICATION_INFO, "hihihi");
+            }
+        };
+        this.addActionExtra(btn1);
+        this.addActionExtra(btn1);
+        this.addActionExtra(btn1);
+        this.addActionExtra(btn1);
     }
 
 }
