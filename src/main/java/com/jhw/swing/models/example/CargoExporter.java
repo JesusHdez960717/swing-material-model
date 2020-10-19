@@ -17,7 +17,7 @@ import com.jhw.swing.models.utils.DefaultExportableConfig;
  */
 public class CargoExporter extends DefaultExportableConfig<CargoModel> {
 
-    public CargoExporter(CargoPanel detail) {
+    public CargoExporter(CargoDetailViewCleanDrag detail) {
         super(detail);
     }
 

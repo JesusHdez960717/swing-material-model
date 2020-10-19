@@ -17,9 +17,9 @@ import java.util.List;
  *
  * @author Jesus Hernandez Barrios (jhernandezb96@gmail.com)
  */
-public class CargoPanel extends CleanDetailCRUDDragDrop<CargoModel> {
+public class CargoDetailViewCleanDrag extends CleanDetailCRUDDragDrop<CargoModel> {
 
-    public CargoPanel() {
+    public CargoDetailViewCleanDrag() {
         super(new Column[]{
             Column.builder().name("nombre").build(),
             Column.builder().name("money").build(),
@@ -32,7 +32,7 @@ public class CargoPanel extends CleanDetailCRUDDragDrop<CargoModel> {
     @Override
     protected void personalize() {
 
-        this.setHeaderText("Modelo de cargo");
+        this.setHeaderText("Clena drag");
 
         getTable().getColumn("money").setCellRenderer(new MoneyCellRender());
 

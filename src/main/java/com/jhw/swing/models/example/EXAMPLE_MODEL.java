@@ -9,6 +9,7 @@ import com.jhw.module.util.default_config.DefaultConfigSwingModule;
 import com.jhw.swing.material.standards.MaterialColors;
 import com.jhw.swing.ui.MaterialLookAndFeel;
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import javax.swing.UIManager;
 
 /**
@@ -24,9 +25,10 @@ public class EXAMPLE_MODEL extends javax.swing.JFrame {
         initComponents();
 
         jPanel1.setBackground(MaterialColors.BLUE_50);
-        jPanel1.setLayout(new BorderLayout());
-        jPanel1.add(new CargoDetailView(), BorderLayout.WEST);
-        jPanel1.add(new CargoPanel());
+        jPanel1.setLayout(new GridLayout(1, 0));
+        jPanel1.add(new CargoDetailView());
+        jPanel1.add(new CargoDetailViewDragDrop());
+        jPanel1.add(new CargoDetailViewCleanDrag());
     }
 
     private void initComponents() {
@@ -52,7 +54,7 @@ public class EXAMPLE_MODEL extends javax.swing.JFrame {
         }
 
         DefaultConfigSwingModule.init().register(null);
-        
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
