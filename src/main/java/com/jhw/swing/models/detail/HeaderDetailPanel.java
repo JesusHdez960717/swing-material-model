@@ -51,7 +51,7 @@ public class HeaderDetailPanel extends _PanelTransparent {
         _PanelTransparent header = new _PanelTransparent();
         header.setBorder(new EmptyBorder(0, 5, 0, 0));
         header.setLayout(new BorderLayout());
-        
+
         labelHeader = MaterialLabelsFactory.build();
         labelHeader.setIconTextGap(10);
         labelHeader.setFont(MaterialFontRoboto.BOLD.deriveFont(24f));
@@ -128,6 +128,10 @@ public class HeaderDetailPanel extends _PanelTransparent {
         panelOptionsExtra.setVisible(visible);
     }
 
+    public void setButtonAddVisibility(boolean visible) {
+        buttonAdd.setVisible(visible);
+    }
+
     @Override
     public void setEnabled(boolean enabled) {
         super.setEnabled(enabled);
@@ -155,7 +159,7 @@ public class HeaderDetailPanel extends _PanelTransparent {
         return panelOptionsExtra;
     }
 
-    public void setPanelOptionsExtra(_PanelTransparent panelOptionsExtra) {
+    public void setPanelOptionsExtra(JPanel panelOptionsExtra) {
         this.panelOptionsExtra = panelOptionsExtra;
     }
 

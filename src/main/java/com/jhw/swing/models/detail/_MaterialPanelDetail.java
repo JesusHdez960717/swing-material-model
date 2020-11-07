@@ -449,6 +449,10 @@ public abstract class _MaterialPanelDetail<T extends DomainObject> extends _Mate
         header.setOptionPanelVisibility(visible);
     }
 
+    public void setButtonAddVisibility(boolean visible) {
+        header.setButtonAddVisibility(visible);
+    }
+
     @Override
     public void setEnabled(boolean enabled) {
         super.setEnabled(enabled);

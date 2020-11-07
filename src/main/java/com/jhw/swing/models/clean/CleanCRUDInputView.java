@@ -57,7 +57,11 @@ public abstract class CleanCRUDInputView<T> extends ModelPanel<T> implements Bin
         }
         T newObject;
         if (getOldModel() == null) {//create
-            newObject = clazz.newInstance();
+            if (base != null) {//si hay base la cojo
+                newObject = base;
+            } else {
+                newObject = clazz.newInstance();
+            }
         } else {//edit
             newObject = getOldModel();
         }
