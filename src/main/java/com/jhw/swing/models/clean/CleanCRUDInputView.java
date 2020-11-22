@@ -158,8 +158,7 @@ public abstract class CleanCRUDInputView<T> extends ModelPanel<T> implements Bin
 
         if (getOldModel() != null) {
             update(bindMap, getOldModel());
-        }
-        if (base != null) {
+        } else if (base != null) {
             update(bindMap, base);
         }
 
