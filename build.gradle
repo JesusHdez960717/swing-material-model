@@ -4,13 +4,12 @@ plugins {
 
 group = 'com.jhw.swing.material'
 
-version = '1.7.3.SNAPSHOT.20201106'
+version = '1.7.4.SNAPSHOT.20201121'
 
 repositories {
     jcenter()
     mavenCentral()
 }
-
 
 dependencies {
     testCompile 'junit:junit:4.13'

@@ -43,6 +43,11 @@ public abstract class InputComboBoxSelection<T> extends InputGeneralSelection<T,
         }
     }
 
+    @Override
+    public void addElement(T element) {
+        getComponent().getComboBox().addElement(element);
+    }
+
     /**
      * Metodo a reimplementar si se quiere personalizar la manera en que se pone
      * la lista en el combo box
@@ -86,7 +91,7 @@ public abstract class InputComboBoxSelection<T> extends InputGeneralSelection<T,
     @Override
     public void setLabel(String string) {
         getComponent().setLabel(string);
-        getComponent().setHint("Seleccione " + string.toLowerCase()+"...");
+        getComponent().setHint("Seleccione " + string.toLowerCase() + "...");
     }
 
     @Override
