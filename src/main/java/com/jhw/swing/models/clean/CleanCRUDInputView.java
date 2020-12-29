@@ -8,6 +8,7 @@ package com.jhw.swing.models.clean;
 import com.clean.core.app.services.ExceptionHandler;
 import com.clean.core.app.usecase.CRUDUseCase;
 import com.clean.core.exceptions.ValidationException;
+import com.clean.core.utils.validation.Validable;
 import com.clean.core.utils.validation.ValidationMessage;
 import com.jhw.swing.material.effects.Wrong;
 import com.jhw.swing.models.input.panels.ModelPanel;
@@ -72,7 +73,14 @@ public abstract class CleanCRUDInputView<T> extends ModelPanel<T> implements Bin
             f.setAccessible(true);
             f.set(newObject, getValue(f.getType(), bindMap.get(fieldName)));
         }
+        if (doValidate() && newObject instanceof Validable) {
+            ((Validable) newObject).validate();
+        }
         return newObject;
+    }
+
+    protected boolean doValidate() {
+        return false;
     }
 
     private <T> T getValue(Class<T> fieldType, Object componentBinded) throws Exception {

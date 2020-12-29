@@ -19,8 +19,11 @@ import com.jhw.swing.models.input.popup_selection.InputPopupSelection;
 import com.jhw.swing.prepared.textarea.MaterialPreparedTextAreaFactory;
 import com.jhw.swing.prepared.textfield.MaterialPreparedTextFactory;
 import java.awt.Desktop;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.Random;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 /**
@@ -72,6 +75,12 @@ public class CargoInputView extends ModelPanel<CargoModel> {
         v.add(textFieldNombre);
         v.add(VerticalLayoutComponent.builder(textAreaDescripcion).resize(true).build());
 
+        JButton b = new JButton("bu");
+        b.addActionListener((ActionEvent e) -> {
+            cargoICBS1.setObject(CargoModel.getCargos().get(3));
+        });
+        v.add(b);
+        
         this.setComponent(v.build());
     }
 
