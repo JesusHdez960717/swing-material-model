@@ -26,7 +26,7 @@ hs_err_pid*
 .gradle
 *.DS_Store
 build/
-/src/main/java/com/jhw/swing/models/TEST/
+/src/main/java/com/root101/swing/models/TEST/
 
 css_batick_default_override.css
 
