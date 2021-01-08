@@ -1,19 +1,19 @@
 package com.jhw.swing.models.example;
 
-import com.clean.core.app.services.Notification;
-import com.clean.core.app.services.NotificationsGeneralType;
-import com.jhw.swing.material.components.container.MaterialContainersFactory;
-import com.jhw.swing.material.components.container.layout.VerticalLayoutComponent;
-import com.jhw.swing.material.components.container.layout.VerticalLayoutContainer;
-import com.jhw.swing.material.components.datepicker.MaterialDatePickerIcon;
-import com.jhw.swing.material.components.datepicker.MaterialDatePickersFactory;
-import com.jhw.swing.material.components.filechooser.MaterialFileChooser;
-import com.jhw.swing.material.components.filechooser.MaterialFileChoosersFactory;
-import com.jhw.swing.material.components.textarea.MaterialTextArea;
-import com.jhw.swing.material.components.textfield.MaterialFormatedTextFieldIcon;
-import com.jhw.swing.material.components.textfield.MaterialTextFactory;
-import com.jhw.swing.material.components.textfield.MaterialTextFieldIcon;
-import com.jhw.swing.material.standards.MaterialIcons;
+import com.root101.clean.core.app.services.NotificationHandler;
+import com.root101.clean.core.app.services.NotificationsGeneralType;
+import com.root101.swing.material.components.container.MaterialContainersFactory;
+import com.root101.swing.material.components.container.layout.VerticalLayoutComponent;
+import com.root101.swing.material.components.container.layout.VerticalLayoutContainer;
+import com.root101.swing.material.components.datepicker.MaterialDatePickerIcon;
+import com.root101.swing.material.components.datepicker.MaterialDatePickersFactory;
+import com.root101.swing.material.components.filechooser.MaterialFileChooser;
+import com.root101.swing.material.components.filechooser.MaterialFileChoosersFactory;
+import com.root101.swing.material.components.textarea.MaterialTextArea;
+import com.root101.swing.material.components.textfield.MaterialFormatedTextFieldIcon;
+import com.root101.swing.material.components.textfield.MaterialTextFactory;
+import com.root101.swing.material.components.textfield.MaterialTextFieldIcon;
+import com.root101.swing.material.standards.MaterialIcons;
 import com.jhw.swing.models.input.panels.ModelPanel;
 import com.jhw.swing.models.input.popup_selection.InputPopupSelection;
 import com.jhw.swing.prepared.textarea.MaterialPreparedTextAreaFactory;
@@ -162,13 +162,13 @@ public class CargoInputView extends ModelPanel<CargoModel> {
 
     @Override
     public CargoModel onPostCreateAction(CargoModel obj) {
-        Notification.showNotification(NotificationsGeneralType.NOTIFICATION_INFO, "Post Create ok");
+        NotificationHandler.showNotification(NotificationsGeneralType.NOTIFICATION_INFO, "Post Create ok");
         return super.onPostCreateAction(obj);
     }
 
     @Override
     public CargoModel onPostDeleteAction(CargoModel obj) {
-        Notification.showNotification(NotificationsGeneralType.NOTIFICATION_INFO, "Post delete ok");
+        NotificationHandler.showNotification(NotificationsGeneralType.NOTIFICATION_INFO, "Post delete ok");
         return super.onPostDeleteAction(obj);
     }
 

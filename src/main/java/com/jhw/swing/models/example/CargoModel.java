@@ -5,7 +5,7 @@
  */
 package com.jhw.swing.models.example;
 
-import com.clean.core.domain.DomainObject;
+import com.root101.clean.core.domain.DomainObject;
 import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;

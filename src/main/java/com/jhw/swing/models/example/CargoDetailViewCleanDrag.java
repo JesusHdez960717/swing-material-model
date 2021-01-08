@@ -1,17 +1,17 @@
 package com.jhw.swing.models.example;
 
-import com.clean.core.app.services.Notification;
-import com.clean.core.app.services.NotificationsGeneralType;
-import com.jhw.swing.material.components.table.Column;
-import com.jhw.swing.material.components.table.editors_renders.money.MoneyCellRender;
-import com.jhw.swing.material.components.table.editors_renders.money.MoneyTableComponent;
+import com.root101.clean.core.app.services.NotificationsGeneralType;
+import com.root101.swing.material.components.table.Column;
+import com.root101.swing.material.components.table.editors_renders.money.MoneyCellRender;
+import com.root101.swing.material.components.table.editors_renders.money.MoneyTableComponent;
 import com.jhw.swing.models.clean.CleanDetailCRUDDragDrop;
 import java.util.Random;
 import com.jhw.swing.models.input.panels.ModelPanel;
-import com.jhw.utils.others.SDF;
+import com.root101.clean.core.app.services.NotificationHandler;
 import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
+import com.root101.utils.others.DTF;
+import java.time.LocalDate;
 
 /**
  *
@@ -69,7 +69,7 @@ public class CargoDetailViewCleanDrag extends CleanDetailCRUDDragDrop<CargoModel
     public Object[] getRowObject(CargoModel object) {
         return new Object[]{object.getNombreCargo(),
             new MoneyTableComponent(BigDecimal.valueOf(new Random().nextDouble()), "MN"),
-            SDF.SDF.format(new Date()),
+            DTF.LOCAL_DATE_FORMATTER.format(LocalDate.now()),
             object.getDescripcion()};
     }
 
@@ -81,7 +81,7 @@ public class CargoDetailViewCleanDrag extends CleanDetailCRUDDragDrop<CargoModel
 
     @Override
     protected void viewAction(CargoModel obj) {
-        Notification.showConfirmDialog(NotificationsGeneralType.CONFIRM_ERROR, "no se puede todavia");
+        NotificationHandler.showConfirmDialog(NotificationsGeneralType.CONFIRM_ERROR, "no se puede todavia");
     }
 
     /*@Override

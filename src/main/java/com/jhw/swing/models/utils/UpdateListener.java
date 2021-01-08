@@ -5,7 +5,7 @@
  */
 package com.jhw.swing.models.utils;
 
-import com.jhw.utils.interfaces.Update;
+import com.root101.utils.interfaces.Update;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 

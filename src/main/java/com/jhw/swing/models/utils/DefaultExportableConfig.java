@@ -5,7 +5,7 @@
  */
 package com.jhw.swing.models.utils;
 
-import com.clean.core.domain.DomainObject;
+import com.root101.clean.core.domain.DomainObject;
 import com.jhw.utils.export.excel.ExcelListWriter;
 import com.jhw.utils.export.excel.ExportableConfigExcel;
 import com.jhw.utils.export.utils.ExportableConfig;

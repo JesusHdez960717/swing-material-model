@@ -1,10 +1,10 @@
 package com.jhw.swing.models.input.dialogs;
 
-import com.clean.core.app.services.Notification;
-import com.clean.core.app.services.NotificationsGeneralType;
+import com.root101.clean.core.app.services.NotificationHandler;
+import com.root101.clean.core.app.services.NotificationsGeneralType;
 import com.jhw.module.util.personalization.core.domain.Personalization;
 import com.jhw.module.util.personalization.services.PersonalizationHandler;
-import com.jhw.swing.material.components.scrollpane._MaterialScrollPaneCore;
+import com.root101.swing.material.components.scrollpane._MaterialScrollPaneCore;
 import com.jhw.swing.models.input.panels.BaseModelInputMixPanel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,14 +15,14 @@ import java.awt.Component;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.text.JTextComponent;
-import com.jhw.swing.util.UpdateCascade;
-import com.jhw.utils.interfaces.Update;
+import com.root101.swing.util.UpdateCascade;
+import com.root101.utils.interfaces.Update;
 import com.jhw.swing.models.input.ModelablePanel;
 import com.jhw.swing.models.input.panels.ModelPanel;
 import java.awt.BorderLayout;
 import java.awt.Rectangle;
 import javax.swing.ScrollPaneLayout;
-import com.jhw.swing.util.Utils;
+import com.root101.swing.util.Utils;
 import java.util.Map;
 
 /**
@@ -174,10 +174,10 @@ public class DialogModelMixInput<T> extends JDialog implements ModelablePanel<T>
     public T onDeleteAction() {
         T obj = null;
         try {
-            if (Notification.showConfirmDialog(NotificationsGeneralType.CONFIRM_DELETE)) {
+            if (NotificationHandler.showConfirmDialog(NotificationsGeneralType.CONFIRM_DELETE)) {
                 obj = basePanel.onDeleteAction();
                 if (obj != null) {
-                    Notification.showNotification(NotificationsGeneralType.NOTIFICATION_DELETE, obj);
+                    NotificationHandler.showNotification(NotificationsGeneralType.NOTIFICATION_DELETE, obj);
                 }
             }
         } catch (Exception e) {
@@ -191,17 +191,17 @@ public class DialogModelMixInput<T> extends JDialog implements ModelablePanel<T>
         try {
             boolean create = basePanel.getOldModel() == null;
             if (create) {
-                if (Notification.showConfirmDialog(NotificationsGeneralType.CONFIRM_CREATE)) {
+                if (NotificationHandler.showConfirmDialog(NotificationsGeneralType.CONFIRM_CREATE)) {
                     obj = basePanel.onCreateAction();
                     if (obj != null) {
-                        Notification.showNotification(NotificationsGeneralType.NOTIFICATION_CREATE, obj);
+                        NotificationHandler.showNotification(NotificationsGeneralType.NOTIFICATION_CREATE, obj);
                     }
                 }
             } else {
-                if (Notification.showConfirmDialog(NotificationsGeneralType.CONFIRM_EDIT)) {
+                if (NotificationHandler.showConfirmDialog(NotificationsGeneralType.CONFIRM_EDIT)) {
                     obj = basePanel.onCreateAction();
                     if (obj != null) {
-                        Notification.showNotification(NotificationsGeneralType.NOTIFICATION_EDIT, obj);
+                        NotificationHandler.showNotification(NotificationsGeneralType.NOTIFICATION_EDIT, obj);
                     }
                 }
             }
@@ -213,7 +213,7 @@ public class DialogModelMixInput<T> extends JDialog implements ModelablePanel<T>
     @Override
     public boolean onCancelAction() {
         try {
-            if (Notification.showConfirmDialog(NotificationsGeneralType.CONFIRM_CANCEL)) {
+            if (NotificationHandler.showConfirmDialog(NotificationsGeneralType.CONFIRM_CANCEL)) {
                 if (basePanel.onCancelAction()) {
                     actualizarActualizables();
                     dispose();

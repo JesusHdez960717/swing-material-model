@@ -5,10 +5,10 @@
  */
 package com.jhw.swing.models.clean;
 
-import com.clean.core.app.services.ExceptionHandler;
-import com.clean.core.domain.DomainObject;
+import com.root101.clean.core.app.services.ExceptionHandler;
+import com.root101.clean.core.domain.DomainObject;
 import com.jhw.utils.export.utils.DomainListFileReader;
-import com.jhw.swing.material.components.table.Column;
+import com.root101.swing.material.components.table.Column;
 import com.jhw.swing.models.detail._MaterialPanelDetailDragDrop;
 import com.jhw.swing.models.input.dialogs.DialogModelInput;
 import com.jhw.swing.models.input.panels.ModelPanel;

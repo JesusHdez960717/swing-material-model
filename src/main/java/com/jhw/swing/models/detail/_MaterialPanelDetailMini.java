@@ -1,8 +1,8 @@
 package com.jhw.swing.models.detail;
 
-import com.clean.core.domain.DomainObject;
-import com.jhw.swing.material.components.table.Column;
-import com.jhw.swing.material.standards.MaterialColors;
+import com.root101.clean.core.domain.DomainObject;
+import com.root101.swing.material.components.table.Column;
+import com.root101.swing.material.standards.MaterialColors;
 
 /**
  *

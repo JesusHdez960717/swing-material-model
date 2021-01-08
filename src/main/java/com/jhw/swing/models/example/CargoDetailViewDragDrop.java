@@ -1,17 +1,17 @@
 package com.jhw.swing.models.example;
 
-import com.clean.core.app.services.NotificationsGeneralType;
-import com.clean.core.app.services.Notification;
+import com.root101.clean.core.app.services.NotificationsGeneralType;
+import com.root101.clean.core.app.services.NotificationHandler;
 import com.jhw.swing.models.detail._MaterialPanelDetail;
 import com.jhw.swing.models.input.dialogs.DialogModelInput;
-import com.jhw.swing.material.components.button._MaterialButtonIconTransparent;
-import com.jhw.swing.material.components.container.panel._PanelGradient;
-import com.jhw.swing.material.components.table.Column;
-import com.jhw.swing.material.components.table.editors_renders.component.ComponentCellRender;
+import com.root101.swing.material.components.button._MaterialButtonIconTransparent;
+import com.root101.swing.material.components.container.panel._PanelGradient;
+import com.root101.swing.material.components.table.Column;
+import com.root101.swing.material.components.table.editors_renders.component.ComponentCellRender;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JPanel;
-import com.jhw.swing.material.standards.MaterialIcons;
+import com.root101.swing.material.standards.MaterialIcons;
 import com.jhw.swing.models.detail._MaterialPanelDetailDragDrop;
 import java.awt.Color;
 import java.util.Random;
@@ -83,7 +83,7 @@ public class CargoDetailViewDragDrop extends _MaterialPanelDetailDragDrop<CargoM
 
     @Override
     protected void viewAction(CargoModel obj) {
-        Notification.showConfirmDialog(NotificationsGeneralType.CONFIRM_ERROR, "no se puede todavia");
+        NotificationHandler.showConfirmDialog(NotificationsGeneralType.CONFIRM_ERROR, "no se puede todavia");
     }
 
     private void addOptionsElements() {
@@ -92,7 +92,7 @@ public class CargoDetailViewDragDrop extends _MaterialPanelDetailDragDrop<CargoM
         btn1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Notification.showNotification(NotificationsGeneralType.NOTIFICATION_INFO, "hihihi");
+                NotificationHandler.showNotification(NotificationsGeneralType.NOTIFICATION_INFO, "hihihi");
             }
         });
         this.addOptionElement(btn1);
@@ -102,7 +102,7 @@ public class CargoDetailViewDragDrop extends _MaterialPanelDetailDragDrop<CargoM
         btn2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Notification.showNotification(NotificationsGeneralType.NOTIFICATION_INFO, "hihihi");
+                NotificationHandler.showNotification(NotificationsGeneralType.NOTIFICATION_INFO, "hihihi");
             }
         });
         this.addOptionElement(btn2);
@@ -112,7 +112,7 @@ public class CargoDetailViewDragDrop extends _MaterialPanelDetailDragDrop<CargoM
         btn3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Notification.showNotification(NotificationsGeneralType.NOTIFICATION_INFO, "hihihi");
+                NotificationHandler.showNotification(NotificationsGeneralType.NOTIFICATION_INFO, "hihihi");
             }
         });
         this.addOptionElement(btn3);
@@ -123,7 +123,7 @@ public class CargoDetailViewDragDrop extends _MaterialPanelDetailDragDrop<CargoM
         Action btn1 = new AbstractAction("NOTIFY", MaterialIcons.ADD) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Notification.showNotification(NotificationsGeneralType.NOTIFICATION_INFO, "hihihi");
+                NotificationHandler.showNotification(NotificationsGeneralType.NOTIFICATION_INFO, "hihihi");
             }
         };
         this.addActionExtra(btn1);

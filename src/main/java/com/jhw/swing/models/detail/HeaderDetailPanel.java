@@ -6,18 +6,18 @@
 package com.jhw.swing.models.detail;
 
 import com.jhw.module.util.personalization.services.PersonalizationHandler;
-import com.jhw.swing.material.components.button.MaterialButton;
-import com.jhw.swing.material.components.container.MaterialContainersFactory;
-import com.jhw.swing.material.components.container.panel._PanelTransparent;
-import com.jhw.swing.material.components.labels.MaterialLabel;
-import com.jhw.swing.material.components.labels.MaterialLabelsFactory;
-import com.jhw.swing.material.components.searchfield.MaterialSearchField;
-import com.jhw.swing.material.components.searchfield._MaterialSearchField;
-import com.jhw.swing.material.standards.MaterialFontRoboto;
+import com.root101.swing.material.components.button.MaterialButton;
+import com.root101.swing.material.components.container.MaterialContainersFactory;
+import com.root101.swing.material.components.container.panel._PanelTransparent;
+import com.root101.swing.material.components.labels.MaterialLabel;
+import com.root101.swing.material.components.labels.MaterialLabelsFactory;
+import com.root101.swing.material.components.searchfield.MaterialSearchField;
+import com.root101.swing.material.components.searchfield._MaterialSearchField;
+import com.root101.swing.material.standards.MaterialFontRoboto;
 import com.jhw.swing.models.utils.PersonalizationModel;
 import com.jhw.swing.prepared.button.MaterialButtonAddEdit;
 import com.jhw.swing.prepared.button.MaterialPreparedButtonsFactory;
-import com.jhw.swing.derivable_icons.DerivableIcon;
+import com.root101.swing.derivable_icons.DerivableIcon;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;

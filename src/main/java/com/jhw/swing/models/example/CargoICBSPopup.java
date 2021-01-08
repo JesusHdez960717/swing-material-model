@@ -1,7 +1,7 @@
 package com.jhw.swing.models.example;
 
-import com.jhw.swing.material.standards.MaterialIcons;
-import com.jhw.swing.material.standards.example.MATERIAL_ICONS_EXAMPLE;
+import com.root101.swing.material.standards.MaterialIcons;
+import com.root101.swing.material.standards.example.MATERIAL_ICONS_EXAMPLE;
 import com.jhw.swing.models.input.panels.ModelPanel;
 import com.jhw.swing.models.input.popup_selection.InputPopupSelection;
 import java.awt.event.ActionEvent;

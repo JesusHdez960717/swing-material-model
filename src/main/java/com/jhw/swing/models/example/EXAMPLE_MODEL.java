@@ -6,8 +6,8 @@
 package com.jhw.swing.models.example;
 
 import com.jhw.module.util.default_config.DefaultConfigSwingModule;
-import com.jhw.swing.material.standards.MaterialColors;
-import com.jhw.swing.ui.MaterialLookAndFeel;
+import com.root101.swing.material.standards.MaterialColors;
+import com.root101.swing.ui.MaterialLookAndFeel;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import javax.swing.UIManager;

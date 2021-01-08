@@ -1,16 +1,16 @@
 package com.jhw.swing.models.input.panels;
 
-import com.jhw.swing.material.components.button.MaterialButton;
-import com.jhw.swing.material.components.container.MaterialContainersFactory;
-import com.jhw.swing.material.components.container.panel.MaterialPanelBorder;
-import com.jhw.swing.material.components.container.panel._PanelTransparent;
+import com.root101.swing.material.components.button.MaterialButton;
+import com.root101.swing.material.components.container.MaterialContainersFactory;
+import com.root101.swing.material.components.container.panel.MaterialPanelBorder;
+import com.root101.swing.material.components.container.panel._PanelTransparent;
 import com.jhw.swing.prepared.button.MaterialButtonAddEdit;
 import com.jhw.swing.prepared.button.MaterialPreparedButtonsFactory;
 import java.awt.Component;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import com.jhw.utils.interfaces.Update;
+import com.root101.utils.interfaces.Update;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import javax.swing.JPanel;

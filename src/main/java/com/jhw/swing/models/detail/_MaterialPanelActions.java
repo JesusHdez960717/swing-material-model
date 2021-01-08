@@ -1,13 +1,13 @@
 package com.jhw.swing.models.detail;
 
-import com.jhw.swing.material.components.button.MaterialButtonIcon;
-import com.jhw.swing.material.components.button.MaterialButtonsFactory;
-import com.jhw.swing.material.components.button._MaterialButtonIconTransparent;
-import com.jhw.swing.material.components.container.panel._PanelGradient;
+import com.root101.swing.material.components.button.MaterialButtonIcon;
+import com.root101.swing.material.components.button.MaterialButtonsFactory;
+import com.root101.swing.material.components.button._MaterialButtonIconTransparent;
+import com.root101.swing.material.components.container.panel._PanelGradient;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
-import com.jhw.swing.material.standards.MaterialIcons;
+import com.root101.swing.material.standards.MaterialIcons;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JMenuItem;

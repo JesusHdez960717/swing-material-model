@@ -1,10 +1,10 @@
 package com.jhw.swing.models.input.panels;
 
 import com.jhw.swing.models.input.ModelablePanel;
-import com.jhw.swing.material.components.container.panel._PanelTransparent;
-import com.jhw.swing.material.components.labels._MaterialLabel;
-import com.jhw.swing.material.standards.MaterialFontRoboto;
-import com.jhw.utils.interfaces.Update;
+import com.root101.swing.material.components.container.panel._PanelTransparent;
+import com.root101.swing.material.components.labels._MaterialLabel;
+import com.root101.swing.material.standards.MaterialFontRoboto;
+import com.root101.utils.interfaces.Update;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.util.HashMap;
@@ -27,7 +27,7 @@ public abstract class ModelPanel<T> extends _PanelTransparent implements Update,
     private void initComponents() {
         this.setLayout(new BorderLayout());
 
-        labelHeader = new com.jhw.swing.material.components.labels._MaterialLabel();
+        labelHeader = new com.root101.swing.material.components.labels._MaterialLabel();
         labelHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelHeader.setText("");
         labelHeader.setFont(MaterialFontRoboto.BOLD.deriveFont(24f));

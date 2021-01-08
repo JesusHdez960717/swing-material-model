@@ -1,23 +1,17 @@
 package com.jhw.swing.models.detail;
 
-import com.clean.core.app.services.Notification;
-import com.clean.core.app.services.NotificationsGeneralType;
-import com.clean.core.domain.DomainObject;
-import com.jhw.swing.material.components.button._MaterialButtonIconTransparent;
-import com.jhw.swing.material.components.container.panel._MaterialPanel;
-import com.jhw.swing.material.components.labels.MaterialLabel;
-import com.jhw.swing.material.components.table.Column;
-import com.jhw.swing.material.components.table.MaterialTableByPage;
-import com.jhw.swing.material.components.table.editors_renders.component.ComponentCellEditor;
-import com.jhw.swing.material.components.table.editors_renders.component.ComponentCellRender;
-import com.jhw.swing.material.components.table.editors_renders.header.HeaderCellRender;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import com.root101.clean.core.app.services.NotificationHandler;
+import com.root101.clean.core.app.services.NotificationsGeneralType;
+import com.root101.clean.core.domain.DomainObject;
+import com.root101.swing.material.components.button._MaterialButtonIconTransparent;
+import com.root101.swing.material.components.container.panel._MaterialPanel;
+import com.root101.swing.material.components.labels.MaterialLabel;
+import com.root101.swing.material.components.table.Column;
+import com.root101.swing.material.components.table.MaterialTableByPage;
+import com.root101.swing.material.components.table.editors_renders.component.*;
+import com.root101.swing.material.components.table.editors_renders.header.HeaderCellRender;
+import java.awt.*;
+import java.awt.event.*;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,15 +19,15 @@ import java.util.Objects;
 import java.util.StringTokenizer;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import com.jhw.utils.security.SHA;
-import com.jhw.utils.interfaces.Update;
-import com.jhw.swing.material.standards.MaterialShadow;
-import com.jhw.utils.refraction.FiltrableRefraction;
+import  com.root101.security.SHA;
+import com.root101.utils.interfaces.Update;
+import com.root101.swing.material.standards.MaterialShadow;
 import java.awt.BorderLayout;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.border.EmptyBorder;
-import com.jhw.swing.material.components.table.TableColumnAdjuster;
+import com.root101.swing.material.components.table.TableColumnAdjuster;
+import com.root101.utils.refraction.FiltrableRefraction;
 import javax.swing.ImageIcon;
 
 /**
@@ -73,7 +67,7 @@ public abstract class _MaterialPanelDetail<T extends DomainObject> extends _Mate
         this.setLayout(new BorderLayout());
 
         header = new HeaderDetailPanel();
-        table = new com.jhw.swing.material.components.table._MaterialTableByPage();
+        table = new com.root101.swing.material.components.table._MaterialTableByPage();
         table.setBorder(new EmptyBorder(0, 5, 0, 5));
 
         this.add(header, BorderLayout.NORTH);
@@ -179,14 +173,14 @@ public abstract class _MaterialPanelDetail<T extends DomainObject> extends _Mate
             if (before != null) {
                 int oldRow = Math.max(0, Math.min(table.getSelectedRow(), table.getRowCount() - 2));//-1 para ajustar al 0 y -1 por eliminar el ultimo
 
-                if (Notification.showConfirmDialog(NotificationsGeneralType.CONFIRM_DELETE, before)) {
+                if (NotificationHandler.showConfirmDialog(NotificationsGeneralType.CONFIRM_DELETE, before)) {
                     T after = deleteAction(before);
                     if (after != null) {
                         //si se elimina el ultimo deje de editar xq si no lanza excepcion x editar un index que no existe
                         if (table.getTable().getCellEditor() != null) {//es null si se elimina con el click derecho
                             table.getTable().getCellEditor().cancelCellEditing();//cancel para que NO acepte ningun valor parcialmente editado
                         }
-                        Notification.showNotification(NotificationsGeneralType.NOTIFICATION_DELETE, after);
+                        NotificationHandler.showNotification(NotificationsGeneralType.NOTIFICATION_DELETE, after);
                         update();
 
                         //para que se mantenga el ultimo seleccionado
