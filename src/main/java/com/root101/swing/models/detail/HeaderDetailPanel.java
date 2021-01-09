@@ -16,7 +16,7 @@
  */
 package com.root101.swing.models.detail;
 
-import com.jhw.module.util.personalization.services.PersonalizationHandler;
+import com.root101.module.util.personalization.services.PersonalizationHandler;
 import com.root101.swing.material.components.button.MaterialButton;
 import com.root101.swing.material.components.container.MaterialContainersFactory;
 import com.root101.swing.material.components.container.panel._PanelTransparent;
@@ -26,8 +26,8 @@ import com.root101.swing.material.components.searchfield.MaterialSearchField;
 import com.root101.swing.material.components.searchfield._MaterialSearchField;
 import com.root101.swing.material.standards.MaterialFontRoboto;
 import com.root101.swing.models.utils.PersonalizationModel;
-import com.jhw.swing.prepared.button.MaterialButtonAddEdit;
-import com.jhw.swing.prepared.button.MaterialPreparedButtonsFactory;
+import com.root101.swing.prepared.button.MaterialButtonAddEdit;
+import com.root101.swing.prepared.button.MaterialPreparedButtonsFactory;
 import com.root101.swing.derivable_icons.DerivableIcon;
 import java.awt.BorderLayout;
 import java.awt.Color;

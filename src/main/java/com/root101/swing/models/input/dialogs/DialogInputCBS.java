@@ -18,8 +18,8 @@ package com.root101.swing.models.input.dialogs;
 
 import com.root101.clean.core.app.services.NotificationsGeneralType;
 import com.root101.clean.core.app.services.NotificationHandler;
-import com.jhw.module.util.personalization.core.domain.Personalization;
-import com.jhw.module.util.personalization.services.PersonalizationHandler;
+import com.root101.module.util.personalization.core.domain.Personalization;
+import com.root101.module.util.personalization.services.PersonalizationHandler;
 import com.root101.swing.models.input.panels.BaseModelInputPanel;
 import com.root101.swing.models.input.panels.ModelPanel;
 import com.root101.swing.material.components.scrollpane._MaterialScrollPaneCore;
@@ -48,7 +48,7 @@ import javax.swing.ScrollPaneLayout;
  *
  * @author Root101 (jhernandezb96@gmail.com, +53-5-426-8660)
  * @author JesusHdezWaterloo@Github
- * 
+ *
  * @param <T>
  */
 public class DialogInputCBS<T, Y extends JComponent & Update & BindableComponent<T>> extends JDialog implements ModelablePanel<T> {

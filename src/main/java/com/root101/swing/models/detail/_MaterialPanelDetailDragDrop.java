@@ -18,7 +18,7 @@ package com.root101.swing.models.detail;
 
 import com.root101.clean.core.app.services.ExceptionHandler;
 import com.root101.clean.core.domain.DomainObject;
-import com.jhw.utils.export.utils.DomainListFileReader;
+import com.root101.export.utils.DomainListFileReader;
 import com.root101.swing.material.components.button.MaterialButton;
 import com.root101.swing.material.components.button.MaterialButtonsFactory;
 import com.root101.swing.material.components.filechooser.FileDropHandler;

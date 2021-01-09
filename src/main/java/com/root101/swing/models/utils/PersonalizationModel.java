@@ -16,7 +16,7 @@
  */
 package com.root101.swing.models.utils;
 
-import com.jhw.module.util.personalization.services.PersonalizationHandler;
+import com.root101.module.util.personalization.services.PersonalizationHandler;
 
 /**
  *
