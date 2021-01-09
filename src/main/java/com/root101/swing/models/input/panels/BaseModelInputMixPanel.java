@@ -18,8 +18,8 @@ package com.root101.swing.models.input.panels;
 
 import com.root101.swing.material.components.container.panel._PanelGradient;
 import java.awt.Color;
-import com.jhw.module.util.personalization.core.domain.Personalization;
-import com.jhw.module.util.personalization.services.PersonalizationHandler;
+import com.root101.module.util.personalization.core.domain.Personalization;
+import com.root101.module.util.personalization.services.PersonalizationHandler;
 import com.root101.swing.material.components.button.MaterialButton;
 import com.root101.swing.material.components.button.MaterialButtonIcon;
 import com.root101.swing.material.components.button.MaterialButtonsFactory;

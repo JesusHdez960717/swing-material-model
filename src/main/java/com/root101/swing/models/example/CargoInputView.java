@@ -32,8 +32,8 @@ import com.root101.swing.material.components.textfield.MaterialTextFieldIcon;
 import com.root101.swing.material.standards.MaterialIcons;
 import com.root101.swing.models.input.panels.ModelPanel;
 import com.root101.swing.models.input.popup_selection.InputPopupSelection;
-import com.jhw.swing.prepared.textarea.MaterialPreparedTextAreaFactory;
-import com.jhw.swing.prepared.textfield.MaterialPreparedTextFactory;
+import com.root101.swing.prepared.textarea.MaterialPreparedTextAreaFactory;
+import com.root101.swing.prepared.textfield.MaterialPreparedTextFactory;
 import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.io.File;
@@ -96,7 +96,7 @@ public class CargoInputView extends ModelPanel<CargoModel> {
             cargoICBS1.setObject(CargoModel.getCargos().get(3));
         });
         v.add(b);
-        
+
         this.setComponent(v.build());
     }
 

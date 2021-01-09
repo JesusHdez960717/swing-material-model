@@ -40,7 +40,6 @@ import javax.swing.Action;
  */
 public class CargoDetailViewDragDrop extends _MaterialPanelDetailDragDrop<CargoModel> {
 
-
     public CargoDetailViewDragDrop() {
         setColumns(new Column[]{
             Column.builder().name("Color").build(),

@@ -35,7 +35,7 @@ import java.util.Objects;
 import java.util.StringTokenizer;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import  com.root101.security.SHA;
+import com.root101.security.SHA;
 import com.root101.utils.interfaces.Update;
 import com.root101.swing.material.standards.MaterialShadow;
 import java.awt.BorderLayout;
