@@ -31,7 +31,7 @@ public class NewJFrame extends javax.swing.JFrame {
      */
     public NewJFrame() {
         initComponents();
-        
+
         jTable1.setRowSorter(new TableRowSorter<TableModel>(jTable1.getModel()));
     }
 

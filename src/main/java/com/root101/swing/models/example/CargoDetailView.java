@@ -38,7 +38,6 @@ import java.util.Random;
  */
 public class CargoDetailView extends _MaterialPanelDetail<CargoModel> {
 
-
     public CargoDetailView() {
         setColumns(new Column[]{
             Column.builder().name("Color").build(),

@@ -16,8 +16,8 @@
  */
 package com.root101.swing.models.detail;
 
-import com.jhw.module.util.personalization.core.domain.Personalization;
-import com.jhw.module.util.personalization.services.PersonalizationHandler;
+import com.root101.module.util.personalization.core.domain.Personalization;
+import com.root101.module.util.personalization.services.PersonalizationHandler;
 import com.root101.swing.bundles.dialog.DialogPanel;
 import com.root101.swing.util.UpdateCascade;
 import javax.swing.JPanel;
