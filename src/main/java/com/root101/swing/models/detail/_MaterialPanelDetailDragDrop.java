@@ -139,46 +139,39 @@ public abstract class _MaterialPanelDetailDragDrop<T extends DomainObject> exten
 
     private List<Action> getPopupAllExportSupported() {
         List<Action> actions = new ArrayList<>();
+        
         //accion de exportarlo todo a excel
-        actions.add(AbstractActionUtils.from("Todo", MaterialIcons.EXCEL.deriveIcon(24f), "Exportar toda la lista a Excel", new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                onExportToExcelAction();
-            }
-        }));
+        actions.add(AbstractActionUtils.from(
+                "Todo",
+                MaterialIcons.EXCEL.deriveIcon(24f),
+                "Exportar toda la lista a Excel",
+                (ActionEvent e) -> {
+                    onExportToExcelAction();
+                }));
         //accion de exportar lo seleccionado a excel
-        actions.add(AbstractActionUtils.from("Selec.", MaterialIcons.EXCEL.deriveIcon(24f), "Exportar los elementos seleccionados a Excel", new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                onExportToExcelSelectedAction();
-            }
-        }));
+        actions.add(AbstractActionUtils.from(
+                "Selec.",
+                MaterialIcons.EXCEL.deriveIcon(24f),
+                "Exportar los elementos seleccionados a Excel",
+                (ActionEvent e) -> {
+                    onExportToExcelSelectedAction();
+                }));
 
         //accion de exportarlo todo a JSON
-        actions.add(AbstractActionUtils.from("Todo", MaterialIcons.TEC_JSON.deriveIcon(24f), "Exportar toda la lista a JSON", new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                onExportToJSONAction();
-            }
-        }));
-        //accion de exportar lo seleccionado a excel
-        actions.add(AbstractActionUtils.from("Selec.", MaterialIcons.TEC_JSON.deriveIcon(24f), "Exportar los elementos seleccionados a JSON", new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                onExportToJSONSelectedAction();
-            }
-        }));
-        //TEST
-        actions.add(new AbstractAction("Todo", MaterialIcons.ADD_ALARM.deriveIcon(24f)) {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            }
-        });
-        actions.add(new AbstractAction("Selec.", MaterialIcons.ADD_ALARM.deriveIcon(24f)) {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            }
-        });
+        actions.add(AbstractActionUtils.from("Todo",
+                MaterialIcons.TEC_JSON.deriveIcon(24f),
+                "Exportar toda la lista a JSON",
+                (ActionEvent e) -> {
+                    onExportToJSONAction();
+                }));
+        //accion de exportar lo seleccionado a JSON
+        actions.add(AbstractActionUtils.from("Selec.",
+                MaterialIcons.TEC_JSON.deriveIcon(24f),
+                "Exportar los elementos seleccionados a JSON",
+                (ActionEvent e) -> {
+                    onExportToJSONSelectedAction();
+                }));
+
         return actions;
     }
 
