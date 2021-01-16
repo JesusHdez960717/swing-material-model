@@ -16,7 +16,6 @@
  */
 package com.root101.swing.models.clean;
 
-import com.root101.clean.core.app.services.ExceptionHandler;
 import com.root101.clean.core.domain.DomainObject;
 import com.root101.export.utils.DomainListFileReader;
 import com.root101.swing.material.components.table.Column;
