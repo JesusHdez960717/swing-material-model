@@ -68,7 +68,7 @@ public class CargoDetailViewCleanDrag extends CleanDetailCRUDDragDrop<CargoModel
     }
 
     @Override
-    protected List<CargoModel> getListUpdate() throws Exception {
+    protected List<CargoModel> getListUpdate() throws RuntimeException {
         return CargoModel.getCargos();
     }
 

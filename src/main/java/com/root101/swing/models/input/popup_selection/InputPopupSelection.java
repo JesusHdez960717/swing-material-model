@@ -37,11 +37,7 @@ public abstract class InputPopupSelection<T> extends InputGeneralSelection<T, Bu
 
     @Override
     public void update() {
-        try {
-            setComponent(getList());
-        } catch (Exception e) {
-            ExceptionHandler.handleException(e);
-        }
+        setComponent(getList());
     }
 
     /**

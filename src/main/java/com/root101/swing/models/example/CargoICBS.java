@@ -35,7 +35,7 @@ public class CargoICBS extends InputComboBoxSelection<CargoModel> {
     }
 
     @Override
-    public List<CargoModel> getList() throws Exception {
+    public List<CargoModel> getList() throws RuntimeException {
         return CargoModel.getCargos();
     }
 

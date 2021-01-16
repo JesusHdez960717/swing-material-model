@@ -29,8 +29,9 @@ import java.io.File;
 import java.util.List;
 
 /**
- *
- * @author Jesus Hernandez Barrios (jhernandezb96@gmail.com)
+ * 
+ * @author Root101 (jhernandezb96@gmail.com, +53-5-426-8660)
+ * @param <T> 
  */
 public class DefaultExportableConfig<T extends DomainObject> implements ExportableConfig<T>, ExportableConfigExcel<T>, ExportableConfigJSON<T> {
 

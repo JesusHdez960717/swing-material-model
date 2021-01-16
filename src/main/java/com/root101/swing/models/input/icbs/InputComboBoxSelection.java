@@ -53,11 +53,7 @@ public abstract class InputComboBoxSelection<T> extends InputGeneralSelection<T,
 
     @Override
     public void update() {
-        try {
-            setUpList(getList());
-        } catch (Exception e) {
-            ExceptionHandler.handleException(e);
-        }
+        setUpList(getList());
     }
 
     @Override
@@ -69,9 +65,10 @@ public abstract class InputComboBoxSelection<T> extends InputGeneralSelection<T,
      * Metodo a reimplementar si se quiere personalizar la manera en que se pone
      * la lista en el combo box
      *
-     * @throws Exception
+     * @param l
+     * @throws RuntimeException
      */
-    protected void setUpList(List<T> l) throws Exception {
+    protected void setUpList(List<T> l) throws RuntimeException {
         getComponent().setModel(l);
     }
 

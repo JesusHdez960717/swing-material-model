@@ -67,14 +67,10 @@ public abstract class CleanDetailCRUDDragDrop<T extends DomainObject> extends _M
 
     @Override
     public void update() {
-        try {
-            setCollection(getListUpdate());
-        } catch (Exception e) {
-            ExceptionHandler.handleException(e);
-        }
+        setCollection(getListUpdate());
     }
 
-    protected abstract List<T> getListUpdate() throws Exception;
+    protected abstract List<T> getListUpdate() throws RuntimeException;
 
     @Override
     protected void buttonNuevoActionListener() {
