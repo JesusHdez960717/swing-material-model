@@ -28,11 +28,11 @@ import java.io.File;
 import java.util.List;
 
 /**
- * 
+ *
  * @author Root101 (jhernandezb96@gmail.com, +53-5-426-8660)
- * @param <T> 
+ * @param <T>
  */
-public class DefaultExportableConfig<T extends DomainObject> extends SimpleExportableConfig<T> implements ExportableConfig<T>, ExportableConfigExcel<T>, ExportableConfigJSON<T> {
+public class DefaultExportableConfig<T extends DomainObject> extends SimpleExportableConfig<T> {
 
     private final _MaterialPanelDetail detail;
 
@@ -43,6 +43,11 @@ public class DefaultExportableConfig<T extends DomainObject> extends SimpleExpor
     @Override
     public List<T> getValuesList() {
         return detail.getList();
+    }
+
+    @Override
+    public List<T> getValuesListSelected() {
+        return detail.getSelectedList();
     }
 
     @Override
