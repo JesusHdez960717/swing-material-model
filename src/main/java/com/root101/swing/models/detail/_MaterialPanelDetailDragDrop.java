@@ -28,11 +28,9 @@ import com.root101.swing.models.utils.DefaultExportableConfig;
 import com.root101.swing.util.AbstractActionUtils;
 import com.root101.utils.services.ConverterService;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JOptionPane;
 
@@ -40,6 +38,7 @@ import javax.swing.JOptionPane;
  *
  * @author Root101 (jhernandezb96@gmail.com, +53-5-426-8660)
  * @author JesusHdezWaterloo@Github
+ * @param <T>
  */
 public abstract class _MaterialPanelDetailDragDrop<T extends DomainObject> extends _MaterialPanelDetail<T> {
 
@@ -139,7 +138,7 @@ public abstract class _MaterialPanelDetailDragDrop<T extends DomainObject> exten
 
     private List<Action> getPopupAllExportSupported() {
         List<Action> actions = new ArrayList<>();
-        
+
         //accion de exportarlo todo a excel
         actions.add(AbstractActionUtils.from(
                 "Todo",
