@@ -45,6 +45,7 @@ import javax.swing.border.EmptyBorder;
 import com.root101.swing.material.components.table.TableColumnAdjuster;
 import com.root101.utils.refraction.FiltrableRefraction;
 import javax.swing.ImageIcon;
+import com.root101.utils.others.Misc;
 
 /**
  *
@@ -290,8 +291,10 @@ public abstract class _MaterialPanelDetail<T extends DomainObject> extends _Mate
     }
 
     public void setCollection(List<T> list) {
-        this.list.clear();
-        addCollection(list);
+        if (!Misc.equalsIgnoreOrder(list, this.list)) {//update only if new list is different from old list
+            this.list.clear();
+            addCollection(list);
+        }
     }
 
     public void addCollection(List<T> list) {
