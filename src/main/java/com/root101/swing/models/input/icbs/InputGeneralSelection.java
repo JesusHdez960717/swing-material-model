@@ -84,7 +84,7 @@ public abstract class InputGeneralSelection<T, Y extends JComponent & BindableCo
         component.setEnabled(enabled);
     }
 
-    protected abstract List<T> getList() throws Exception;
+    protected abstract List<T> getList() throws RuntimeException;
 
     protected abstract void addPropertyChange();
 

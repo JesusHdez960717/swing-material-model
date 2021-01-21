@@ -17,32 +17,37 @@
 package com.root101.swing.models.utils;
 
 import com.root101.clean.core.domain.DomainObject;
-import com.root101.export.excel.ExcelListWriter;
 import com.root101.export.excel.ExportableConfigExcel;
 import com.root101.export.utils.ExportableConfig;
 import com.root101.utils.file.PersonalizationFiles;
 import com.root101.module.util.personalization.services.PersonalizationHandler;
-import com.root101.swing.models.detail._MaterialPanelDetailDragDrop;
 import com.root101.export.json.ExportableConfigJSON;
-import com.root101.export.json.JSONListWriter;
+import com.root101.export.utils.SimpleExportableConfig;
+import com.root101.swing.models.detail._MaterialPanelDetail;
 import java.io.File;
 import java.util.List;
 
 /**
  *
- * @author Jesus Hernandez Barrios (jhernandezb96@gmail.com)
+ * @author Root101 (jhernandezb96@gmail.com, +53-5-426-8660)
+ * @param <T>
  */
-public class DefaultExportableConfig<T extends DomainObject> implements ExportableConfig<T>, ExportableConfigExcel<T>, ExportableConfigJSON<T> {
+public class DefaultExportableConfig<T extends DomainObject> extends SimpleExportableConfig<T> {
 
-    private final _MaterialPanelDetailDragDrop detail;
+    private final _MaterialPanelDetail detail;
 
-    public DefaultExportableConfig(_MaterialPanelDetailDragDrop detail) {
+    public DefaultExportableConfig(_MaterialPanelDetail detail) {
         this.detail = detail;
     }
 
     @Override
     public List<T> getValuesList() {
         return detail.getList();
+    }
+
+    @Override
+    public List<T> getValuesListSelected() {
+        return detail.getSelectedList();
     }
 
     @Override
@@ -65,21 +70,4 @@ public class DefaultExportableConfig<T extends DomainObject> implements Exportab
         return detail.getHeaderText();
     }
 
-    //-----------------<EXCEL>-----------------
-    @Override
-    public ExcelListWriter.builder exportExcelBuilder() {
-        return ExcelListWriter.builder().config(this);
-    }
-
-    @Override
-    public void personalizeBuilder(ExcelListWriter.builder bldr) {
-    }
-    //-----------------</EXCEL>-----------------
-
-    //-----------------<JSON>-----------------
-    @Override
-    public JSONListWriter.builder exportJSONBuilder() {
-        return new JSONListWriter.builder().config(this);
-    }
-    //-----------------</JSON>-----------------
 }

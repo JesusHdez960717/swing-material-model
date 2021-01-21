@@ -45,6 +45,7 @@ import javax.swing.border.EmptyBorder;
 import com.root101.swing.material.components.table.TableColumnAdjuster;
 import com.root101.utils.refraction.FiltrableRefraction;
 import javax.swing.ImageIcon;
+import com.root101.utils.others.Misc;
 
 /**
  *
@@ -290,8 +291,10 @@ public abstract class _MaterialPanelDetail<T extends DomainObject> extends _Mate
     }
 
     public void setCollection(List<T> list) {
-        this.list.clear();
-        addCollection(list);
+        if (!Misc.equalsIgnoreOrder(list, this.list)) {//update only if new list is different from old list
+            this.list.clear();
+            addCollection(list);
+        }
     }
 
     public void addCollection(List<T> list) {
@@ -317,21 +320,15 @@ public abstract class _MaterialPanelDetail<T extends DomainObject> extends _Mate
     }
 
     private void addRow(T object) {
-        if (contain(FiltrableRefraction.toFullString(object), header.getSearchText())) {
+        /*if (contain(FiltrableRefraction.toFullString(object), header.getSearchText())) {
+            table.addRow(getObjectRow(object));
+        }*/
+        if (FiltrableRefraction.test(object, header.getSearchText())) {
             table.addRow(getObjectRow(object));
         }
     }
 
-    private Object[] getObjectRow(T object) {
-        Object obj[] = getRowObject(object);
-        Object row[] = new Object[obj.length + 2];
-        row[0] = object;
-        row[row.length - 1] = builder.build();
-        System.arraycopy(obj, 0, row, 1, obj.length);
-        return row;
-    }
-
-    private boolean contain(String text, String key) {
+    private boolean contain(String text, String key) {//se usa arriba, pero no por el momento
         if (key.isEmpty()) {
             return true;
         }
@@ -344,6 +341,15 @@ public abstract class _MaterialPanelDetail<T extends DomainObject> extends _Mate
             }
         }
         return true;
+    }
+
+    private Object[] getObjectRow(T object) {
+        Object obj[] = getRowObject(object);
+        Object row[] = new Object[obj.length + 2];
+        row[0] = object;
+        row[row.length - 1] = builder.build();
+        System.arraycopy(obj, 0, row, 1, obj.length);
+        return row;
     }
 
     @Override
