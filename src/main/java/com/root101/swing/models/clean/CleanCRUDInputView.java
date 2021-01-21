@@ -27,8 +27,9 @@ import java.lang.reflect.Field;
 import java.util.Map;
 import com.root101.swing.util.interfaces.BindableComponent;
 import com.root101.utils.interfaces.Update;
-import com.root101.utils.services.ConverterService;
+import com.root101.clean.core.app.services.ConverterHandler;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 /**
  *
@@ -97,7 +98,7 @@ public abstract class CleanCRUDInputView<T> extends ModelPanel<T> implements Bin
 
     private <T> T getValue(Class<T> fieldType, Object componentBinded) throws Exception {
         try {
-            return ConverterService.convert(((BindableComponent) componentBinded).getObject(), fieldType);
+            return ConverterHandler.convert(((BindableComponent) componentBinded).getObject(), fieldType);
         } catch (Exception e) {
             if (componentBinded instanceof Wrong) {
                 ((Wrong) componentBinded).wrong("Valor incorrecto para este campo");
@@ -210,7 +211,7 @@ public abstract class CleanCRUDInputView<T> extends ModelPanel<T> implements Bin
 
     @Override
     public Map<String, Object> bindFields() {
-        return new HashMap<>();
+        return new LinkedHashMap<>();
     }
 
     @Override
