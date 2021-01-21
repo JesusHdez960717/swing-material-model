@@ -24,7 +24,7 @@ import com.root101.swing.material.injection.Foreground_Force_Icon;
 import com.root101.swing.material.injection.MaterialSwingInjector;
 import com.root101.swing.material.standards.MaterialIcons;
 import com.root101.swing.util.AbstractActionUtils;
-import com.root101.utils.services.ConverterService;
+import com.root101.export.utils.FormatterService;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
@@ -83,8 +83,7 @@ public class MaterialExportButton<T> extends _MaterialButtonPopup {
     private void onExportToExcelSelectedAction() {
         try {
             exportConfig.exportExcelBuilder()
-                    .values(
-                            ConverterService.convert(
+                    .values(FormatterService.format(
                                     exportConfig.getValuesListSelected(),
                                     exportConfig::getRowObjectExport
                             )
@@ -106,8 +105,7 @@ public class MaterialExportButton<T> extends _MaterialButtonPopup {
     private void onExportToJSONSelectedAction() {
         try {
             exportConfig.exportJSONBuilder()
-                    .values(
-                            ConverterService.convert(
+                    .values(FormatterService.format(
                                     exportConfig.getColumnNamesExport(),
                                     exportConfig.getValuesListSelected(),
                                     exportConfig::getRowObjectExport
