@@ -12,8 +12,6 @@ repositories {
 }
 
 dependencies {
-    testCompile 'junit:junit:4.13'
-    
     implementation project(':utils-core')
     implementation project(':clean-core')
     implementation project(':clean-swing')
@@ -24,11 +22,14 @@ dependencies {
     implementation project(':swing-material-core')
     implementation project(':swing-material-prepared')
 
-    
     implementation project(':module-util-default_configuration')
     implementation project(':swing-material-notifications')
     implementation project(':module-util-personalization')
     
     implementation project(':utils-export')
     implementation project(':utils-files')
+    
+    //excel
+    implementation 'org.apache.poi:poi:4.1.2'
+    implementation 'org.apache.poi:poi-ooxml:4.1.2'
 }
